@@ -49,6 +49,9 @@ def load_audio_features(
     # 归一化
     mfccs = normalize_mfccs(mfccs)
 
+    # 转置 (40, 431) -> (431, 40)
+    mfccs = mfccs.T
+
     return mfccs
 
 
@@ -80,37 +83,55 @@ class AudioDataset(Dataset):
         path = self.audio_paths[idx]
         label = self.labels[idx]
         mfcc = load_audio_features(path)
-        mfcc = mfcc.T  # 转置 (40, 431) -> (431, 40)
+        # mfcc = mfcc.T  # 转置 (40, 431) -> (431, 40)
         # logger.info("mfcc.shape", mfcc.shape)
         return torch.Tensor(mfcc), torch.tensor(label, dtype=torch.long)
         # return torch.Tensor(mfcc), label
 
 
+# LSTM模型
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         # input_size: 每个时间步输入的特征维度
+#         # hidden_size: LSTM的隐藏状态维度
+#         # num_layers: LSTM的层数
+#         # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
+#         # 指定输入和输出张量的第一个维度是批量大小
+#         self.lstm = nn.LSTM(
+#             input_size=40, hidden_size=64, num_layers=2, batch_first=True
+#         )
+#         # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
+#         self.fc = nn.Linear(64, len(CLSAA))
+
+#     def forward(self, x) -> torch.Tensor:
+
+#         # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
+
+#         _, (h_n, _) = self.lstm(x)
+
+#         # 将LSTM的最后一个隐藏状态通过全连接层进行转换
+#         x = self.fc(h_n[-1])
+
+#         # 应用log softmax函数，计算每个类别的概率的对数。dim=1表示沿着类别维度进行softmax
+
+
+#         return F.log_softmax(x, dim=1)
+
+
 class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
-        # input_size: 每个时间步输入的特征维度
-        # hidden_size: LSTM的隐藏状态维度
-        # num_layers: LSTM的层数
-        # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
-        # 指定输入和输出张量的第一个维度是批量大小
         self.lstm = nn.LSTM(
-            input_size=40, hidden_size=64, num_layers=2, batch_first=True
+            input_size=40, hidden_size=128, num_layers=2, batch_first=True, dropout=0.5
         )
-        # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
-        self.fc = nn.Linear(64, len(CLSAA))
+        self.fc1 = nn.Linear(128, 64)
+        self.fc2 = nn.Linear(64, len(CLSAA))
 
-    def forward(self, x) -> torch.Tensor:
-
-        # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
-
+    def forward(self, x):
         _, (h_n, _) = self.lstm(x)
-
-        # 将LSTM的最后一个隐藏状态通过全连接层进行转换
-        x = self.fc(h_n[-1])
-
-        # 应用log softmax函数，计算每个类别的概率的对数。dim=1表示沿着类别维度进行softmax
-
+        x = F.relu(self.fc1(h_n[-1]))
+        x = self.fc2(x)
         return F.log_softmax(x, dim=1)
 
 
@@ -177,9 +198,9 @@ def test_model(model, dataloader) -> float:
             # 获取模型的输出
             outputs = model(features)
             # logger.info("outputs", outputs)
-            logger.info("outputs.data: ", outputs.data)
+            print("outputs.data: ", outputs.data)
             # 查看输出的形状
-            logger.info("outputs.data.shape: ", outputs.data.shape)
+            print("outputs.data.shape: ", outputs.data.shape)
 
             # 获取预测结果
             _, predicted = torch.max(outputs.data, 1)
@@ -188,11 +209,11 @@ def test_model(model, dataloader) -> float:
 
             total += labels.size(0)
 
-            logger.info("predicted: ", predicted)
-            logger.info("labels: ", labels)
+            print("predicted: ", predicted)
+            print("labels: ", labels)
 
-            logger.info("predicted.shape: ", predicted.shape)
-            logger.info("labels.shape: ", labels.shape)
+            print("predicted.shape: ", predicted.shape)
+            print("labels.shape: ", labels.shape)
 
             predicted_class = [
                 CLSAA_DICT[predicted[i].item()] for i in range(len(predicted))
@@ -200,12 +221,12 @@ def test_model(model, dataloader) -> float:
 
             labels_class = [CLSAA_DICT[labels[i].item()] for i in range(len(labels))]
 
-            logger.info(
+            print(
                 "predicted_class: ",
                 predicted_class,
             )
 
-            logger.info(
+            print(
                 "labels_class: ",
                 labels_class,
             )
@@ -224,3 +245,14 @@ def test_model(model, dataloader) -> float:
     logger.debug(f"Accuracy on the test set: {accuracy:.2f}%")
 
     return accuracy
+
+
+# 给定音频路径获取类型
+def get_audio_type(model, audio_path: str) -> str:
+    model.eval()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    features = load_audio_features(audio_path)
+    outputs = model(features)
+    _, predicted = torch.max(outputs.data, 1)
+    return CLSAA_DICT[predicted.item()]
