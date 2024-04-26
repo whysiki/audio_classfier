@@ -22,12 +22,12 @@ CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # logger.remove()  # 清除默认配置
 # logger.add(sys.stdout, format="{time:HH:mm:ss} {message}")
 
-# 保存日志文件
-logger.add("train.log", format="{time:YYYY-MM-DD HH:mm:ss} {message}")
+# 保存日志文件,以追加模式，每天一个文件
+logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 
 
 # 归一化函数
-def normalize_mfccs(mfccs):
+def normalize_mfccs(mfccs) -> np.ndarray:
     mfccs_mean = mfccs.mean(axis=1, keepdims=True)
     mfccs_std = mfccs.std(axis=1, keepdims=True)
     normalized_mfccs = (mfccs - mfccs_mean) / mfccs_std
@@ -37,7 +37,9 @@ def normalize_mfccs(mfccs):
 # 音频加载和特征提取函数
 # sr: 采样率
 # n_mfcc: MFCC的数量
-def load_audio_features(file_path: str, sr: int = 22050, n_mfcc: int = 40):
+def load_audio_features(
+    file_path: str, sr: int = 22050, n_mfcc: int = 40
+) -> np.ndarray:
     audio, sr = librosa.load(file_path, sr=sr)
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
@@ -51,7 +53,7 @@ def load_audio_features(file_path: str, sr: int = 22050, n_mfcc: int = 40):
 
 
 # 读取文件夹下所有音频文件
-def read_audio_files(folder_path: str):
+def read_audio_files(folder_path: str) -> list[str]:
 
     audio_paths = []
     for root, dirs, files in os.walk(folder_path):
@@ -70,11 +72,11 @@ class AudioDataset(Dataset):
         print("audio_paths", audio_paths)
         print("labels", labels)
 
-    def __len__(self):
+    def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
         return len(self.audio_paths)
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx) -> tuple[torch.Tensor, torch.Tensor]:
         path = self.audio_paths[idx]
         label = self.labels[idx]
         mfcc = load_audio_features(path)
@@ -98,7 +100,7 @@ class AudioClassifier(nn.Module):
         # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
         self.fc = nn.Linear(64, len(CLSAA))
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
 
         # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
 
