@@ -37,7 +37,7 @@ def test_train_result():
         + [2] * len(tight_audio_paths)
     )
 
-    zip_list = list(zip(audio_paths, audio_paths_labels))
+    zip_list = list(zip(audio_paths, audio_paths_labels))  # [:2]
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
@@ -48,15 +48,8 @@ def test_train_result():
 
     model = AudioClassifier()
 
-    # 使用交叉熵损失函数
-    criterion = nn.CrossEntropyLoss()
-
-    # 使用Adam优化器
-    # lr: 学习率 设为0.001
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
-
     # 训练模型
-    train_model(model, dataloader, criterion, optimizer, draw_loss=True)
+    train_model(model, dataloader, draw_loss=True)
 
     # 保存模型
 
@@ -77,7 +70,7 @@ def test_train_result():
     # 实例化数据集和数据加载器
     test_dataset = AudioDataset(zip_list_audio_paths, zip_list_labels)
 
-    test_dataloader = DataLoader(test_dataset, batch_size=1, shuffle=True)
+    test_dataloader = DataLoader(test_dataset, batch_size=2, shuffle=True)
 
     # 测试模型
 
@@ -151,13 +144,6 @@ def test_train_result_slpit_origian(test_times: int = 4):
     # 实例化模型
 
     model = AudioClassifier()
-
-    # 使用交叉熵损失函数
-    # criterion = nn.CrossEntropyLoss()
-
-    # 使用Adam优化器
-    # lr: 学习率 设为0.001
-    # optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # 训练模型
     train_model(model, dataloader, draw_loss=True)

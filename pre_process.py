@@ -12,15 +12,12 @@ from pathlib import Path
 from rich import print
 import sys
 import random
+import noisereduce as nr
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 
-# 设置logger日志输出格式， 不包含年月日
-# 设置日志格式
-# logger.remove()  # 清除默认配置
-# logger.add(sys.stdout, format="{time:HH:mm:ss} {message}")
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
@@ -40,7 +37,12 @@ def normalize_mfccs(mfccs) -> np.ndarray:
 def load_audio_features(
     file_path: str, sr: int = 22050, n_mfcc: int = 40
 ) -> np.ndarray:
+
     audio, sr = librosa.load(file_path, sr=sr)
+
+    # 降噪 , 假设整个音频文件包含噪声
+    audio = nr.reduce_noise(y=audio, sr=sr)
+
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
     # logger.info("mfccs.shape", mfccs.shape)  # (40 , 431)
@@ -72,8 +74,8 @@ class AudioDataset(Dataset):
         self.audio_paths: list[str] = audio_paths
         self.labels: list[int] = labels
 
-        print("audio_paths", audio_paths)
-        print("labels", labels)
+        # print("audio_paths", audio_paths)
+        # print("labels", labels)
 
     def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
@@ -113,25 +115,11 @@ class AudioClassifier(nn.Module):
         # 将LSTM的最后一个隐藏状态通过全连接层进行转换
         x = self.fc(h_n[-1])
 
-        # 应用log softmax函数，计算每个类别的概率的对数。dim=1表示沿着类别维度进行softmax
+        # 使用log_softmax函数将输出转换为概率
 
-        return F.log_softmax(x, dim=1)
+        x = F.log_softmax(x, dim=1)
 
-
-# class AudioClassifier(nn.Module):
-#     def __init__(self):
-#         super(AudioClassifier, self).__init__()
-#         self.lstm = nn.LSTM(
-#             input_size=40, hidden_size=256, num_layers=3, batch_first=True, dropout=0.5
-#         )
-#         self.fc1 = nn.Linear(256, 128)
-#         self.fc2 = nn.Linear(128, len(CLSAA))
-
-#     def forward(self, x):
-#         _, (h_n, _) = self.lstm(x)
-#         x = F.relu(self.fc1(h_n[-1]))
-#         x = self.fc2(x)
-#         return F.log_softmax(x, dim=1)
+        return x
 
 
 # 训练模型函数
@@ -160,6 +148,7 @@ def train_model(
         for i, (features, labels) in enumerate(dataloader):
             optimizer.zero_grad()  # 梯度清零
             outputs = model(features)  # 前向传播
+            # print("outputs: ", outputs.tolist())
             loss = criterion(outputs, labels)  # 计算损失
             loss_list.append(loss.item())
             total_loss += loss.item()
@@ -202,10 +191,6 @@ def test_model(model, dataloader) -> float:
 
             # 获取模型的输出
             outputs = model(features)
-            # logger.info("outputs", outputs)
-            print("outputs.data: ", outputs.data)
-            # 查看输出的形状
-            print("outputs.data.shape: ", outputs.data.shape)
 
             # 获取预测结果
             _, predicted = torch.max(outputs.data, 1)
@@ -213,12 +198,6 @@ def test_model(model, dataloader) -> float:
             assert predicted.shape == labels.shape, "预测结果和标签数量不一致"
 
             total += labels.size(0)
-
-            print("predicted: ", predicted)
-            print("labels: ", labels)
-
-            print("predicted.shape: ", predicted.shape)
-            print("labels.shape: ", labels.shape)
 
             predicted_class = [
                 CLSAA_DICT[predicted[i].item()] for i in range(len(predicted))
@@ -240,9 +219,6 @@ def test_model(model, dataloader) -> float:
                 logger.success("all equal")
             else:
                 logger.error("not equal")
-
-            # logger.info("predicted", CLSAA_DICT[predicted.item()])
-            # logger.info("labels", CLSAA_DICT[labels.item()])
 
             correct += (predicted == labels).sum().item()
 
