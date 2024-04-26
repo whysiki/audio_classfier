@@ -153,14 +153,14 @@ def test_train_result_slpit_origian(test_times: int = 4):
     model = AudioClassifier()
 
     # 使用交叉熵损失函数
-    criterion = nn.CrossEntropyLoss()
+    # criterion = nn.CrossEntropyLoss()
 
     # 使用Adam优化器
     # lr: 学习率 设为0.001
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    # optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # 训练模型
-    train_model(model, dataloader, criterion, optimizer, draw_loss=True)
+    train_model(model, dataloader, draw_loss=True)
 
     # 保存模型
 
@@ -189,5 +189,5 @@ def test_train_result_slpit_origian(test_times: int = 4):
 
 
 if __name__ == "__main__":
-    # test_train_result()
-    test_train_result_slpit_origian()
+    test_train_result()
+    test_train_result_slpit_origian(test_times=2)

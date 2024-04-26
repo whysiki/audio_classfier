@@ -90,49 +90,48 @@ class AudioDataset(Dataset):
 
 
 # LSTM模型
-# class AudioClassifier(nn.Module):
-#     def __init__(self):
-#         super(AudioClassifier, self).__init__()
-#         # input_size: 每个时间步输入的特征维度
-#         # hidden_size: LSTM的隐藏状态维度
-#         # num_layers: LSTM的层数
-#         # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
-#         # 指定输入和输出张量的第一个维度是批量大小
-#         self.lstm = nn.LSTM(
-#             input_size=40, hidden_size=64, num_layers=2, batch_first=True
-#         )
-#         # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
-#         self.fc = nn.Linear(64, len(CLSAA))
-
-#     def forward(self, x) -> torch.Tensor:
-
-#         # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
-
-#         _, (h_n, _) = self.lstm(x)
-
-#         # 将LSTM的最后一个隐藏状态通过全连接层进行转换
-#         x = self.fc(h_n[-1])
-
-#         # 应用log softmax函数，计算每个类别的概率的对数。dim=1表示沿着类别维度进行softmax
-
-
-#         return F.log_softmax(x, dim=1)
-
-
 class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
+        # input_size: 每个时间步输入的特征维度
+        # hidden_size: LSTM的隐藏状态维度
+        # num_layers: LSTM的层数
+        # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
+        # 指定输入和输出张量的第一个维度是批量大小
         self.lstm = nn.LSTM(
-            input_size=40, hidden_size=128, num_layers=2, batch_first=True, dropout=0.5
+            input_size=40, hidden_size=64, num_layers=2, batch_first=True
         )
-        self.fc1 = nn.Linear(128, 64)
-        self.fc2 = nn.Linear(64, len(CLSAA))
+        # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
+        self.fc = nn.Linear(64, len(CLSAA))
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
+
+        # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
+
         _, (h_n, _) = self.lstm(x)
-        x = F.relu(self.fc1(h_n[-1]))
-        x = self.fc2(x)
+
+        # 将LSTM的最后一个隐藏状态通过全连接层进行转换
+        x = self.fc(h_n[-1])
+
+        # 应用log softmax函数，计算每个类别的概率的对数。dim=1表示沿着类别维度进行softmax
+
         return F.log_softmax(x, dim=1)
+
+
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.lstm = nn.LSTM(
+#             input_size=40, hidden_size=256, num_layers=3, batch_first=True, dropout=0.5
+#         )
+#         self.fc1 = nn.Linear(256, 128)
+#         self.fc2 = nn.Linear(128, len(CLSAA))
+
+#     def forward(self, x):
+#         _, (h_n, _) = self.lstm(x)
+#         x = F.relu(self.fc1(h_n[-1]))
+#         x = self.fc2(x)
+#         return F.log_softmax(x, dim=1)
 
 
 # 训练模型函数
@@ -142,8 +141,17 @@ class AudioClassifier(nn.Module):
 # optimizer: 优化器
 # num_epochs: 训练的轮数
 def train_model(
-    model, dataloader, criterion, optimizer, num_epochs=10, draw_loss=False
+    model,
+    dataloader,
+    criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
+    optimizer=None,
+    num_epochs=10,
+    draw_loss=False,
 ):
+    if not optimizer:
+        optimizer = optim.Adam(model.parameters(), lr=0.001)  # 使用Adam优化器
+    # 学习率调整策略
+    # scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, "min")
     # loss_all_epochs = []
     loss_list = []
     for epoch in range(num_epochs):
@@ -158,26 +166,23 @@ def train_model(
             loss.backward()  # 反向传播
             optimizer.step()
 
-            # if (i + 1) % 5 == 0:
-            logger.info(
-                f"epoch [{epoch+1}/{num_epochs}], step [{i+1}/{len(dataloader)}], loss: {loss.item():.4f}"
-            )
+            if (i + 1) % 5 == 0:
+                logger.info(
+                    f"epoch [{epoch+1}/{num_epochs}], step [{i+1}/{len(dataloader)}], loss: {loss.item():.4f}"
+                )
 
         avg_loss = total_loss / len(dataloader)
+        # scheduler.step(avg_loss)
         logger.info(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
-        # loss_all_epochs.append(loss_list)
 
     logger.success("训练完成")
 
     if draw_loss:
-        # for i, loss_list in enumerate(loss_all_epochs):
-        #    plt.plot(loss_list, label=f"epoch {i+1}")
         plt.plot(loss_list, label="loss")
         plt.legend()
         plt.xlabel("Step")
         plt.ylabel("Loss")
         plt.title("Training Loss")
-        # plt.show(block=False)
         logger.warning("close the plot window to continue...")
         plt.show()
 

@@ -1302,3 +1302,864 @@
 2024-04-26 23:05:06.392 | INFO     | pre_process:train_model:162 - epoch [6/10], step [11/15], loss: 0.0101
 2024-04-26 23:05:06.495 | INFO     | pre_process:train_model:162 - epoch [6/10], step [12/15], loss: 0.4665
 2024-04-26 23:05:06.601 | INFO     | pre_process:train_model:162 - epoch [6/10], step [13/15], loss: 0.5616
+2024-04-26 23:20:24.185 | INFO     | pre_process:train_model:165 - epoch [1/10], step [1/15], loss: 1.1757
+2024-04-26 23:20:24.300 | INFO     | pre_process:train_model:165 - epoch [1/10], step [2/15], loss: 1.0673
+2024-04-26 23:20:24.416 | INFO     | pre_process:train_model:165 - epoch [1/10], step [3/15], loss: 1.1131
+2024-04-26 23:20:24.530 | INFO     | pre_process:train_model:165 - epoch [1/10], step [4/15], loss: 1.1020
+2024-04-26 23:20:24.641 | INFO     | pre_process:train_model:165 - epoch [1/10], step [5/15], loss: 1.1167
+2024-04-26 23:20:24.750 | INFO     | pre_process:train_model:165 - epoch [1/10], step [6/15], loss: 1.1345
+2024-04-26 23:20:24.859 | INFO     | pre_process:train_model:165 - epoch [1/10], step [7/15], loss: 1.1252
+2024-04-26 23:20:24.966 | INFO     | pre_process:train_model:165 - epoch [1/10], step [8/15], loss: 1.0999
+2024-04-26 23:20:25.074 | INFO     | pre_process:train_model:165 - epoch [1/10], step [9/15], loss: 1.0955
+2024-04-26 23:20:25.184 | INFO     | pre_process:train_model:165 - epoch [1/10], step [10/15], loss: 1.0976
+2024-04-26 23:20:25.293 | INFO     | pre_process:train_model:165 - epoch [1/10], step [11/15], loss: 1.0870
+2024-04-26 23:20:25.413 | INFO     | pre_process:train_model:165 - epoch [1/10], step [12/15], loss: 1.1142
+2024-04-26 23:20:25.526 | INFO     | pre_process:train_model:165 - epoch [1/10], step [13/15], loss: 1.0637
+2024-04-26 23:20:25.640 | INFO     | pre_process:train_model:165 - epoch [1/10], step [14/15], loss: 1.0568
+2024-04-26 23:20:25.750 | INFO     | pre_process:train_model:165 - epoch [1/10], step [15/15], loss: 1.0773
+2024-04-26 23:20:25.751 | INFO     | pre_process:train_model:170 - epoch [1/10], avg_loss: 1.1018
+2024-04-26 23:20:25.856 | INFO     | pre_process:train_model:165 - epoch [2/10], step [1/15], loss: 1.0356
+2024-04-26 23:20:25.969 | INFO     | pre_process:train_model:165 - epoch [2/10], step [2/15], loss: 0.9979
+2024-04-26 23:20:26.074 | INFO     | pre_process:train_model:165 - epoch [2/10], step [3/15], loss: 0.9730
+2024-04-26 23:20:26.182 | INFO     | pre_process:train_model:165 - epoch [2/10], step [4/15], loss: 0.9357
+2024-04-26 23:20:26.292 | INFO     | pre_process:train_model:165 - epoch [2/10], step [5/15], loss: 0.8895
+2024-04-26 23:20:26.403 | INFO     | pre_process:train_model:165 - epoch [2/10], step [6/15], loss: 1.0152
+2024-04-26 23:20:26.511 | INFO     | pre_process:train_model:165 - epoch [2/10], step [7/15], loss: 0.9850
+2024-04-26 23:20:26.624 | INFO     | pre_process:train_model:165 - epoch [2/10], step [8/15], loss: 1.2738
+2024-04-26 23:20:26.733 | INFO     | pre_process:train_model:165 - epoch [2/10], step [9/15], loss: 1.2257
+2024-04-26 23:20:26.843 | INFO     | pre_process:train_model:165 - epoch [2/10], step [10/15], loss: 1.0577
+2024-04-26 23:20:26.953 | INFO     | pre_process:train_model:165 - epoch [2/10], step [11/15], loss: 0.6535
+2024-04-26 23:20:27.066 | INFO     | pre_process:train_model:165 - epoch [2/10], step [12/15], loss: 0.4984
+2024-04-26 23:20:27.175 | INFO     | pre_process:train_model:165 - epoch [2/10], step [13/15], loss: 1.0560
+2024-04-26 23:20:27.294 | INFO     | pre_process:train_model:165 - epoch [2/10], step [14/15], loss: 0.9669
+2024-04-26 23:20:27.408 | INFO     | pre_process:train_model:165 - epoch [2/10], step [15/15], loss: 0.7412
+2024-04-26 23:20:27.409 | INFO     | pre_process:train_model:170 - epoch [2/10], avg_loss: 0.9537
+2024-04-26 23:20:27.517 | INFO     | pre_process:train_model:165 - epoch [3/10], step [1/15], loss: 0.2922
+2024-04-26 23:20:27.630 | INFO     | pre_process:train_model:165 - epoch [3/10], step [2/15], loss: 1.6147
+2024-04-26 23:20:27.743 | INFO     | pre_process:train_model:165 - epoch [3/10], step [3/15], loss: 0.6178
+2024-04-26 23:20:27.855 | INFO     | pre_process:train_model:165 - epoch [3/10], step [4/15], loss: 0.8058
+2024-04-26 23:20:27.969 | INFO     | pre_process:train_model:165 - epoch [3/10], step [5/15], loss: 0.4719
+2024-04-26 23:20:28.077 | INFO     | pre_process:train_model:165 - epoch [3/10], step [6/15], loss: 0.1368
+2024-04-26 23:20:28.186 | INFO     | pre_process:train_model:165 - epoch [3/10], step [7/15], loss: 1.1521
+2024-04-26 23:20:28.295 | INFO     | pre_process:train_model:165 - epoch [3/10], step [8/15], loss: 0.7702
+2024-04-26 23:20:28.406 | INFO     | pre_process:train_model:165 - epoch [3/10], step [9/15], loss: 0.5147
+2024-04-26 23:20:28.514 | INFO     | pre_process:train_model:165 - epoch [3/10], step [10/15], loss: 0.1581
+2024-04-26 23:20:28.627 | INFO     | pre_process:train_model:165 - epoch [3/10], step [11/15], loss: 0.6062
+2024-04-26 23:20:28.742 | INFO     | pre_process:train_model:165 - epoch [3/10], step [12/15], loss: 0.5273
+2024-04-26 23:20:28.843 | INFO     | pre_process:train_model:165 - epoch [3/10], step [13/15], loss: 0.8009
+2024-04-26 23:20:28.954 | INFO     | pre_process:train_model:165 - epoch [3/10], step [14/15], loss: 0.0571
+2024-04-26 23:20:29.065 | INFO     | pre_process:train_model:165 - epoch [3/10], step [15/15], loss: 0.5453
+2024-04-26 23:20:29.066 | INFO     | pre_process:train_model:170 - epoch [3/10], avg_loss: 0.6047
+2024-04-26 23:20:29.182 | INFO     | pre_process:train_model:165 - epoch [4/10], step [1/15], loss: 0.0811
+2024-04-26 23:20:29.293 | INFO     | pre_process:train_model:165 - epoch [4/10], step [2/15], loss: 0.0124
+2024-04-26 23:20:29.403 | INFO     | pre_process:train_model:165 - epoch [4/10], step [3/15], loss: 0.0284
+2024-04-26 23:20:29.514 | INFO     | pre_process:train_model:165 - epoch [4/10], step [4/15], loss: 0.6400
+2024-04-26 23:20:29.622 | INFO     | pre_process:train_model:165 - epoch [4/10], step [5/15], loss: 1.3808
+2024-04-26 23:20:29.764 | INFO     | pre_process:train_model:165 - epoch [4/10], step [6/15], loss: 0.5031
+2024-04-26 23:20:29.873 | INFO     | pre_process:train_model:165 - epoch [4/10], step [7/15], loss: 0.0057
+2024-04-26 23:20:29.984 | INFO     | pre_process:train_model:165 - epoch [4/10], step [8/15], loss: 0.4630
+2024-04-26 23:20:30.096 | INFO     | pre_process:train_model:165 - epoch [4/10], step [9/15], loss: 0.5367
+2024-04-26 23:20:30.203 | INFO     | pre_process:train_model:165 - epoch [4/10], step [10/15], loss: 1.0804
+2024-04-26 23:20:30.314 | INFO     | pre_process:train_model:165 - epoch [4/10], step [11/15], loss: 0.5092
+2024-04-26 23:20:30.424 | INFO     | pre_process:train_model:165 - epoch [4/10], step [12/15], loss: 0.0149
+2024-04-26 23:20:30.532 | INFO     | pre_process:train_model:165 - epoch [4/10], step [13/15], loss: 0.9277
+2024-04-26 23:20:30.643 | INFO     | pre_process:train_model:165 - epoch [4/10], step [14/15], loss: 0.0079
+2024-04-26 23:20:30.755 | INFO     | pre_process:train_model:165 - epoch [4/10], step [15/15], loss: 0.0288
+2024-04-26 23:20:30.755 | INFO     | pre_process:train_model:170 - epoch [4/10], avg_loss: 0.4147
+2024-04-26 23:20:30.863 | INFO     | pre_process:train_model:165 - epoch [5/10], step [1/15], loss: 0.5699
+2024-04-26 23:20:30.964 | INFO     | pre_process:train_model:165 - epoch [5/10], step [2/15], loss: 0.5033
+2024-04-26 23:20:31.071 | INFO     | pre_process:train_model:165 - epoch [5/10], step [3/15], loss: 0.0102
+2024-04-26 23:20:31.180 | INFO     | pre_process:train_model:165 - epoch [5/10], step [4/15], loss: 0.4249
+2024-04-26 23:20:31.291 | INFO     | pre_process:train_model:165 - epoch [5/10], step [5/15], loss: 0.0072
+2024-04-26 23:20:31.402 | INFO     | pre_process:train_model:165 - epoch [5/10], step [6/15], loss: 0.0074
+2024-04-26 23:20:31.511 | INFO     | pre_process:train_model:165 - epoch [5/10], step [7/15], loss: 0.5364
+2024-04-26 23:20:31.622 | INFO     | pre_process:train_model:165 - epoch [5/10], step [8/15], loss: 0.4643
+2024-04-26 23:20:31.729 | INFO     | pre_process:train_model:165 - epoch [5/10], step [9/15], loss: 0.5728
+2024-04-26 23:20:31.839 | INFO     | pre_process:train_model:165 - epoch [5/10], step [10/15], loss: 2.6603
+2024-04-26 23:20:31.950 | INFO     | pre_process:train_model:165 - epoch [5/10], step [11/15], loss: 0.5057
+2024-04-26 23:20:32.057 | INFO     | pre_process:train_model:165 - epoch [5/10], step [12/15], loss: 0.3542
+2024-04-26 23:20:32.171 | INFO     | pre_process:train_model:165 - epoch [5/10], step [13/15], loss: 0.4801
+2024-04-26 23:20:32.285 | INFO     | pre_process:train_model:165 - epoch [5/10], step [14/15], loss: 0.4451
+2024-04-26 23:20:32.393 | INFO     | pre_process:train_model:165 - epoch [5/10], step [15/15], loss: 0.0170
+2024-04-26 23:20:32.393 | INFO     | pre_process:train_model:170 - epoch [5/10], avg_loss: 0.5039
+2024-04-26 23:20:32.507 | INFO     | pre_process:train_model:165 - epoch [6/10], step [1/15], loss: 0.0195
+2024-04-26 23:20:32.621 | INFO     | pre_process:train_model:165 - epoch [6/10], step [2/15], loss: 0.4299
+2024-04-26 23:20:32.729 | INFO     | pre_process:train_model:165 - epoch [6/10], step [3/15], loss: 0.5942
+2024-04-26 23:20:32.842 | INFO     | pre_process:train_model:165 - epoch [6/10], step [4/15], loss: 0.0223
+2024-04-26 23:20:32.953 | INFO     | pre_process:train_model:165 - epoch [6/10], step [5/15], loss: 0.8402
+2024-04-26 23:20:33.065 | INFO     | pre_process:train_model:165 - epoch [6/10], step [6/15], loss: 1.5196
+2024-04-26 23:20:33.175 | INFO     | pre_process:train_model:165 - epoch [6/10], step [7/15], loss: 0.0371
+2024-04-26 23:20:33.281 | INFO     | pre_process:train_model:165 - epoch [6/10], step [8/15], loss: 0.0928
+2024-04-26 23:20:33.389 | INFO     | pre_process:train_model:165 - epoch [6/10], step [9/15], loss: 0.0588
+2024-04-26 23:20:33.497 | INFO     | pre_process:train_model:165 - epoch [6/10], step [10/15], loss: 0.0765
+2024-04-26 23:20:33.611 | INFO     | pre_process:train_model:165 - epoch [6/10], step [11/15], loss: 0.8283
+2024-04-26 23:20:33.720 | INFO     | pre_process:train_model:165 - epoch [6/10], step [12/15], loss: 0.9311
+2024-04-26 23:20:33.834 | INFO     | pre_process:train_model:165 - epoch [6/10], step [13/15], loss: 0.3836
+2024-04-26 23:20:33.942 | INFO     | pre_process:train_model:165 - epoch [6/10], step [14/15], loss: 0.0798
+2024-04-26 23:20:34.050 | INFO     | pre_process:train_model:165 - epoch [6/10], step [15/15], loss: 0.0780
+2024-04-26 23:20:34.050 | INFO     | pre_process:train_model:170 - epoch [6/10], avg_loss: 0.3994
+2024-04-26 23:20:34.157 | INFO     | pre_process:train_model:165 - epoch [7/10], step [1/15], loss: 0.0703
+2024-04-26 23:20:34.266 | INFO     | pre_process:train_model:165 - epoch [7/10], step [2/15], loss: 0.0698
+2024-04-26 23:20:34.375 | INFO     | pre_process:train_model:165 - epoch [7/10], step [3/15], loss: 0.3395
+2024-04-26 23:20:34.484 | INFO     | pre_process:train_model:165 - epoch [7/10], step [4/15], loss: 0.0542
+2024-04-26 23:20:34.591 | INFO     | pre_process:train_model:165 - epoch [7/10], step [5/15], loss: 1.2223
+2024-04-26 23:20:34.699 | INFO     | pre_process:train_model:165 - epoch [7/10], step [6/15], loss: 0.4774
+2024-04-26 23:20:34.806 | INFO     | pre_process:train_model:165 - epoch [7/10], step [7/15], loss: 0.0449
+2024-04-26 23:20:34.916 | INFO     | pre_process:train_model:165 - epoch [7/10], step [8/15], loss: 0.0373
+2024-04-26 23:20:35.023 | INFO     | pre_process:train_model:165 - epoch [7/10], step [9/15], loss: 0.0606
+2024-04-26 23:20:35.130 | INFO     | pre_process:train_model:165 - epoch [7/10], step [10/15], loss: 0.0313
+2024-04-26 23:20:35.237 | INFO     | pre_process:train_model:165 - epoch [7/10], step [11/15], loss: 0.4286
+2024-04-26 23:20:35.346 | INFO     | pre_process:train_model:165 - epoch [7/10], step [12/15], loss: 0.6980
+2024-04-26 23:20:35.456 | INFO     | pre_process:train_model:165 - epoch [7/10], step [13/15], loss: 0.0202
+2024-04-26 23:20:35.574 | INFO     | pre_process:train_model:165 - epoch [7/10], step [14/15], loss: 0.3464
+2024-04-26 23:20:35.673 | INFO     | pre_process:train_model:165 - epoch [7/10], step [15/15], loss: 1.2712
+2024-04-26 23:20:35.673 | INFO     | pre_process:train_model:170 - epoch [7/10], avg_loss: 0.3448
+2024-04-26 23:20:35.816 | INFO     | pre_process:train_model:165 - epoch [8/10], step [1/15], loss: 0.0167
+2024-04-26 23:20:35.924 | INFO     | pre_process:train_model:165 - epoch [8/10], step [2/15], loss: 0.2028
+2024-04-26 23:20:36.038 | INFO     | pre_process:train_model:165 - epoch [8/10], step [3/15], loss: 0.0627
+2024-04-26 23:20:36.146 | INFO     | pre_process:train_model:165 - epoch [8/10], step [4/15], loss: 0.1742
+2024-04-26 23:20:36.256 | INFO     | pre_process:train_model:165 - epoch [8/10], step [5/15], loss: 0.0349
+2024-04-26 23:20:36.370 | INFO     | pre_process:train_model:165 - epoch [8/10], step [6/15], loss: 0.1420
+2024-04-26 23:20:36.478 | INFO     | pre_process:train_model:165 - epoch [8/10], step [7/15], loss: 0.3714
+2024-04-26 23:20:36.590 | INFO     | pre_process:train_model:165 - epoch [8/10], step [8/15], loss: 0.1372
+2024-04-26 23:20:36.702 | INFO     | pre_process:train_model:165 - epoch [8/10], step [9/15], loss: 0.2432
+2024-04-26 23:20:36.816 | INFO     | pre_process:train_model:165 - epoch [8/10], step [10/15], loss: 0.7473
+2024-04-26 23:20:36.924 | INFO     | pre_process:train_model:165 - epoch [8/10], step [11/15], loss: 0.1229
+2024-04-26 23:20:37.038 | INFO     | pre_process:train_model:165 - epoch [8/10], step [12/15], loss: 0.3511
+2024-04-26 23:20:37.145 | INFO     | pre_process:train_model:165 - epoch [8/10], step [13/15], loss: 0.2362
+2024-04-26 23:20:37.256 | INFO     | pre_process:train_model:165 - epoch [8/10], step [14/15], loss: 0.8850
+2024-04-26 23:20:37.370 | INFO     | pre_process:train_model:165 - epoch [8/10], step [15/15], loss: 0.0207
+2024-04-26 23:20:37.371 | INFO     | pre_process:train_model:170 - epoch [8/10], avg_loss: 0.2499
+2024-04-26 23:20:37.485 | INFO     | pre_process:train_model:165 - epoch [9/10], step [1/15], loss: 0.9149
+2024-04-26 23:20:37.594 | INFO     | pre_process:train_model:165 - epoch [9/10], step [2/15], loss: 0.2026
+2024-04-26 23:20:37.691 | INFO     | pre_process:train_model:165 - epoch [9/10], step [3/15], loss: 0.0504
+2024-04-26 23:20:37.814 | INFO     | pre_process:train_model:165 - epoch [9/10], step [4/15], loss: 0.0302
+2024-04-26 23:20:37.925 | INFO     | pre_process:train_model:165 - epoch [9/10], step [5/15], loss: 0.0104
+2024-04-26 23:20:38.038 | INFO     | pre_process:train_model:165 - epoch [9/10], step [6/15], loss: 0.0144
+2024-04-26 23:20:38.148 | INFO     | pre_process:train_model:165 - epoch [9/10], step [7/15], loss: 0.6566
+2024-04-26 23:20:38.260 | INFO     | pre_process:train_model:165 - epoch [9/10], step [8/15], loss: 0.2775
+2024-04-26 23:20:38.367 | INFO     | pre_process:train_model:165 - epoch [9/10], step [9/15], loss: 0.0112
+2024-04-26 23:20:38.474 | INFO     | pre_process:train_model:165 - epoch [9/10], step [10/15], loss: 0.4055
+2024-04-26 23:20:38.589 | INFO     | pre_process:train_model:165 - epoch [9/10], step [11/15], loss: 0.0073
+2024-04-26 23:20:38.694 | INFO     | pre_process:train_model:165 - epoch [9/10], step [12/15], loss: 0.0073
+2024-04-26 23:20:38.807 | INFO     | pre_process:train_model:165 - epoch [9/10], step [13/15], loss: 0.0251
+2024-04-26 23:20:38.917 | INFO     | pre_process:train_model:165 - epoch [9/10], step [14/15], loss: 0.0068
+2024-04-26 23:20:39.029 | INFO     | pre_process:train_model:165 - epoch [9/10], step [15/15], loss: 0.0116
+2024-04-26 23:20:39.030 | INFO     | pre_process:train_model:170 - epoch [9/10], avg_loss: 0.1755
+2024-04-26 23:20:39.136 | INFO     | pre_process:train_model:165 - epoch [10/10], step [1/15], loss: 0.1944
+2024-04-26 23:20:39.251 | INFO     | pre_process:train_model:165 - epoch [10/10], step [2/15], loss: 0.3514
+2024-04-26 23:20:39.366 | INFO     | pre_process:train_model:165 - epoch [10/10], step [3/15], loss: 0.3289
+2024-04-26 23:20:39.475 | INFO     | pre_process:train_model:165 - epoch [10/10], step [4/15], loss: 0.0074
+2024-04-26 23:20:39.585 | INFO     | pre_process:train_model:165 - epoch [10/10], step [5/15], loss: 0.1351
+2024-04-26 23:20:39.694 | INFO     | pre_process:train_model:165 - epoch [10/10], step [6/15], loss: 0.0207
+2024-04-26 23:20:39.801 | INFO     | pre_process:train_model:165 - epoch [10/10], step [7/15], loss: 0.0047
+2024-04-26 23:20:39.910 | INFO     | pre_process:train_model:165 - epoch [10/10], step [8/15], loss: 0.0130
+2024-04-26 23:20:40.022 | INFO     | pre_process:train_model:165 - epoch [10/10], step [9/15], loss: 0.1054
+2024-04-26 23:20:40.131 | INFO     | pre_process:train_model:165 - epoch [10/10], step [10/15], loss: 0.0050
+2024-04-26 23:20:40.245 | INFO     | pre_process:train_model:165 - epoch [10/10], step [11/15], loss: 0.0047
+2024-04-26 23:20:40.353 | INFO     | pre_process:train_model:165 - epoch [10/10], step [12/15], loss: 0.8554
+2024-04-26 23:20:40.462 | INFO     | pre_process:train_model:165 - epoch [10/10], step [13/15], loss: 0.0039
+2024-04-26 23:20:40.574 | INFO     | pre_process:train_model:165 - epoch [10/10], step [14/15], loss: 0.0049
+2024-04-26 23:20:40.686 | INFO     | pre_process:train_model:165 - epoch [10/10], step [15/15], loss: 0.0043
+2024-04-26 23:20:40.686 | INFO     | pre_process:train_model:170 - epoch [10/10], avg_loss: 0.1360
+2024-04-26 23:20:40.688 | SUCCESS  | pre_process:train_model:173 - 训练完成
+2024-04-26 23:20:40.899 | WARNING  | pre_process:train_model:184 - close the plot window to continue...
+2024-04-26 23:20:43.428 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.467 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.506 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:20:43.545 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.582 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.624 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:20:43.664 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.701 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:20:43.740 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:20:43.776 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:20:43.776 | DEBUG    | pre_process:test_model:248 - Accuracy on the test set: 60.00%
+2024-04-26 23:20:43.926 | INFO     | pre_process:train_model:165 - epoch [1/10], step [1/15], loss: 1.1503
+2024-04-26 23:20:44.035 | INFO     | pre_process:train_model:165 - epoch [1/10], step [2/15], loss: 1.0919
+2024-04-26 23:20:44.149 | INFO     | pre_process:train_model:165 - epoch [1/10], step [3/15], loss: 1.0668
+2024-04-26 23:20:44.262 | INFO     | pre_process:train_model:165 - epoch [1/10], step [4/15], loss: 1.0738
+2024-04-26 23:20:44.376 | INFO     | pre_process:train_model:165 - epoch [1/10], step [5/15], loss: 1.0671
+2024-04-26 23:20:44.495 | INFO     | pre_process:train_model:165 - epoch [1/10], step [6/15], loss: 1.1228
+2024-04-26 23:20:44.615 | INFO     | pre_process:train_model:165 - epoch [1/10], step [7/15], loss: 1.0211
+2024-04-26 23:20:44.728 | INFO     | pre_process:train_model:165 - epoch [1/10], step [8/15], loss: 1.0707
+2024-04-26 23:20:44.841 | INFO     | pre_process:train_model:165 - epoch [1/10], step [9/15], loss: 1.0484
+2024-04-26 23:20:44.955 | INFO     | pre_process:train_model:165 - epoch [1/10], step [10/15], loss: 1.0589
+2024-04-26 23:20:45.066 | INFO     | pre_process:train_model:165 - epoch [1/10], step [11/15], loss: 0.9497
+2024-04-26 23:20:45.174 | INFO     | pre_process:train_model:165 - epoch [1/10], step [12/15], loss: 1.0941
+2024-04-26 23:20:45.285 | INFO     | pre_process:train_model:165 - epoch [1/10], step [13/15], loss: 1.1676
+2024-04-26 23:20:45.396 | INFO     | pre_process:train_model:165 - epoch [1/10], step [14/15], loss: 0.9513
+2024-04-26 23:20:45.511 | INFO     | pre_process:train_model:165 - epoch [1/10], step [15/15], loss: 1.1151
+2024-04-26 23:20:45.512 | INFO     | pre_process:train_model:170 - epoch [1/10], avg_loss: 1.0700
+2024-04-26 23:20:45.624 | INFO     | pre_process:train_model:165 - epoch [2/10], step [1/15], loss: 1.0365
+2024-04-26 23:20:45.736 | INFO     | pre_process:train_model:165 - epoch [2/10], step [2/15], loss: 1.0832
+2024-04-26 23:20:45.848 | INFO     | pre_process:train_model:165 - epoch [2/10], step [3/15], loss: 0.7740
+2024-04-26 23:20:45.956 | INFO     | pre_process:train_model:165 - epoch [2/10], step [4/15], loss: 1.0024
+2024-04-26 23:20:46.070 | INFO     | pre_process:train_model:165 - epoch [2/10], step [5/15], loss: 0.8697
+2024-04-26 23:20:46.182 | INFO     | pre_process:train_model:165 - epoch [2/10], step [6/15], loss: 0.5792
+2024-04-26 23:20:46.295 | INFO     | pre_process:train_model:165 - epoch [2/10], step [7/15], loss: 0.9491
+2024-04-26 23:20:46.404 | INFO     | pre_process:train_model:165 - epoch [2/10], step [8/15], loss: 0.3549
+2024-04-26 23:20:46.517 | INFO     | pre_process:train_model:165 - epoch [2/10], step [9/15], loss: 0.1989
+2024-04-26 23:20:46.628 | INFO     | pre_process:train_model:165 - epoch [2/10], step [10/15], loss: 2.9564
+2024-04-26 23:20:46.738 | INFO     | pre_process:train_model:165 - epoch [2/10], step [11/15], loss: 0.1535
+2024-04-26 23:20:46.864 | INFO     | pre_process:train_model:165 - epoch [2/10], step [12/15], loss: 1.3445
+2024-04-26 23:20:46.972 | INFO     | pre_process:train_model:165 - epoch [2/10], step [13/15], loss: 1.3602
+2024-04-26 23:20:47.084 | INFO     | pre_process:train_model:165 - epoch [2/10], step [14/15], loss: 1.2430
+2024-04-26 23:20:47.190 | INFO     | pre_process:train_model:165 - epoch [2/10], step [15/15], loss: 0.9109
+2024-04-26 23:20:47.190 | INFO     | pre_process:train_model:170 - epoch [2/10], avg_loss: 0.9878
+2024-04-26 23:20:47.305 | INFO     | pre_process:train_model:165 - epoch [3/10], step [1/15], loss: 1.0189
+2024-04-26 23:20:47.418 | INFO     | pre_process:train_model:165 - epoch [3/10], step [2/15], loss: 1.3809
+2024-04-26 23:20:47.531 | INFO     | pre_process:train_model:165 - epoch [3/10], step [3/15], loss: 0.3131
+2024-04-26 23:20:47.641 | INFO     | pre_process:train_model:165 - epoch [3/10], step [4/15], loss: 0.3031
+2024-04-26 23:20:47.753 | INFO     | pre_process:train_model:165 - epoch [3/10], step [5/15], loss: 0.7412
+2024-04-26 23:20:47.870 | INFO     | pre_process:train_model:165 - epoch [3/10], step [6/15], loss: 0.8757
+2024-04-26 23:20:47.981 | INFO     | pre_process:train_model:165 - epoch [3/10], step [7/15], loss: 0.7202
+2024-04-26 23:20:48.093 | INFO     | pre_process:train_model:165 - epoch [3/10], step [8/15], loss: 0.7761
+2024-04-26 23:20:48.205 | INFO     | pre_process:train_model:165 - epoch [3/10], step [9/15], loss: 0.6486
+2024-04-26 23:20:48.312 | INFO     | pre_process:train_model:165 - epoch [3/10], step [10/15], loss: 0.2351
+2024-04-26 23:20:48.428 | INFO     | pre_process:train_model:165 - epoch [3/10], step [11/15], loss: 0.3637
+2024-04-26 23:20:48.542 | INFO     | pre_process:train_model:165 - epoch [3/10], step [12/15], loss: 0.9329
+2024-04-26 23:20:48.656 | INFO     | pre_process:train_model:165 - epoch [3/10], step [13/15], loss: 0.8295
+2024-04-26 23:20:48.768 | INFO     | pre_process:train_model:165 - epoch [3/10], step [14/15], loss: 1.0123
+2024-04-26 23:20:48.879 | INFO     | pre_process:train_model:165 - epoch [3/10], step [15/15], loss: 0.8126
+2024-04-26 23:20:48.880 | INFO     | pre_process:train_model:170 - epoch [3/10], avg_loss: 0.7309
+2024-04-26 23:20:48.996 | INFO     | pre_process:train_model:165 - epoch [4/10], step [1/15], loss: 0.7316
+2024-04-26 23:20:49.108 | INFO     | pre_process:train_model:165 - epoch [4/10], step [2/15], loss: 0.0874
+2024-04-26 23:20:49.219 | INFO     | pre_process:train_model:165 - epoch [4/10], step [3/15], loss: 1.1890
+2024-04-26 23:20:49.330 | INFO     | pre_process:train_model:165 - epoch [4/10], step [4/15], loss: 0.8537
+2024-04-26 23:20:49.443 | INFO     | pre_process:train_model:165 - epoch [4/10], step [5/15], loss: 0.7416
+2024-04-26 23:20:49.557 | INFO     | pre_process:train_model:165 - epoch [4/10], step [6/15], loss: 0.0535
+2024-04-26 23:20:49.669 | INFO     | pre_process:train_model:165 - epoch [4/10], step [7/15], loss: 0.6624
+2024-04-26 23:20:49.778 | INFO     | pre_process:train_model:165 - epoch [4/10], step [8/15], loss: 1.0486
+2024-04-26 23:20:49.912 | INFO     | pre_process:train_model:165 - epoch [4/10], step [9/15], loss: 0.0322
+2024-04-26 23:20:50.029 | INFO     | pre_process:train_model:165 - epoch [4/10], step [10/15], loss: 0.5478
+2024-04-26 23:20:50.140 | INFO     | pre_process:train_model:165 - epoch [4/10], step [11/15], loss: 0.0396
+2024-04-26 23:20:50.250 | INFO     | pre_process:train_model:165 - epoch [4/10], step [12/15], loss: 0.0291
+2024-04-26 23:20:50.360 | INFO     | pre_process:train_model:165 - epoch [4/10], step [13/15], loss: 0.1165
+2024-04-26 23:20:50.471 | INFO     | pre_process:train_model:165 - epoch [4/10], step [14/15], loss: 0.0234
+2024-04-26 23:20:50.586 | INFO     | pre_process:train_model:165 - epoch [4/10], step [15/15], loss: 0.5153
+2024-04-26 23:20:50.586 | INFO     | pre_process:train_model:170 - epoch [4/10], avg_loss: 0.4448
+2024-04-26 23:20:50.699 | INFO     | pre_process:train_model:165 - epoch [5/10], step [1/15], loss: 0.5248
+2024-04-26 23:20:50.810 | INFO     | pre_process:train_model:165 - epoch [5/10], step [2/15], loss: 0.0187
+2024-04-26 23:20:50.921 | INFO     | pre_process:train_model:165 - epoch [5/10], step [3/15], loss: 0.5485
+2024-04-26 23:20:51.030 | INFO     | pre_process:train_model:165 - epoch [5/10], step [4/15], loss: 1.0328
+2024-04-26 23:20:51.139 | INFO     | pre_process:train_model:165 - epoch [5/10], step [5/15], loss: 0.4911
+2024-04-26 23:20:51.248 | INFO     | pre_process:train_model:165 - epoch [5/10], step [6/15], loss: 0.5275
+2024-04-26 23:20:51.358 | INFO     | pre_process:train_model:165 - epoch [5/10], step [7/15], loss: 1.0566
+2024-04-26 23:20:51.471 | INFO     | pre_process:train_model:165 - epoch [5/10], step [8/15], loss: 0.0074
+2024-04-26 23:20:51.586 | INFO     | pre_process:train_model:165 - epoch [5/10], step [9/15], loss: 0.0059
+2024-04-26 23:20:51.696 | INFO     | pre_process:train_model:165 - epoch [5/10], step [10/15], loss: 0.0047
+2024-04-26 23:20:51.808 | INFO     | pre_process:train_model:165 - epoch [5/10], step [11/15], loss: 0.4196
+2024-04-26 23:20:51.923 | INFO     | pre_process:train_model:165 - epoch [5/10], step [12/15], loss: 0.0043
+2024-04-26 23:20:52.034 | INFO     | pre_process:train_model:165 - epoch [5/10], step [13/15], loss: 0.4195
+2024-04-26 23:20:52.143 | INFO     | pre_process:train_model:165 - epoch [5/10], step [14/15], loss: 0.0035
+2024-04-26 23:20:52.257 | INFO     | pre_process:train_model:165 - epoch [5/10], step [15/15], loss: 0.0033
+2024-04-26 23:20:52.257 | INFO     | pre_process:train_model:170 - epoch [5/10], avg_loss: 0.3379
+2024-04-26 23:20:52.367 | INFO     | pre_process:train_model:165 - epoch [6/10], step [1/15], loss: 0.5075
+2024-04-26 23:20:52.477 | INFO     | pre_process:train_model:165 - epoch [6/10], step [2/15], loss: 0.3528
+2024-04-26 23:20:52.588 | INFO     | pre_process:train_model:165 - epoch [6/10], step [3/15], loss: 0.4952
+2024-04-26 23:20:52.701 | INFO     | pre_process:train_model:165 - epoch [6/10], step [4/15], loss: 0.0028
+2024-04-26 23:20:52.811 | INFO     | pre_process:train_model:165 - epoch [6/10], step [5/15], loss: 0.0026
+2024-04-26 23:20:52.927 | INFO     | pre_process:train_model:165 - epoch [6/10], step [6/15], loss: 0.4394
+2024-04-26 23:20:53.039 | INFO     | pre_process:train_model:165 - epoch [6/10], step [7/15], loss: 6.5226
+2024-04-26 23:20:53.151 | INFO     | pre_process:train_model:165 - epoch [6/10], step [8/15], loss: 0.0038
+2024-04-26 23:20:53.261 | INFO     | pre_process:train_model:165 - epoch [6/10], step [9/15], loss: 0.0056
+2024-04-26 23:20:53.373 | INFO     | pre_process:train_model:165 - epoch [6/10], step [10/15], loss: 0.3150
+2024-04-26 23:20:53.480 | INFO     | pre_process:train_model:165 - epoch [6/10], step [11/15], loss: 0.0086
+2024-04-26 23:20:53.592 | INFO     | pre_process:train_model:165 - epoch [6/10], step [12/15], loss: 0.5444
+2024-04-26 23:20:53.705 | INFO     | pre_process:train_model:165 - epoch [6/10], step [13/15], loss: 0.2037
+2024-04-26 23:20:53.820 | INFO     | pre_process:train_model:165 - epoch [6/10], step [14/15], loss: 0.0155
+2024-04-26 23:20:53.933 | INFO     | pre_process:train_model:165 - epoch [6/10], step [15/15], loss: 0.6935
+2024-04-26 23:20:53.933 | INFO     | pre_process:train_model:170 - epoch [6/10], avg_loss: 0.6742
+2024-04-26 23:20:54.045 | INFO     | pre_process:train_model:165 - epoch [7/10], step [1/15], loss: 0.0185
+2024-04-26 23:20:54.160 | INFO     | pre_process:train_model:165 - epoch [7/10], step [2/15], loss: 0.0267
+2024-04-26 23:20:54.272 | INFO     | pre_process:train_model:165 - epoch [7/10], step [3/15], loss: 0.1987
+2024-04-26 23:20:54.379 | INFO     | pre_process:train_model:165 - epoch [7/10], step [4/15], loss: 0.7727
+2024-04-26 23:20:54.499 | INFO     | pre_process:train_model:165 - epoch [7/10], step [5/15], loss: 0.5328
+2024-04-26 23:20:54.608 | INFO     | pre_process:train_model:165 - epoch [7/10], step [6/15], loss: 0.1798
+2024-04-26 23:20:54.727 | INFO     | pre_process:train_model:165 - epoch [7/10], step [7/15], loss: 0.0315
+2024-04-26 23:20:54.840 | INFO     | pre_process:train_model:165 - epoch [7/10], step [8/15], loss: 0.0358
+2024-04-26 23:20:54.950 | INFO     | pre_process:train_model:165 - epoch [7/10], step [9/15], loss: 0.5010
+2024-04-26 23:20:55.064 | INFO     | pre_process:train_model:165 - epoch [7/10], step [10/15], loss: 0.7151
+2024-04-26 23:20:55.175 | INFO     | pre_process:train_model:165 - epoch [7/10], step [11/15], loss: 0.0370
+2024-04-26 23:20:55.287 | INFO     | pre_process:train_model:165 - epoch [7/10], step [12/15], loss: 0.0307
+2024-04-26 23:20:55.394 | INFO     | pre_process:train_model:165 - epoch [7/10], step [13/15], loss: 0.0387
+2024-04-26 23:20:55.503 | INFO     | pre_process:train_model:165 - epoch [7/10], step [14/15], loss: 0.5703
+2024-04-26 23:20:55.614 | INFO     | pre_process:train_model:165 - epoch [7/10], step [15/15], loss: 0.2699
+2024-04-26 23:20:55.614 | INFO     | pre_process:train_model:170 - epoch [7/10], avg_loss: 0.2639
+2024-04-26 23:20:55.725 | INFO     | pre_process:train_model:165 - epoch [8/10], step [1/15], loss: 0.4903
+2024-04-26 23:20:55.835 | INFO     | pre_process:train_model:165 - epoch [8/10], step [2/15], loss: 0.4078
+2024-04-26 23:20:55.944 | INFO     | pre_process:train_model:165 - epoch [8/10], step [3/15], loss: 0.0266
+2024-04-26 23:20:56.056 | INFO     | pre_process:train_model:165 - epoch [8/10], step [4/15], loss: 0.5804
+2024-04-26 23:20:56.163 | INFO     | pre_process:train_model:165 - epoch [8/10], step [5/15], loss: 0.2687
+2024-04-26 23:20:56.274 | INFO     | pre_process:train_model:165 - epoch [8/10], step [6/15], loss: 0.0264
+2024-04-26 23:20:56.387 | INFO     | pre_process:train_model:165 - epoch [8/10], step [7/15], loss: 0.3065
+2024-04-26 23:20:56.499 | INFO     | pre_process:train_model:165 - epoch [8/10], step [8/15], loss: 0.3308
+2024-04-26 23:20:56.634 | INFO     | pre_process:train_model:165 - epoch [8/10], step [9/15], loss: 0.0201
+2024-04-26 23:20:56.750 | INFO     | pre_process:train_model:165 - epoch [8/10], step [10/15], loss: 0.0239
+2024-04-26 23:20:56.860 | INFO     | pre_process:train_model:165 - epoch [8/10], step [11/15], loss: 0.0192
+2024-04-26 23:20:56.972 | INFO     | pre_process:train_model:165 - epoch [8/10], step [12/15], loss: 0.0176
+2024-04-26 23:20:57.083 | INFO     | pre_process:train_model:165 - epoch [8/10], step [13/15], loss: 0.3977
+2024-04-26 23:20:57.198 | INFO     | pre_process:train_model:165 - epoch [8/10], step [14/15], loss: 0.3494
+2024-04-26 23:20:57.310 | INFO     | pre_process:train_model:165 - epoch [8/10], step [15/15], loss: 0.4424
+2024-04-26 23:20:57.311 | INFO     | pre_process:train_model:170 - epoch [8/10], avg_loss: 0.2472
+2024-04-26 23:20:57.422 | INFO     | pre_process:train_model:165 - epoch [9/10], step [1/15], loss: 0.1018
+2024-04-26 23:20:57.538 | INFO     | pre_process:train_model:165 - epoch [9/10], step [2/15], loss: 0.0143
+2024-04-26 23:20:57.651 | INFO     | pre_process:train_model:165 - epoch [9/10], step [3/15], loss: 0.0118
+2024-04-26 23:20:57.762 | INFO     | pre_process:train_model:165 - epoch [9/10], step [4/15], loss: 0.3751
+2024-04-26 23:20:57.874 | INFO     | pre_process:train_model:165 - epoch [9/10], step [5/15], loss: 0.0098
+2024-04-26 23:20:57.984 | INFO     | pre_process:train_model:165 - epoch [9/10], step [6/15], loss: 0.4192
+2024-04-26 23:20:58.094 | INFO     | pre_process:train_model:165 - epoch [9/10], step [7/15], loss: 0.1080
+2024-04-26 23:20:58.207 | INFO     | pre_process:train_model:165 - epoch [9/10], step [8/15], loss: 0.5049
+2024-04-26 23:20:58.317 | INFO     | pre_process:train_model:165 - epoch [9/10], step [9/15], loss: 0.4085
+2024-04-26 23:20:58.428 | INFO     | pre_process:train_model:165 - epoch [9/10], step [10/15], loss: 0.0083
+2024-04-26 23:20:58.539 | INFO     | pre_process:train_model:165 - epoch [9/10], step [11/15], loss: 0.0084
+2024-04-26 23:20:58.653 | INFO     | pre_process:train_model:165 - epoch [9/10], step [12/15], loss: 0.3103
+2024-04-26 23:20:58.767 | INFO     | pre_process:train_model:165 - epoch [9/10], step [13/15], loss: 0.0067
+2024-04-26 23:20:58.878 | INFO     | pre_process:train_model:165 - epoch [9/10], step [14/15], loss: 0.0053
+2024-04-26 23:20:58.989 | INFO     | pre_process:train_model:165 - epoch [9/10], step [15/15], loss: 0.4284
+2024-04-26 23:20:58.990 | INFO     | pre_process:train_model:170 - epoch [9/10], avg_loss: 0.1814
+2024-04-26 23:20:59.099 | INFO     | pre_process:train_model:165 - epoch [10/10], step [1/15], loss: 0.0048
+2024-04-26 23:20:59.213 | INFO     | pre_process:train_model:165 - epoch [10/10], step [2/15], loss: 0.0056
+2024-04-26 23:20:59.324 | INFO     | pre_process:train_model:165 - epoch [10/10], step [3/15], loss: 0.2438
+2024-04-26 23:20:59.434 | INFO     | pre_process:train_model:165 - epoch [10/10], step [4/15], loss: 0.4328
+2024-04-26 23:20:59.545 | INFO     | pre_process:train_model:165 - epoch [10/10], step [5/15], loss: 0.0045
+2024-04-26 23:20:59.651 | INFO     | pre_process:train_model:165 - epoch [10/10], step [6/15], loss: 0.0042
+2024-04-26 23:20:59.762 | INFO     | pre_process:train_model:165 - epoch [10/10], step [7/15], loss: 0.2205
+2024-04-26 23:20:59.874 | INFO     | pre_process:train_model:165 - epoch [10/10], step [8/15], loss: 0.2476
+2024-04-26 23:20:59.984 | INFO     | pre_process:train_model:165 - epoch [10/10], step [9/15], loss: 0.2245
+2024-04-26 23:21:00.099 | INFO     | pre_process:train_model:165 - epoch [10/10], step [10/15], loss: 0.0736
+2024-04-26 23:21:00.211 | INFO     | pre_process:train_model:165 - epoch [10/10], step [11/15], loss: 0.1032
+2024-04-26 23:21:00.319 | INFO     | pre_process:train_model:165 - epoch [10/10], step [12/15], loss: 0.1888
+2024-04-26 23:21:00.433 | INFO     | pre_process:train_model:165 - epoch [10/10], step [13/15], loss: 0.0031
+2024-04-26 23:21:00.545 | INFO     | pre_process:train_model:165 - epoch [10/10], step [14/15], loss: 0.0463
+2024-04-26 23:21:00.655 | INFO     | pre_process:train_model:165 - epoch [10/10], step [15/15], loss: 0.0633
+2024-04-26 23:21:00.656 | INFO     | pre_process:train_model:170 - epoch [10/10], avg_loss: 0.1244
+2024-04-26 23:21:00.656 | SUCCESS  | pre_process:train_model:173 - 训练完成
+2024-04-26 23:21:00.776 | WARNING  | pre_process:train_model:184 - close the plot window to continue...
+2024-04-26 23:21:02.924 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:02.961 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:21:02.995 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.041 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.075 | ERROR    | pre_process:test_model:240 - not equal
+2024-04-26 23:21:03.121 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.158 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.192 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.232 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.269 | SUCCESS  | pre_process:test_model:238 - all equal
+2024-04-26 23:21:03.270 | DEBUG    | pre_process:test_model:248 - Accuracy on the test set: 80.00%
+2024-04-26 23:21:03.390 | INFO     | pre_process:train_model:165 - epoch [1/10], step [1/15], loss: 1.1107
+2024-04-26 23:21:03.504 | INFO     | pre_process:train_model:165 - epoch [1/10], step [2/15], loss: 1.1117
+2024-04-26 23:21:03.614 | INFO     | pre_process:train_model:165 - epoch [1/10], step [3/15], loss: 1.1138
+2024-04-26 23:21:03.722 | INFO     | pre_process:train_model:165 - epoch [1/10], step [4/15], loss: 1.1030
+2024-04-26 23:21:03.834 | INFO     | pre_process:train_model:165 - epoch [1/10], step [5/15], loss: 1.0853
+2024-04-26 23:21:03.943 | INFO     | pre_process:train_model:165 - epoch [1/10], step [6/15], loss: 1.0855
+2024-04-26 23:21:04.067 | INFO     | pre_process:train_model:165 - epoch [1/10], step [7/15], loss: 1.0943
+2024-04-26 23:21:04.177 | INFO     | pre_process:train_model:165 - epoch [1/10], step [8/15], loss: 1.0873
+2024-04-26 23:21:04.292 | INFO     | pre_process:train_model:165 - epoch [1/10], step [9/15], loss: 1.1238
+2024-04-26 23:21:04.428 | INFO     | pre_process:train_model:165 - epoch [1/10], step [10/15], loss: 1.0994
+2024-04-26 23:21:04.542 | INFO     | pre_process:train_model:165 - epoch [1/10], step [11/15], loss: 1.0396
+2024-04-26 23:21:04.654 | INFO     | pre_process:train_model:165 - epoch [1/10], step [12/15], loss: 1.0369
+2024-04-26 23:21:04.762 | INFO     | pre_process:train_model:165 - epoch [1/10], step [13/15], loss: 1.0781
+2024-04-26 23:21:04.874 | INFO     | pre_process:train_model:165 - epoch [1/10], step [14/15], loss: 1.0137
+2024-04-26 23:21:04.982 | INFO     | pre_process:train_model:165 - epoch [1/10], step [15/15], loss: 0.9640
+2024-04-26 23:21:04.982 | INFO     | pre_process:train_model:170 - epoch [1/10], avg_loss: 1.0765
+2024-04-26 23:21:05.096 | INFO     | pre_process:train_model:165 - epoch [2/10], step [1/15], loss: 1.0420
+2024-04-26 23:21:05.208 | INFO     | pre_process:train_model:165 - epoch [2/10], step [2/15], loss: 1.0776
+2024-04-26 23:21:05.322 | INFO     | pre_process:train_model:165 - epoch [2/10], step [3/15], loss: 0.8395
+2024-04-26 23:21:05.436 | INFO     | pre_process:train_model:165 - epoch [2/10], step [4/15], loss: 1.0610
+2024-04-26 23:21:05.546 | INFO     | pre_process:train_model:165 - epoch [2/10], step [5/15], loss: 0.7105
+2024-04-26 23:21:05.659 | INFO     | pre_process:train_model:165 - epoch [2/10], step [6/15], loss: 0.7090
+2024-04-26 23:21:05.771 | INFO     | pre_process:train_model:165 - epoch [2/10], step [7/15], loss: 0.7850
+2024-04-26 23:21:05.883 | INFO     | pre_process:train_model:165 - epoch [2/10], step [8/15], loss: 0.3391
+2024-04-26 23:21:05.997 | INFO     | pre_process:train_model:165 - epoch [2/10], step [9/15], loss: 1.0474
+2024-04-26 23:21:06.111 | INFO     | pre_process:train_model:165 - epoch [2/10], step [10/15], loss: 0.2562
+2024-04-26 23:21:06.224 | INFO     | pre_process:train_model:165 - epoch [2/10], step [11/15], loss: 1.7827
+2024-04-26 23:21:06.351 | INFO     | pre_process:train_model:165 - epoch [2/10], step [12/15], loss: 1.2516
+2024-04-26 23:21:06.461 | INFO     | pre_process:train_model:165 - epoch [2/10], step [13/15], loss: 2.7048
+2024-04-26 23:21:06.572 | INFO     | pre_process:train_model:165 - epoch [2/10], step [14/15], loss: 0.8403
+2024-04-26 23:21:06.679 | INFO     | pre_process:train_model:165 - epoch [2/10], step [15/15], loss: 0.3680
+2024-04-26 23:21:06.680 | INFO     | pre_process:train_model:170 - epoch [2/10], avg_loss: 0.9876
+2024-04-26 23:21:06.790 | INFO     | pre_process:train_model:165 - epoch [3/10], step [1/15], loss: 0.6665
+2024-04-26 23:21:06.899 | INFO     | pre_process:train_model:165 - epoch [3/10], step [2/15], loss: 0.7985
+2024-04-26 23:21:07.004 | INFO     | pre_process:train_model:165 - epoch [3/10], step [3/15], loss: 0.2083
+2024-04-26 23:21:07.112 | INFO     | pre_process:train_model:165 - epoch [3/10], step [4/15], loss: 0.8893
+2024-04-26 23:21:07.220 | INFO     | pre_process:train_model:165 - epoch [3/10], step [5/15], loss: 0.2627
+2024-04-26 23:21:07.325 | INFO     | pre_process:train_model:165 - epoch [3/10], step [6/15], loss: 0.3242
+2024-04-26 23:21:07.432 | INFO     | pre_process:train_model:165 - epoch [3/10], step [7/15], loss: 0.7635
+2024-04-26 23:21:07.537 | INFO     | pre_process:train_model:165 - epoch [3/10], step [8/15], loss: 1.4202
+2024-04-26 23:21:07.641 | INFO     | pre_process:train_model:165 - epoch [3/10], step [9/15], loss: 0.7956
+2024-04-26 23:21:07.745 | INFO     | pre_process:train_model:165 - epoch [3/10], step [10/15], loss: 0.8566
+2024-04-26 23:21:07.853 | INFO     | pre_process:train_model:165 - epoch [3/10], step [11/15], loss: 1.0312
+2024-04-26 23:21:07.957 | INFO     | pre_process:train_model:165 - epoch [3/10], step [12/15], loss: 0.6880
+2024-04-26 23:21:08.064 | INFO     | pre_process:train_model:165 - epoch [3/10], step [13/15], loss: 0.5516
+2024-04-26 23:21:08.175 | INFO     | pre_process:train_model:165 - epoch [3/10], step [14/15], loss: 0.9213
+2024-04-26 23:21:08.280 | INFO     | pre_process:train_model:165 - epoch [3/10], step [15/15], loss: 0.6399
+2024-04-26 23:21:08.280 | INFO     | pre_process:train_model:170 - epoch [3/10], avg_loss: 0.7212
+2024-04-26 23:21:08.388 | INFO     | pre_process:train_model:165 - epoch [4/10], step [1/15], loss: 0.6982
+2024-04-26 23:21:08.493 | INFO     | pre_process:train_model:165 - epoch [4/10], step [2/15], loss: 0.3238
+2024-04-26 23:21:08.600 | INFO     | pre_process:train_model:165 - epoch [4/10], step [3/15], loss: 0.7674
+2024-04-26 23:21:08.706 | INFO     | pre_process:train_model:165 - epoch [4/10], step [4/15], loss: 0.7603
+2024-04-26 23:21:08.810 | INFO     | pre_process:train_model:165 - epoch [4/10], step [5/15], loss: 0.5787
+2024-04-26 23:21:08.917 | INFO     | pre_process:train_model:165 - epoch [4/10], step [6/15], loss: 0.0668
+2024-04-26 23:21:09.025 | INFO     | pre_process:train_model:165 - epoch [4/10], step [7/15], loss: 0.8449
+2024-04-26 23:21:09.134 | INFO     | pre_process:train_model:165 - epoch [4/10], step [8/15], loss: 0.0583
+2024-04-26 23:21:09.244 | INFO     | pre_process:train_model:165 - epoch [4/10], step [9/15], loss: 0.0428
+2024-04-26 23:21:09.353 | INFO     | pre_process:train_model:165 - epoch [4/10], step [10/15], loss: 1.8882
+2024-04-26 23:21:09.465 | INFO     | pre_process:train_model:165 - epoch [4/10], step [11/15], loss: 1.1756
+2024-04-26 23:21:09.574 | INFO     | pre_process:train_model:165 - epoch [4/10], step [12/15], loss: 0.7793
+2024-04-26 23:21:09.684 | INFO     | pre_process:train_model:165 - epoch [4/10], step [13/15], loss: 0.0502
+2024-04-26 23:21:09.793 | INFO     | pre_process:train_model:165 - epoch [4/10], step [14/15], loss: 0.4746
+2024-04-26 23:21:09.900 | INFO     | pre_process:train_model:165 - epoch [4/10], step [15/15], loss: 0.5049
+2024-04-26 23:21:09.901 | INFO     | pre_process:train_model:170 - epoch [4/10], avg_loss: 0.6009
+2024-04-26 23:21:10.009 | INFO     | pre_process:train_model:165 - epoch [5/10], step [1/15], loss: 0.5665
+2024-04-26 23:21:10.120 | INFO     | pre_process:train_model:165 - epoch [5/10], step [2/15], loss: 0.5506
+2024-04-26 23:21:10.227 | INFO     | pre_process:train_model:165 - epoch [5/10], step [3/15], loss: 0.1934
+2024-04-26 23:21:10.332 | INFO     | pre_process:train_model:165 - epoch [5/10], step [4/15], loss: 0.6422
+2024-04-26 23:21:10.435 | INFO     | pre_process:train_model:165 - epoch [5/10], step [5/15], loss: 0.8468
+2024-04-26 23:21:10.547 | INFO     | pre_process:train_model:165 - epoch [5/10], step [6/15], loss: 0.0474
+2024-04-26 23:21:10.652 | INFO     | pre_process:train_model:165 - epoch [5/10], step [7/15], loss: 0.5417
+2024-04-26 23:21:10.760 | INFO     | pre_process:train_model:165 - epoch [5/10], step [8/15], loss: 0.0387
+2024-04-26 23:21:10.864 | INFO     | pre_process:train_model:165 - epoch [5/10], step [9/15], loss: 0.0357
+2024-04-26 23:21:10.974 | INFO     | pre_process:train_model:165 - epoch [5/10], step [10/15], loss: 0.5125
+2024-04-26 23:21:11.080 | INFO     | pre_process:train_model:165 - epoch [5/10], step [11/15], loss: 0.5295
+2024-04-26 23:21:11.190 | INFO     | pre_process:train_model:165 - epoch [5/10], step [12/15], loss: 0.0269
+2024-04-26 23:21:11.306 | INFO     | pre_process:train_model:165 - epoch [5/10], step [13/15], loss: 1.4092
+2024-04-26 23:36:31.472 | INFO     | pre_process:train_model:171 - epoch [1/10], step [5/20], loss: 1.0765
+2024-04-26 23:36:32.383 | INFO     | pre_process:train_model:171 - epoch [1/10], step [10/20], loss: 1.0256
+2024-04-26 23:36:33.293 | INFO     | pre_process:train_model:171 - epoch [1/10], step [15/20], loss: 1.0226
+2024-04-26 23:36:34.185 | INFO     | pre_process:train_model:171 - epoch [1/10], step [20/20], loss: 3.2489
+2024-04-26 23:36:34.185 | INFO     | pre_process:train_model:177 - epoch [1/10], avg_loss: 1.1075
+2024-04-26 23:36:35.079 | INFO     | pre_process:train_model:171 - epoch [2/10], step [5/20], loss: 1.7689
+2024-04-26 23:36:35.957 | INFO     | pre_process:train_model:171 - epoch [2/10], step [10/20], loss: 0.5152
+2024-04-26 23:36:36.871 | INFO     | pre_process:train_model:171 - epoch [2/10], step [15/20], loss: 0.7244
+2024-04-26 23:36:37.811 | INFO     | pre_process:train_model:171 - epoch [2/10], step [20/20], loss: 0.8714
+2024-04-26 23:36:37.812 | INFO     | pre_process:train_model:177 - epoch [2/10], avg_loss: 0.8971
+2024-04-26 23:36:38.711 | INFO     | pre_process:train_model:171 - epoch [3/10], step [5/20], loss: 0.4975
+2024-04-26 23:36:39.701 | INFO     | pre_process:train_model:171 - epoch [3/10], step [10/20], loss: 1.5385
+2024-04-26 23:36:40.638 | INFO     | pre_process:train_model:171 - epoch [3/10], step [15/20], loss: 0.3373
+2024-04-26 23:36:41.605 | INFO     | pre_process:train_model:171 - epoch [3/10], step [20/20], loss: 0.1587
+2024-04-26 23:36:41.606 | INFO     | pre_process:train_model:177 - epoch [3/10], avg_loss: 0.7514
+2024-04-26 23:36:42.521 | INFO     | pre_process:train_model:171 - epoch [4/10], step [5/20], loss: 0.5274
+2024-04-26 23:36:43.440 | INFO     | pre_process:train_model:171 - epoch [4/10], step [10/20], loss: 1.8071
+2024-04-26 23:36:44.343 | INFO     | pre_process:train_model:171 - epoch [4/10], step [15/20], loss: 0.5581
+2024-04-26 23:36:45.263 | INFO     | pre_process:train_model:171 - epoch [4/10], step [20/20], loss: 0.0863
+2024-04-26 23:36:45.264 | INFO     | pre_process:train_model:177 - epoch [4/10], avg_loss: 0.5244
+2024-04-26 23:36:46.163 | INFO     | pre_process:train_model:171 - epoch [5/10], step [5/20], loss: 0.2658
+2024-04-26 23:36:47.059 | INFO     | pre_process:train_model:171 - epoch [5/10], step [10/20], loss: 0.7122
+2024-04-26 23:36:47.939 | INFO     | pre_process:train_model:171 - epoch [5/10], step [15/20], loss: 1.0017
+2024-04-26 23:36:48.873 | INFO     | pre_process:train_model:171 - epoch [5/10], step [20/20], loss: 1.2678
+2024-04-26 23:36:48.875 | INFO     | pre_process:train_model:177 - epoch [5/10], avg_loss: 1.0361
+2024-04-26 23:36:49.784 | INFO     | pre_process:train_model:171 - epoch [6/10], step [5/20], loss: 0.9534
+2024-04-26 23:36:50.695 | INFO     | pre_process:train_model:171 - epoch [6/10], step [10/20], loss: 0.5040
+2024-04-26 23:36:51.608 | INFO     | pre_process:train_model:171 - epoch [6/10], step [15/20], loss: 0.9632
+2024-04-26 23:36:52.497 | INFO     | pre_process:train_model:171 - epoch [6/10], step [20/20], loss: 0.9809
+2024-04-26 23:36:52.498 | INFO     | pre_process:train_model:177 - epoch [6/10], avg_loss: 0.9471
+2024-04-26 23:36:53.376 | INFO     | pre_process:train_model:171 - epoch [7/10], step [5/20], loss: 0.9258
+2024-04-26 23:36:54.266 | INFO     | pre_process:train_model:171 - epoch [7/10], step [10/20], loss: 0.5991
+2024-04-26 23:36:55.163 | INFO     | pre_process:train_model:171 - epoch [7/10], step [15/20], loss: 0.9463
+2024-04-26 23:36:56.091 | INFO     | pre_process:train_model:171 - epoch [7/10], step [20/20], loss: 0.5726
+2024-04-26 23:36:56.091 | INFO     | pre_process:train_model:177 - epoch [7/10], avg_loss: 0.9180
+2024-04-26 23:36:56.989 | INFO     | pre_process:train_model:171 - epoch [8/10], step [5/20], loss: 0.9149
+2024-04-26 23:36:57.901 | INFO     | pre_process:train_model:171 - epoch [8/10], step [10/20], loss: 0.9060
+2024-04-26 23:36:58.801 | INFO     | pre_process:train_model:171 - epoch [8/10], step [15/20], loss: 0.9065
+2024-04-26 23:36:59.694 | INFO     | pre_process:train_model:171 - epoch [8/10], step [20/20], loss: 0.4465
+2024-04-26 23:36:59.695 | INFO     | pre_process:train_model:177 - epoch [8/10], avg_loss: 0.9043
+2024-04-26 23:37:00.604 | INFO     | pre_process:train_model:171 - epoch [9/10], step [5/20], loss: 0.4254
+2024-04-26 23:37:01.500 | INFO     | pre_process:train_model:171 - epoch [9/10], step [10/20], loss: 0.9237
+2024-04-26 23:37:02.394 | INFO     | pre_process:train_model:171 - epoch [9/10], step [15/20], loss: 1.5599
+2024-04-26 23:37:03.287 | INFO     | pre_process:train_model:171 - epoch [9/10], step [20/20], loss: 0.9340
+2024-04-26 23:37:03.288 | INFO     | pre_process:train_model:177 - epoch [9/10], avg_loss: 0.9493
+2024-04-26 23:37:04.178 | INFO     | pre_process:train_model:171 - epoch [10/10], step [5/20], loss: 0.5151
+2024-04-26 23:37:05.063 | INFO     | pre_process:train_model:171 - epoch [10/10], step [10/20], loss: 0.9614
+2024-04-26 23:37:05.952 | INFO     | pre_process:train_model:171 - epoch [10/10], step [15/20], loss: 0.9572
+2024-04-26 23:37:06.842 | INFO     | pre_process:train_model:171 - epoch [10/10], step [20/20], loss: 1.3522
+2024-04-26 23:37:06.844 | INFO     | pre_process:train_model:177 - epoch [10/10], avg_loss: 0.9415
+2024-04-26 23:37:06.844 | SUCCESS  | pre_process:train_model:179 - 训练完成
+2024-04-26 23:37:07.042 | WARNING  | pre_process:train_model:187 - close the plot window to continue...
+2024-04-26 23:37:15.052 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.120 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:15.186 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.252 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.309 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:15.367 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.430 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:15.492 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.581 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.650 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:15.709 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.769 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:15.828 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.888 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:15.949 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.008 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.070 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.132 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.190 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:16.249 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.308 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:16.368 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.429 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:16.488 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.546 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.605 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:16.664 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.728 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.788 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.848 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:16.906 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:16.967 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:17.029 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:17.089 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:17.147 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:17.206 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:17.266 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:17.327 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:37:17.391 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:17.448 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:37:17.448 | DEBUG    | pre_process:test_model:251 - Accuracy on the test set: 62.50%
+2024-04-26 23:38:08.035 | INFO     | pre_process:train_model:171 - epoch [1/10], step [5/20], loss: 1.1191
+2024-04-26 23:38:08.980 | INFO     | pre_process:train_model:171 - epoch [1/10], step [10/20], loss: 1.1351
+2024-04-26 23:38:09.927 | INFO     | pre_process:train_model:171 - epoch [1/10], step [15/20], loss: 1.3350
+2024-04-26 23:38:10.836 | INFO     | pre_process:train_model:171 - epoch [1/10], step [20/20], loss: 1.4840
+2024-04-26 23:38:10.837 | INFO     | pre_process:train_model:177 - epoch [1/10], avg_loss: 1.0491
+2024-04-26 23:38:11.760 | INFO     | pre_process:train_model:171 - epoch [2/10], step [5/20], loss: 0.8182
+2024-04-26 23:38:12.717 | INFO     | pre_process:train_model:171 - epoch [2/10], step [10/20], loss: 0.6584
+2024-04-26 23:38:13.646 | INFO     | pre_process:train_model:171 - epoch [2/10], step [15/20], loss: 1.3992
+2024-04-26 23:38:14.558 | INFO     | pre_process:train_model:171 - epoch [2/10], step [20/20], loss: 0.6575
+2024-04-26 23:38:14.558 | INFO     | pre_process:train_model:177 - epoch [2/10], avg_loss: 0.8138
+2024-04-26 23:38:15.444 | INFO     | pre_process:train_model:171 - epoch [3/10], step [5/20], loss: 0.3434
+2024-04-26 23:38:16.359 | INFO     | pre_process:train_model:171 - epoch [3/10], step [10/20], loss: 0.5966
+2024-04-26 23:38:17.312 | INFO     | pre_process:train_model:171 - epoch [3/10], step [15/20], loss: 0.9288
+2024-04-26 23:38:18.287 | INFO     | pre_process:train_model:171 - epoch [3/10], step [20/20], loss: 0.4529
+2024-04-26 23:38:18.289 | INFO     | pre_process:train_model:177 - epoch [3/10], avg_loss: 0.5947
+2024-04-26 23:38:19.191 | INFO     | pre_process:train_model:171 - epoch [4/10], step [5/20], loss: 0.0322
+2024-04-26 23:38:20.157 | INFO     | pre_process:train_model:171 - epoch [4/10], step [10/20], loss: 0.0479
+2024-04-26 23:38:21.083 | INFO     | pre_process:train_model:171 - epoch [4/10], step [15/20], loss: 2.7326
+2024-04-26 23:38:21.995 | INFO     | pre_process:train_model:171 - epoch [4/10], step [20/20], loss: 1.0054
+2024-04-26 23:38:21.995 | INFO     | pre_process:train_model:177 - epoch [4/10], avg_loss: 1.2131
+2024-04-26 23:38:22.899 | INFO     | pre_process:train_model:171 - epoch [5/10], step [5/20], loss: 1.3116
+2024-04-26 23:38:23.814 | INFO     | pre_process:train_model:171 - epoch [5/10], step [10/20], loss: 1.6434
+2024-04-26 23:38:24.714 | INFO     | pre_process:train_model:171 - epoch [5/10], step [15/20], loss: 1.6383
+2024-04-26 23:38:25.607 | INFO     | pre_process:train_model:171 - epoch [5/10], step [20/20], loss: 1.3088
+2024-04-26 23:38:25.611 | INFO     | pre_process:train_model:177 - epoch [5/10], avg_loss: 0.9827
+2024-04-26 23:38:26.506 | INFO     | pre_process:train_model:171 - epoch [6/10], step [5/20], loss: 0.5710
+2024-04-26 23:38:27.413 | INFO     | pre_process:train_model:171 - epoch [6/10], step [10/20], loss: 0.8985
+2024-04-26 23:38:28.324 | INFO     | pre_process:train_model:171 - epoch [6/10], step [15/20], loss: 0.9196
+2024-04-26 23:38:29.238 | INFO     | pre_process:train_model:171 - epoch [6/10], step [20/20], loss: 0.5551
+2024-04-26 23:38:29.240 | INFO     | pre_process:train_model:177 - epoch [6/10], avg_loss: 0.9171
+2024-04-26 23:38:30.149 | INFO     | pre_process:train_model:171 - epoch [7/10], step [5/20], loss: 0.6590
+2024-04-26 23:38:31.056 | INFO     | pre_process:train_model:171 - epoch [7/10], step [10/20], loss: 0.6241
+2024-04-26 23:38:31.954 | INFO     | pre_process:train_model:171 - epoch [7/10], step [15/20], loss: 0.5263
+2024-04-26 23:38:32.843 | INFO     | pre_process:train_model:171 - epoch [7/10], step [20/20], loss: 0.9431
+2024-04-26 23:38:32.845 | INFO     | pre_process:train_model:177 - epoch [7/10], avg_loss: 0.9291
+2024-04-26 23:38:33.747 | INFO     | pre_process:train_model:171 - epoch [8/10], step [5/20], loss: 1.2254
+2024-04-26 23:38:34.678 | INFO     | pre_process:train_model:171 - epoch [8/10], step [10/20], loss: 1.6155
+2024-04-26 23:38:35.584 | INFO     | pre_process:train_model:171 - epoch [8/10], step [15/20], loss: 0.4846
+2024-04-26 23:38:36.481 | INFO     | pre_process:train_model:171 - epoch [8/10], step [20/20], loss: 0.9745
+2024-04-26 23:38:36.482 | INFO     | pre_process:train_model:177 - epoch [8/10], avg_loss: 0.9284
+2024-04-26 23:38:37.384 | INFO     | pre_process:train_model:171 - epoch [9/10], step [5/20], loss: 0.4140
+2024-04-26 23:38:38.298 | INFO     | pre_process:train_model:171 - epoch [9/10], step [10/20], loss: 0.3602
+2024-04-26 23:38:39.201 | INFO     | pre_process:train_model:171 - epoch [9/10], step [15/20], loss: 1.4865
+2024-04-26 23:38:40.132 | INFO     | pre_process:train_model:171 - epoch [9/10], step [20/20], loss: 0.9663
+2024-04-26 23:38:40.132 | INFO     | pre_process:train_model:177 - epoch [9/10], avg_loss: 0.9138
+2024-04-26 23:38:41.038 | INFO     | pre_process:train_model:171 - epoch [10/10], step [5/20], loss: 0.5605
+2024-04-26 23:38:41.958 | INFO     | pre_process:train_model:171 - epoch [10/10], step [10/20], loss: 1.1979
+2024-04-26 23:38:42.875 | INFO     | pre_process:train_model:171 - epoch [10/10], step [15/20], loss: 0.9088
+2024-04-26 23:38:43.764 | INFO     | pre_process:train_model:171 - epoch [10/10], step [20/20], loss: 1.2999
+2024-04-26 23:38:43.765 | INFO     | pre_process:train_model:177 - epoch [10/10], avg_loss: 0.9150
+2024-04-26 23:38:43.765 | SUCCESS  | pre_process:train_model:179 - 训练完成
+2024-04-26 23:38:43.975 | WARNING  | pre_process:train_model:187 - close the plot window to continue...
+2024-04-26 23:38:47.092 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.154 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.210 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.269 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.324 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.377 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.429 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.481 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.536 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.589 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.641 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.695 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.748 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.805 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.857 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:47.912 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:47.963 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.018 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.076 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:48.131 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.187 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.239 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.290 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.344 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.396 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:48.449 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.498 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.550 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.605 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.656 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.709 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:48.762 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.813 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:48.863 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.913 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:48.964 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:49.015 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:49.066 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:49.122 | SUCCESS  | pre_process:test_model:241 - all equal
+2024-04-26 23:38:49.178 | ERROR    | pre_process:test_model:243 - not equal
+2024-04-26 23:38:49.179 | DEBUG    | pre_process:test_model:251 - Accuracy on the test set: 62.50%
+2024-04-26 23:39:29.245 | INFO     | pre_process:train_model:170 - epoch [1/10], step [5/20], loss: 1.0852
+2024-04-26 23:39:29.624 | INFO     | pre_process:train_model:170 - epoch [1/10], step [10/20], loss: 1.0082
+2024-04-26 23:39:29.967 | INFO     | pre_process:train_model:170 - epoch [1/10], step [15/20], loss: 1.1233
+2024-04-26 23:39:30.336 | INFO     | pre_process:train_model:170 - epoch [1/10], step [20/20], loss: 1.1778
+2024-04-26 23:39:30.336 | INFO     | pre_process:train_model:176 - epoch [1/10], avg_loss: 1.0823
+2024-04-26 23:39:30.697 | INFO     | pre_process:train_model:170 - epoch [2/10], step [5/20], loss: 1.0128
+2024-04-26 23:39:31.069 | INFO     | pre_process:train_model:170 - epoch [2/10], step [10/20], loss: 0.6404
+2024-04-26 23:39:31.431 | INFO     | pre_process:train_model:170 - epoch [2/10], step [15/20], loss: 1.0071
+2024-04-26 23:39:31.796 | INFO     | pre_process:train_model:170 - epoch [2/10], step [20/20], loss: 1.0157
+2024-04-26 23:39:31.797 | INFO     | pre_process:train_model:176 - epoch [2/10], avg_loss: 0.8787
+2024-04-26 23:39:32.147 | INFO     | pre_process:train_model:170 - epoch [3/10], step [5/20], loss: 0.6303
+2024-04-26 23:39:32.495 | INFO     | pre_process:train_model:170 - epoch [3/10], step [10/20], loss: 1.1733
+2024-04-26 23:39:32.857 | INFO     | pre_process:train_model:170 - epoch [3/10], step [15/20], loss: 0.2271
+2024-04-26 23:39:33.208 | INFO     | pre_process:train_model:170 - epoch [3/10], step [20/20], loss: 0.3743
+2024-04-26 23:39:33.209 | INFO     | pre_process:train_model:176 - epoch [3/10], avg_loss: 0.6690
+2024-04-26 23:39:33.574 | INFO     | pre_process:train_model:170 - epoch [4/10], step [5/20], loss: 0.5628
+2024-04-26 23:39:33.936 | INFO     | pre_process:train_model:170 - epoch [4/10], step [10/20], loss: 0.0352
+2024-04-26 23:39:34.303 | INFO     | pre_process:train_model:170 - epoch [4/10], step [15/20], loss: 0.7060
+2024-04-26 23:39:34.659 | INFO     | pre_process:train_model:170 - epoch [4/10], step [20/20], loss: 0.0170
+2024-04-26 23:39:34.659 | INFO     | pre_process:train_model:176 - epoch [4/10], avg_loss: 0.3866
+2024-04-26 23:39:35.021 | INFO     | pre_process:train_model:170 - epoch [5/10], step [5/20], loss: 0.1866
+2024-04-26 23:39:35.384 | INFO     | pre_process:train_model:170 - epoch [5/10], step [10/20], loss: 0.1929
+2024-04-26 23:39:35.740 | INFO     | pre_process:train_model:170 - epoch [5/10], step [15/20], loss: 0.2560
+2024-04-26 23:39:36.101 | INFO     | pre_process:train_model:170 - epoch [5/10], step [20/20], loss: 0.0080
+2024-04-26 23:39:36.102 | INFO     | pre_process:train_model:176 - epoch [5/10], avg_loss: 0.2712
+2024-04-26 23:39:36.451 | INFO     | pre_process:train_model:170 - epoch [6/10], step [5/20], loss: 0.3719
+2024-04-26 23:39:36.809 | INFO     | pre_process:train_model:170 - epoch [6/10], step [10/20], loss: 0.6127
+2024-04-26 23:39:37.163 | INFO     | pre_process:train_model:170 - epoch [6/10], step [15/20], loss: 0.2889
+2024-04-26 23:39:37.524 | INFO     | pre_process:train_model:170 - epoch [6/10], step [20/20], loss: 0.0049
+2024-04-26 23:39:37.525 | INFO     | pre_process:train_model:176 - epoch [6/10], avg_loss: 0.2024
+2024-04-26 23:39:37.881 | INFO     | pre_process:train_model:170 - epoch [7/10], step [5/20], loss: 0.0644
+2024-04-26 23:39:38.239 | INFO     | pre_process:train_model:170 - epoch [7/10], step [10/20], loss: 0.0042
+2024-04-26 23:39:38.596 | INFO     | pre_process:train_model:170 - epoch [7/10], step [15/20], loss: 0.2628
+2024-04-26 23:39:38.950 | INFO     | pre_process:train_model:170 - epoch [7/10], step [20/20], loss: 0.0037
+2024-04-26 23:39:38.952 | INFO     | pre_process:train_model:176 - epoch [7/10], avg_loss: 0.1568
+2024-04-26 23:39:39.307 | INFO     | pre_process:train_model:170 - epoch [8/10], step [5/20], loss: 0.0212
+2024-04-26 23:39:39.666 | INFO     | pre_process:train_model:170 - epoch [8/10], step [10/20], loss: 0.0038
+2024-04-26 23:39:40.027 | INFO     | pre_process:train_model:170 - epoch [8/10], step [15/20], loss: 0.0042
+2024-04-26 23:39:40.382 | INFO     | pre_process:train_model:170 - epoch [8/10], step [20/20], loss: 0.0036
+2024-04-26 23:39:40.383 | INFO     | pre_process:train_model:176 - epoch [8/10], avg_loss: 0.1192
+2024-04-26 23:39:40.742 | INFO     | pre_process:train_model:170 - epoch [9/10], step [5/20], loss: 0.0120
+2024-04-26 23:39:41.105 | INFO     | pre_process:train_model:170 - epoch [9/10], step [10/20], loss: 0.0030
+2024-04-26 23:39:41.474 | INFO     | pre_process:train_model:170 - epoch [9/10], step [15/20], loss: 0.0032
+2024-04-26 23:39:41.835 | INFO     | pre_process:train_model:170 - epoch [9/10], step [20/20], loss: 0.0174
+2024-04-26 23:39:41.835 | INFO     | pre_process:train_model:176 - epoch [9/10], avg_loss: 0.0763
+2024-04-26 23:39:42.195 | INFO     | pre_process:train_model:170 - epoch [10/10], step [5/20], loss: 0.1198
+2024-04-26 23:39:42.558 | INFO     | pre_process:train_model:170 - epoch [10/10], step [10/20], loss: 0.0034
+2024-04-26 23:39:42.913 | INFO     | pre_process:train_model:170 - epoch [10/10], step [15/20], loss: 0.0092
+2024-04-26 23:39:43.265 | INFO     | pre_process:train_model:170 - epoch [10/10], step [20/20], loss: 0.0033
+2024-04-26 23:39:43.266 | INFO     | pre_process:train_model:176 - epoch [10/10], avg_loss: 0.1862
+2024-04-26 23:39:43.266 | SUCCESS  | pre_process:train_model:178 - 训练完成
+2024-04-26 23:39:43.474 | WARNING  | pre_process:train_model:186 - close the plot window to continue...
+2024-04-26 23:39:45.711 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.751 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.787 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.825 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.864 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.902 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.940 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:45.974 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.007 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.042 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.078 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.150 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.183 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.218 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.254 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.290 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.328 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.363 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.399 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.436 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.472 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.507 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.541 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.577 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.611 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.646 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.681 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.718 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.753 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.789 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.826 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.861 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.897 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.931 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:46.966 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.000 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.034 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.070 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.103 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.137 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:39:47.138 | DEBUG    | pre_process:test_model:250 - Accuracy on the test set: 100.00%
+2024-04-26 23:39:47.512 | INFO     | pre_process:train_model:170 - epoch [1/10], step [5/15], loss: 1.1018
+2024-04-26 23:39:47.878 | INFO     | pre_process:train_model:170 - epoch [1/10], step [10/15], loss: 0.9876
+2024-04-26 23:39:48.241 | INFO     | pre_process:train_model:170 - epoch [1/10], step [15/15], loss: 0.9360
+2024-04-26 23:39:48.242 | INFO     | pre_process:train_model:176 - epoch [1/10], avg_loss: 1.0603
+2024-04-26 23:39:48.590 | INFO     | pre_process:train_model:170 - epoch [2/10], step [5/15], loss: 1.0154
+2024-04-26 23:39:48.946 | INFO     | pre_process:train_model:170 - epoch [2/10], step [10/15], loss: 1.0250
+2024-04-26 23:39:49.322 | INFO     | pre_process:train_model:170 - epoch [2/10], step [15/15], loss: 1.3023
+2024-04-26 23:39:49.322 | INFO     | pre_process:train_model:176 - epoch [2/10], avg_loss: 0.9820
+2024-04-26 23:39:49.677 | INFO     | pre_process:train_model:170 - epoch [3/10], step [5/15], loss: 0.9230
+2024-04-26 23:39:50.036 | INFO     | pre_process:train_model:170 - epoch [3/10], step [10/15], loss: 1.2713
+2024-04-26 23:39:50.383 | INFO     | pre_process:train_model:170 - epoch [3/10], step [15/15], loss: 1.0392
+2024-04-26 23:39:50.384 | INFO     | pre_process:train_model:176 - epoch [3/10], avg_loss: 0.8558
+2024-04-26 23:39:50.742 | INFO     | pre_process:train_model:170 - epoch [4/10], step [5/15], loss: 1.5352
+2024-04-26 23:39:51.103 | INFO     | pre_process:train_model:170 - epoch [4/10], step [10/15], loss: 0.8015
+2024-04-26 23:39:51.463 | INFO     | pre_process:train_model:170 - epoch [4/10], step [15/15], loss: 0.6352
+2024-04-26 23:39:51.463 | INFO     | pre_process:train_model:176 - epoch [4/10], avg_loss: 0.6251
+2024-04-26 23:39:51.816 | INFO     | pre_process:train_model:170 - epoch [5/10], step [5/15], loss: 0.8226
+2024-04-26 23:39:52.168 | INFO     | pre_process:train_model:170 - epoch [5/10], step [10/15], loss: 0.5624
+2024-04-26 23:39:52.525 | INFO     | pre_process:train_model:170 - epoch [5/10], step [15/15], loss: 0.4804
+2024-04-26 23:39:52.526 | INFO     | pre_process:train_model:176 - epoch [5/10], avg_loss: 0.4477
+2024-04-26 23:39:52.884 | INFO     | pre_process:train_model:170 - epoch [6/10], step [5/15], loss: 0.0169
+2024-04-26 23:39:53.244 | INFO     | pre_process:train_model:170 - epoch [6/10], step [10/15], loss: 0.3424
+2024-04-26 23:39:53.600 | INFO     | pre_process:train_model:170 - epoch [6/10], step [15/15], loss: 0.0241
+2024-04-26 23:39:53.601 | INFO     | pre_process:train_model:176 - epoch [6/10], avg_loss: 0.3025
+2024-04-26 23:39:53.951 | INFO     | pre_process:train_model:170 - epoch [7/10], step [5/15], loss: 0.4679
+2024-04-26 23:39:54.313 | INFO     | pre_process:train_model:170 - epoch [7/10], step [10/15], loss: 0.4877
+2024-04-26 23:39:54.669 | INFO     | pre_process:train_model:170 - epoch [7/10], step [15/15], loss: 0.0079
+2024-04-26 23:39:54.670 | INFO     | pre_process:train_model:176 - epoch [7/10], avg_loss: 0.2230
+2024-04-26 23:39:55.031 | INFO     | pre_process:train_model:170 - epoch [8/10], step [5/15], loss: 0.0079
+2024-04-26 23:39:55.395 | INFO     | pre_process:train_model:170 - epoch [8/10], step [10/15], loss: 0.1267
+2024-04-26 23:39:55.756 | INFO     | pre_process:train_model:170 - epoch [8/10], step [15/15], loss: 0.1306
+2024-04-26 23:39:55.757 | INFO     | pre_process:train_model:176 - epoch [8/10], avg_loss: 0.1320
+2024-04-26 23:39:56.100 | INFO     | pre_process:train_model:170 - epoch [9/10], step [5/15], loss: 0.1064
+2024-04-26 23:39:56.471 | INFO     | pre_process:train_model:170 - epoch [9/10], step [10/15], loss: 0.0399
+2024-04-26 23:39:56.821 | INFO     | pre_process:train_model:170 - epoch [9/10], step [15/15], loss: 0.0052
+2024-04-26 23:39:56.821 | INFO     | pre_process:train_model:176 - epoch [9/10], avg_loss: 0.0649
+2024-04-26 23:39:57.174 | INFO     | pre_process:train_model:170 - epoch [10/10], step [5/15], loss: 0.0053
+2024-04-26 23:39:57.542 | INFO     | pre_process:train_model:170 - epoch [10/10], step [10/15], loss: 0.0047
+2024-04-26 23:39:57.909 | INFO     | pre_process:train_model:170 - epoch [10/10], step [15/15], loss: 0.1382
+2024-04-26 23:39:57.910 | INFO     | pre_process:train_model:176 - epoch [10/10], avg_loss: 0.0355
+2024-04-26 23:39:57.910 | SUCCESS  | pre_process:train_model:178 - 训练完成
+2024-04-26 23:39:58.036 | WARNING  | pre_process:train_model:186 - close the plot window to continue...
+2024-04-26 23:40:00.001 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.048 | ERROR    | pre_process:test_model:242 - not equal
+2024-04-26 23:40:00.084 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.120 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.157 | ERROR    | pre_process:test_model:242 - not equal
+2024-04-26 23:40:00.195 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.235 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.299 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.335 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.371 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:00.371 | DEBUG    | pre_process:test_model:250 - Accuracy on the test set: 80.00%
+2024-04-26 23:40:00.746 | INFO     | pre_process:train_model:170 - epoch [1/10], step [5/15], loss: 1.1450
+2024-04-26 23:40:01.117 | INFO     | pre_process:train_model:170 - epoch [1/10], step [10/15], loss: 1.0390
+2024-04-26 23:40:01.482 | INFO     | pre_process:train_model:170 - epoch [1/10], step [15/15], loss: 0.9159
+2024-04-26 23:40:01.482 | INFO     | pre_process:train_model:176 - epoch [1/10], avg_loss: 1.0748
+2024-04-26 23:40:01.850 | INFO     | pre_process:train_model:170 - epoch [2/10], step [5/15], loss: 1.0093
+2024-04-26 23:40:02.278 | INFO     | pre_process:train_model:170 - epoch [2/10], step [10/15], loss: 0.7998
+2024-04-26 23:40:02.647 | INFO     | pre_process:train_model:170 - epoch [2/10], step [15/15], loss: 0.8780
+2024-04-26 23:40:02.647 | INFO     | pre_process:train_model:176 - epoch [2/10], avg_loss: 0.9415
+2024-04-26 23:40:03.010 | INFO     | pre_process:train_model:170 - epoch [3/10], step [5/15], loss: 0.7660
+2024-04-26 23:40:03.366 | INFO     | pre_process:train_model:170 - epoch [3/10], step [10/15], loss: 0.0746
+2024-04-26 23:40:03.729 | INFO     | pre_process:train_model:170 - epoch [3/10], step [15/15], loss: 1.9772
+2024-04-26 23:40:03.729 | INFO     | pre_process:train_model:176 - epoch [3/10], avg_loss: 0.8857
+2024-04-26 23:40:04.077 | INFO     | pre_process:train_model:170 - epoch [4/10], step [5/15], loss: 0.8231
+2024-04-26 23:40:04.434 | INFO     | pre_process:train_model:170 - epoch [4/10], step [10/15], loss: 1.1651
+2024-04-26 23:40:04.786 | INFO     | pre_process:train_model:170 - epoch [4/10], step [15/15], loss: 0.4395
+2024-04-26 23:40:04.786 | INFO     | pre_process:train_model:176 - epoch [4/10], avg_loss: 0.6498
+2024-04-26 23:40:05.137 | INFO     | pre_process:train_model:170 - epoch [5/10], step [5/15], loss: 0.6331
+2024-04-26 23:40:05.494 | INFO     | pre_process:train_model:170 - epoch [5/10], step [10/15], loss: 1.1436
+2024-04-26 23:40:05.856 | INFO     | pre_process:train_model:170 - epoch [5/10], step [15/15], loss: 0.3331
+2024-04-26 23:40:05.856 | INFO     | pre_process:train_model:176 - epoch [5/10], avg_loss: 0.5262
+2024-04-26 23:40:06.210 | INFO     | pre_process:train_model:170 - epoch [6/10], step [5/15], loss: 0.0489
+2024-04-26 23:40:06.562 | INFO     | pre_process:train_model:170 - epoch [6/10], step [10/15], loss: 0.0467
+2024-04-26 23:40:06.917 | INFO     | pre_process:train_model:170 - epoch [6/10], step [15/15], loss: 0.0573
+2024-04-26 23:40:06.918 | INFO     | pre_process:train_model:176 - epoch [6/10], avg_loss: 0.3366
+2024-04-26 23:40:07.319 | INFO     | pre_process:train_model:170 - epoch [7/10], step [5/15], loss: 0.0186
+2024-04-26 23:40:07.803 | INFO     | pre_process:train_model:170 - epoch [7/10], step [10/15], loss: 0.1203
+2024-04-26 23:40:08.200 | INFO     | pre_process:train_model:170 - epoch [7/10], step [15/15], loss: 0.3371
+2024-04-26 23:40:08.201 | INFO     | pre_process:train_model:176 - epoch [7/10], avg_loss: 0.2140
+2024-04-26 23:40:08.564 | INFO     | pre_process:train_model:170 - epoch [8/10], step [5/15], loss: 0.3161
+2024-04-26 23:40:08.916 | INFO     | pre_process:train_model:170 - epoch [8/10], step [10/15], loss: 0.0094
+2024-04-26 23:40:09.274 | INFO     | pre_process:train_model:170 - epoch [8/10], step [15/15], loss: 0.4397
+2024-04-26 23:40:09.277 | INFO     | pre_process:train_model:176 - epoch [8/10], avg_loss: 0.1372
+2024-04-26 23:40:09.628 | INFO     | pre_process:train_model:170 - epoch [9/10], step [5/15], loss: 0.0157
+2024-04-26 23:40:10.007 | INFO     | pre_process:train_model:170 - epoch [9/10], step [10/15], loss: 0.0183
+2024-04-26 23:40:10.413 | INFO     | pre_process:train_model:170 - epoch [9/10], step [15/15], loss: 0.0341
+2024-04-26 23:40:10.413 | INFO     | pre_process:train_model:176 - epoch [9/10], avg_loss: 0.0889
+2024-04-26 23:40:10.817 | INFO     | pre_process:train_model:170 - epoch [10/10], step [5/15], loss: 0.0245
+2024-04-26 23:40:11.184 | INFO     | pre_process:train_model:170 - epoch [10/10], step [10/15], loss: 0.0060
+2024-04-26 23:40:11.549 | INFO     | pre_process:train_model:170 - epoch [10/10], step [15/15], loss: 0.0144
+2024-04-26 23:40:11.549 | INFO     | pre_process:train_model:176 - epoch [10/10], avg_loss: 0.0561
+2024-04-26 23:40:11.551 | SUCCESS  | pre_process:train_model:178 - 训练完成
+2024-04-26 23:40:11.682 | WARNING  | pre_process:train_model:186 - close the plot window to continue...
+2024-04-26 23:40:19.054 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.090 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.128 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.164 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.202 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.241 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.281 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.316 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.350 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.386 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:19.386 | DEBUG    | pre_process:test_model:250 - Accuracy on the test set: 100.00%
+2024-04-26 23:40:19.774 | INFO     | pre_process:train_model:170 - epoch [1/10], step [5/15], loss: 1.1430
+2024-04-26 23:40:20.151 | INFO     | pre_process:train_model:170 - epoch [1/10], step [10/15], loss: 1.0199
+2024-04-26 23:40:20.518 | INFO     | pre_process:train_model:170 - epoch [1/10], step [15/15], loss: 1.1129
+2024-04-26 23:40:20.519 | INFO     | pre_process:train_model:176 - epoch [1/10], avg_loss: 1.0678
+2024-04-26 23:40:20.886 | INFO     | pre_process:train_model:170 - epoch [2/10], step [5/15], loss: 0.9297
+2024-04-26 23:40:21.256 | INFO     | pre_process:train_model:170 - epoch [2/10], step [10/15], loss: 1.1454
+2024-04-26 23:40:21.615 | INFO     | pre_process:train_model:170 - epoch [2/10], step [15/15], loss: 0.9751
+2024-04-26 23:40:21.615 | INFO     | pre_process:train_model:176 - epoch [2/10], avg_loss: 0.9951
+2024-04-26 23:40:21.977 | INFO     | pre_process:train_model:170 - epoch [3/10], step [5/15], loss: 0.4959
+2024-04-26 23:40:22.338 | INFO     | pre_process:train_model:170 - epoch [3/10], step [10/15], loss: 0.5168
+2024-04-26 23:40:22.715 | INFO     | pre_process:train_model:170 - epoch [3/10], step [15/15], loss: 0.6456
+2024-04-26 23:40:22.716 | INFO     | pre_process:train_model:176 - epoch [3/10], avg_loss: 0.8621
+2024-04-26 23:40:23.083 | INFO     | pre_process:train_model:170 - epoch [4/10], step [5/15], loss: 0.6180
+2024-04-26 23:40:23.459 | INFO     | pre_process:train_model:170 - epoch [4/10], step [10/15], loss: 0.1813
+2024-04-26 23:40:23.828 | INFO     | pre_process:train_model:170 - epoch [4/10], step [15/15], loss: 1.4033
+2024-04-26 23:40:23.828 | INFO     | pre_process:train_model:176 - epoch [4/10], avg_loss: 0.6805
+2024-04-26 23:40:24.193 | INFO     | pre_process:train_model:170 - epoch [5/10], step [5/15], loss: 0.1046
+2024-04-26 23:40:24.555 | INFO     | pre_process:train_model:170 - epoch [5/10], step [10/15], loss: 0.5114
+2024-04-26 23:40:24.916 | INFO     | pre_process:train_model:170 - epoch [5/10], step [15/15], loss: 0.0339
+2024-04-26 23:40:24.916 | INFO     | pre_process:train_model:176 - epoch [5/10], avg_loss: 0.4786
+2024-04-26 23:40:25.295 | INFO     | pre_process:train_model:170 - epoch [6/10], step [5/15], loss: 0.7257
+2024-04-26 23:40:25.654 | INFO     | pre_process:train_model:170 - epoch [6/10], step [10/15], loss: 0.0196
+2024-04-26 23:40:26.015 | INFO     | pre_process:train_model:170 - epoch [6/10], step [15/15], loss: 0.0287
+2024-04-26 23:40:26.016 | INFO     | pre_process:train_model:176 - epoch [6/10], avg_loss: 0.3933
+2024-04-26 23:40:26.383 | INFO     | pre_process:train_model:170 - epoch [7/10], step [5/15], loss: 0.2922
+2024-04-26 23:40:26.764 | INFO     | pre_process:train_model:170 - epoch [7/10], step [10/15], loss: 0.7523
+2024-04-26 23:40:27.110 | INFO     | pre_process:train_model:170 - epoch [7/10], step [15/15], loss: 0.0104
+2024-04-26 23:40:27.110 | INFO     | pre_process:train_model:176 - epoch [7/10], avg_loss: 0.3167
+2024-04-26 23:40:27.489 | INFO     | pre_process:train_model:170 - epoch [8/10], step [5/15], loss: 0.0076
+2024-04-26 23:40:27.862 | INFO     | pre_process:train_model:170 - epoch [8/10], step [10/15], loss: 0.0071
+2024-04-26 23:40:28.221 | INFO     | pre_process:train_model:170 - epoch [8/10], step [15/15], loss: 0.3670
+2024-04-26 23:40:28.221 | INFO     | pre_process:train_model:176 - epoch [8/10], avg_loss: 0.2487
+2024-04-26 23:40:28.592 | INFO     | pre_process:train_model:170 - epoch [9/10], step [5/15], loss: 0.0058
+2024-04-26 23:40:28.965 | INFO     | pre_process:train_model:170 - epoch [9/10], step [10/15], loss: 0.2931
+2024-04-26 23:40:29.348 | INFO     | pre_process:train_model:170 - epoch [9/10], step [15/15], loss: 0.1406
+2024-04-26 23:40:29.349 | INFO     | pre_process:train_model:176 - epoch [9/10], avg_loss: 0.1864
+2024-04-26 23:40:29.745 | INFO     | pre_process:train_model:170 - epoch [10/10], step [5/15], loss: 0.0969
+2024-04-26 23:40:30.116 | INFO     | pre_process:train_model:170 - epoch [10/10], step [10/15], loss: 0.0796
+2024-04-26 23:40:30.490 | INFO     | pre_process:train_model:170 - epoch [10/10], step [15/15], loss: 0.2829
+2024-04-26 23:40:30.490 | INFO     | pre_process:train_model:176 - epoch [10/10], avg_loss: 0.1255
+2024-04-26 23:40:30.491 | SUCCESS  | pre_process:train_model:178 - 训练完成
+2024-04-26 23:40:30.620 | WARNING  | pre_process:train_model:186 - close the plot window to continue...
+2024-04-26 23:40:33.459 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.497 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.535 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.574 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.612 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.651 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.694 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.729 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.765 | SUCCESS  | pre_process:test_model:240 - all equal
+2024-04-26 23:40:33.801 | ERROR    | pre_process:test_model:242 - not equal
+2024-04-26 23:40:33.801 | DEBUG    | pre_process:test_model:250 - Accuracy on the test set: 90.00%
