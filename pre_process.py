@@ -71,24 +71,24 @@ def read_audio_files(folder_path: str) -> list[str]:
 # 数据集类
 class AudioDataset(Dataset):
     def __init__(self, audio_paths, labels):
+
         self.audio_paths: list[str] = audio_paths
         self.labels: list[int] = labels
 
-        # print("audio_paths", audio_paths)
-        # print("labels", labels)
+        self.label_list = [
+            torch.tensor(label, dtype=torch.long) for label in self.labels
+        ]
+
+        with Pool(int(cpu_count())) as p:
+            self.feature_list = p.map(load_audio_features, self.audio_paths)
 
     def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
         return len(self.audio_paths)
 
     def __getitem__(self, idx) -> tuple[torch.Tensor, torch.Tensor]:
-        path = self.audio_paths[idx]
-        label = self.labels[idx]
-        mfcc = load_audio_features(path)
-        # mfcc = mfcc.T  # 转置 (40, 431) -> (431, 40)
-        # logger.info("mfcc.shape", mfcc.shape)
-        return torch.Tensor(mfcc), torch.tensor(label, dtype=torch.long)
-        # return torch.Tensor(mfcc), label
+
+        return self.feature_list[idx], self.label_list[idx]
 
 
 # LSTM模型
