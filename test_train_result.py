@@ -3,19 +3,18 @@ from pre_process import *
 normal_audio_paths = []
 lose_audio_paths = []
 tight_audio_paths = []
-
 # 零件种类
-Part_Type = "敲螺栓"
+Part_Type = "敲弹条"
 # 零件编号
 Part_No = "WJ-8"
 
-for path in [r"声纹采集数据\{}\{}\有噪声\正常".format(Part_Type, Part_No)]:
+for path in [r"声纹采集数据\{}\{}\正常".format(Part_Type, Part_No)]:
     normal_audio_paths += read_audio_files(path)
 
-for path in [r"声纹采集数据\{}\{}\有噪声\松".format(Part_Type, Part_No)]:
+for path in [r"声纹采集数据\{}\{}\松".format(Part_Type, Part_No)]:
     lose_audio_paths += read_audio_files(path)
 
-for path in [r"声纹采集数据\{}\{}\有噪声\紧".format(Part_Type, Part_No)]:
+for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
     tight_audio_paths += read_audio_files(path)
 
 
@@ -157,7 +156,7 @@ def test_train_result_slpit_origian():
 
 
 if __name__ == "__main__":
-    test_train_result()
+    # test_train_result()
     for i in range(3):
         pass
-        # test_train_result_slpit_origian()
+        test_train_result_slpit_origian()

@@ -52,6 +52,28 @@
 #         return x
 
 
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.lstm = nn.LSTM(
+#             input_size=40,
+#             hidden_size=64,
+#             num_layers=2,
+#             batch_first=True,
+#             bidirectional=True,
+#         )
+#         self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+#         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，考虑双向LSTM的输出维度
+
+#     def forward(self, x):
+#         _, (h_n, _) = self.lstm(x)
+#         # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
+#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
+#         x = self.dropout(h_n)  # 应用dropout
+#         x = self.fc(x)
+#         return F.log_softmax(x, dim=1)
+
+
 # 降噪 , 假设整个音频文件包含噪声
 # audio = nr.reduce_noise(y=audio, sr=sr)
 # if augment:
