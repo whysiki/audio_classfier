@@ -14,3 +14,4 @@ pip install torch torchvision torchaudio
 pip install librosa
 pip install rich
 pip install loguru
+pip install audiomentations

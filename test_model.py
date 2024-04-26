@@ -1,0 +1,52 @@
+# # LSTM模型
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         # input_size: 每个时间步输入的特征维度
+#         # hidden_size: LSTM的隐藏状态维度
+#         # num_layers: LSTM的层数
+#         # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
+#         # 指定输入和输出张量的第一个维度是批量大小
+#         self.lstm = nn.LSTM(
+#             input_size=40, hidden_size=64, num_layers=2, batch_first=True
+#         )
+#         # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
+#         self.fc = nn.Linear(64, len(CLSAA))
+
+#     def forward(self, x) -> torch.Tensor:
+
+#         # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
+
+#         _, (h_n, _) = self.lstm(x)
+
+#         # 将LSTM的最后一个隐藏状态通过全连接层进行转换
+#         x = self.fc(h_n[-1])
+
+#         # 使用log_softmax函数将输出转换为概率
+
+#         x = F.log_softmax(x, dim=1)
+
+#         return x
+
+
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.conv1 = nn.Conv1d(40, 64, kernel_size=5, stride=2)
+#         self.conv2 = nn.Conv1d(64, 128, kernel_size=5, stride=2)
+#         self.lstm = nn.LSTM(
+#             input_size=128, hidden_size=128, num_layers=3, batch_first=True
+#         )
+#         self.dropout = nn.Dropout(0.5)
+#         self.fc = nn.Linear(128, len(CLSAA))
+
+#     def forward(self, x) -> torch.Tensor:
+#         x = x.transpose(1, 2)  # Switch time and feature dimensions for Conv1d
+#         x = F.relu(self.conv1(x))
+#         x = F.relu(self.conv2(x))
+#         x = x.transpose(1, 2)  # Switch time and channel dimensions for LSTM
+#         _, (h_n, _) = self.lstm(x)
+#         x = self.dropout(h_n[-1])
+#         x = self.fc(x)
+#         x = F.log_softmax(x, dim=1)
+#         return x

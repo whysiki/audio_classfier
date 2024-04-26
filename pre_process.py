@@ -14,7 +14,7 @@ import sys
 import random
 import noisereduce as nr
 from multiprocessing import Pool, cpu_count
-
+from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
@@ -37,17 +37,34 @@ def normalize_mfccs(mfccs) -> np.ndarray:
 # sr: 采样率
 # n_mfcc: MFCC的数量
 def load_audio_features(
-    file_path: str, sr: int = 22050, n_mfcc: int = 40
+    file_path: str, sr: int = 22050, n_mfcc: int = 40, augment: bool = False
 ) -> np.ndarray:
 
     audio, sr = librosa.load(file_path, sr=sr)
 
     # 降噪 , 假设整个音频文件包含噪声
-    audio = nr.reduce_noise(y=audio, sr=sr)
+    # audio = nr.reduce_noise(y=audio, sr=sr)
+    # if augment:
+    #     augment = Compose(
+    #         [
+    #             AddGaussianNoise(min_amplitude=0.001, max_amplitude=0.015, p=0.5),
+    #             TimeStretch(min_rate=0.8, max_rate=1.25, p=0.5),
+    #             PitchShift(min_semitones=-4, max_semitones=4, p=0.5),
+    #             Shift(
+    #                 min_shift=-0.5,
+    #                 max_shift=0.5,
+    #                 shift_unit="fraction",
+    #                 rollover=True,
+    #                 p=0.5,
+    #             ),
+    #         ]
+    #     )
+    #     audio = augment(samples=audio, sample_rate=sr)
 
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
     # logger.info("mfccs.shape", mfccs.shape)  # (40 , 431)
+
     # 0是MFCC特征的数量，431是时间帧的数量
 
     # 归一化
@@ -82,7 +99,10 @@ class AudioDataset(Dataset):
         ]
 
         with Pool(int(cpu_count())) as p:
-            self.feature_list = p.map(load_audio_features, self.audio_paths)
+            self.feature_list = p.starmap(
+                load_audio_features,
+                [(path, 22050, 40, True) for path in self.audio_paths],
+            )
 
     def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
@@ -93,35 +113,26 @@ class AudioDataset(Dataset):
         return self.feature_list[idx], self.label_list[idx]
 
 
-# LSTM模型
 class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
-        # input_size: 每个时间步输入的特征维度
-        # hidden_size: LSTM的隐藏状态维度
-        # num_layers: LSTM的层数
-        # batch_first=True: 输入数据的形状为(batch_size, seq_len, input_size)
-        # 指定输入和输出张量的第一个维度是批量大小
         self.lstm = nn.LSTM(
-            input_size=40, hidden_size=64, num_layers=2, batch_first=True
+            input_size=40,
+            hidden_size=64,
+            num_layers=2,
+            batch_first=True,
+            bidirectional=True,
         )
-        # 定义一个全连接层，将LSTM的最后一个隐藏状态（64维）映射到3个输出类别
-        self.fc = nn.Linear(64, len(CLSAA))
+        self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+        self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，考虑双向LSTM的输出维度
 
-    def forward(self, x) -> torch.Tensor:
-
-        # 运行LSTM层，它返回最终的隐藏状态h_n和细胞状态
-
+    def forward(self, x):
         _, (h_n, _) = self.lstm(x)
-
-        # 将LSTM的最后一个隐藏状态通过全连接层进行转换
-        x = self.fc(h_n[-1])
-
-        # 使用log_softmax函数将输出转换为概率
-
-        x = F.log_softmax(x, dim=1)
-
-        return x
+        # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
+        h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
+        x = self.dropout(h_n)  # 应用dropout
+        x = self.fc(x)
+        return F.log_softmax(x, dim=1)
 
 
 # 训练模型函数
@@ -135,7 +146,7 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
     optimizer=None,
-    num_epochs=10,
+    num_epochs=20,
     draw_loss=False,
 ):
     if not optimizer:
