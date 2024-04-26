@@ -30,18 +30,17 @@ audio_paths: list[str] = normal_audio_paths + lose_audio_paths + tight_audio_pat
 # print(audio_paths)
 
 audio_paths_labels = (
-    [0] * len(normal_audio_paths)
-    + [1] * len(lose_audio_paths)
+    [1] * len(normal_audio_paths)
+    + [0] * len(lose_audio_paths)
     + [2] * len(tight_audio_paths)
 )
 
 zip_list = list(zip(audio_paths, audio_paths_labels))
+zip_list_audio_paths = [x[0] for x in zip_list]
+zip_list_labels = [x[1] for x in zip_list]
 
-# 随机抽取10个样本
-shamped_list = random.sample(zip_list, 10)
 
-# 实例化数据集和数据加载器
-dataset = AudioDataset([x[0] for x in shamped_list], [x[1] for x in shamped_list])
+dataset = AudioDataset(zip_list_audio_paths, zip_list_labels)
 dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
 
 
@@ -58,8 +57,31 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 
 # 训练模型
-train_model(model, dataloader, criterion, optimizer)
+train_model(model, dataloader, criterion, optimizer, draw_loss=True)
 
 # 保存模型
 
 torch.save(model.state_dict(), Path("model") / "hit_luo_s_WJ-7_model.pth")
+
+
+# 测试模型
+
+# 加载模型
+model = AudioClassifier()
+model.load_state_dict(torch.load(Path("model") / "hit_luo_s_WJ-7_model.pth"))
+
+
+# 实例化数据集和数据加载器
+# 随机抽取10个样本
+shamped_list = random.sample(zip_list, 5)
+shamped_list_audio_paths = [x[0] for x in shamped_list]
+shamped_list_labels = [x[1] for x in shamped_list]
+
+# 实例化数据集和数据加载器
+test_dataset = AudioDataset(zip_list_audio_paths, zip_list_labels)
+
+test_dataloader = DataLoader(test_dataset, batch_size=1, shuffle=True)
+
+# 测试模型
+
+test_model(model=model, dataloader=test_dataloader)
