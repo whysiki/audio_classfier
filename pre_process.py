@@ -13,6 +13,8 @@ from rich import print
 import sys
 import random
 import noisereduce as nr
+from multiprocessing import Pool, cpu_count
+
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
@@ -138,9 +140,6 @@ def train_model(
 ):
     if not optimizer:
         optimizer = optim.Adam(model.parameters(), lr=0.001)  # 使用Adam优化器
-    # 学习率调整策略
-    # scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, "min")
-    # loss_all_epochs = []
     loss_list = []
     for epoch in range(num_epochs):
         total_loss = 0
@@ -161,7 +160,6 @@ def train_model(
                 )
 
         avg_loss = total_loss / len(dataloader)
-        # scheduler.step(avg_loss)
         logger.info(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
 
     logger.success("训练完成")
