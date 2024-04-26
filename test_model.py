@@ -73,7 +73,29 @@
 #         x = self.fc(x)
 #         return F.log_softmax(x, dim=1)
 
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.lstm = nn.LSTM(
+#             input_size=40,
+#             hidden_size=64,  # 每个方向有128个隐藏单位
+#             num_layers=2,
+#             batch_first=True,
+#             bidirectional=True,
+#         )
+#         self.dropout = nn.Dropout(0.5)
+#         self.bn = nn.BatchNorm1d(64 * 2)  # 双向LSTM，所以是256
+#         self.fc1 = nn.Linear(64 * 2, 128)  # 256是双向LSTM的输出
+#         self.fc2 = nn.Linear(128, len(CLSAA))
 
+#     def forward(self, x):
+#         _, (h_n, _) = self.lstm(x)
+#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
+#         h_n = self.bn(h_n)
+#         x = F.relu(self.fc1(h_n))
+#         x = self.dropout(x)
+#         x = self.fc2(x)
+#         return F.log_softmax(x, dim=1)
 # 降噪 , 假设整个音频文件包含噪声
 # audio = nr.reduce_noise(y=audio, sr=sr)
 # if augment:
