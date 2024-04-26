@@ -42,25 +42,6 @@ def load_audio_features(
 
     audio, sr = librosa.load(file_path, sr=sr)
 
-    # 降噪 , 假设整个音频文件包含噪声
-    # audio = nr.reduce_noise(y=audio, sr=sr)
-    # if augment:
-    #     augment = Compose(
-    #         [
-    #             AddGaussianNoise(min_amplitude=0.001, max_amplitude=0.015, p=0.5),
-    #             TimeStretch(min_rate=0.8, max_rate=1.25, p=0.5),
-    #             PitchShift(min_semitones=-4, max_semitones=4, p=0.5),
-    #             Shift(
-    #                 min_shift=-0.5,
-    #                 max_shift=0.5,
-    #                 shift_unit="fraction",
-    #                 rollover=True,
-    #                 p=0.5,
-    #             ),
-    #         ]
-    #     )
-    #     audio = augment(samples=audio, sample_rate=sr)
-
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
     # logger.info("mfccs.shape", mfccs.shape)  # (40 , 431)
@@ -146,7 +127,7 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
     optimizer=None,
-    num_epochs=20,
+    num_epochs=30,
     draw_loss=False,
 ):
     if not optimizer:

@@ -50,3 +50,23 @@
 #         x = self.fc(x)
 #         x = F.log_softmax(x, dim=1)
 #         return x
+
+
+# 降噪 , 假设整个音频文件包含噪声
+# audio = nr.reduce_noise(y=audio, sr=sr)
+# if augment:
+#     augment = Compose(
+#         [
+#             AddGaussianNoise(min_amplitude=0.001, max_amplitude=0.015, p=0.5),
+#             TimeStretch(min_rate=0.8, max_rate=1.25, p=0.5),
+#             PitchShift(min_semitones=-4, max_semitones=4, p=0.5),
+#             Shift(
+#                 min_shift=-0.5,
+#                 max_shift=0.5,
+#                 shift_unit="fraction",
+#                 rollover=True,
+#                 p=0.5,
+#             ),
+#         ]
+#     )
+#     audio = augment(samples=audio, sample_rate=sr)
