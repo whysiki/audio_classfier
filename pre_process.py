@@ -160,7 +160,7 @@ def train_model(
 
 
 # 一个测试加载器
-def test_model(model, dataloader):
+def test_model(model, dataloader) -> float:
     model.eval()  # 设置模型为评估模式
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -218,4 +218,7 @@ def test_model(model, dataloader):
 
             correct += (predicted == labels).sum().item()
 
-    logger.debug(f"Accuracy on the test set: {100 * correct / total:.2f}%")
+    accuracy = 100 * correct / total
+    logger.debug(f"Accuracy on the test set: {accuracy:.2f}%")
+
+    return accuracy
