@@ -28,7 +28,7 @@ from functools import wraps
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # 插值目标长度
-TARGET_LENGTH = 150
+TARGET_LENGTH = 100
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
@@ -100,20 +100,20 @@ def load_audio_features(
 
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
-    logger.info(f"mfccs.shape: {mfccs.shape}")
+    # logger.info(f"mfccs.shape: {mfccs.shape}")
 
-    # 去除重复的帧
+    # 去除特征重复的帧
 
     similar_pairs = find_similar_segments(mfccs)
 
-    original_length = mfccs.shape[1]
+    # original_length = mfccs.shape[1]
 
     # 去除所有配对的相似帧中一个
     mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
 
-    new_length = mfccs.shape[1]
+    # new_length = mfccs.shape[1]
 
-    logger.success(f"去除重复帧 {original_length - new_length} 个")
+    # logger.success(f"去除重复帧 {original_length - new_length} 个")
 
     return mfccs
 
@@ -195,7 +195,7 @@ class AudioClassifier(nn.Module):
         self.lstm = nn.LSTM(
             input_size=40,
             hidden_size=64,
-            num_layers=3,
+            num_layers=2,
             batch_first=True,
             bidirectional=True,
         )
