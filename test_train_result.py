@@ -37,7 +37,7 @@ def test_train_result():
         + [2] * len(tight_audio_paths)
     )
 
-    zip_list = list(zip(audio_paths, audio_paths_labels))  # [:1]
+    zip_list = list(zip(audio_paths, audio_paths_labels))[:2]
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
@@ -161,13 +161,13 @@ def test_train_result_slpit_origian():
 
 
 if __name__ == "__main__":
-    # test_train_result()
+    test_train_result()
     test_accuracy_list = []
-    for i in range(10):
-        pass
-        accuracy = test_train_result_slpit_origian()
-        test_accuracy_list.append(accuracy)
+    # for i in range(10):
+    #     pass
+    #     accuracy = test_train_result_slpit_origian()
+    #     test_accuracy_list.append(accuracy)
 
-    plt.figure()
-    plt.plot(test_accuracy_list)
-    plt.show()
+    # plt.figure()
+    # plt.plot(test_accuracy_list)
+    # plt.show()
