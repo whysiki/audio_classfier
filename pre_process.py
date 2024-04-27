@@ -15,11 +15,17 @@ import random
 import noisereduce as nr
 from multiprocessing import Pool, cpu_count
 from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
+from some_tools import add_tensorboard_image
+from torch.utils.tensorboard import SummaryWriter
+import uuid
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.interpolate import interp1d
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
-
+# 插值目标长度
+TARGET_LENGTH = 200
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
@@ -33,26 +39,66 @@ def normalize_mfccs(mfccs) -> np.ndarray:
     return normalized_mfccs
 
 
+# 计算余弦相似度
+# mfccs: MFCC特征
+# threshold: 阈值
+def find_similar_segments(mfccs, threshold=0.99):
+    # 计算余弦相似度矩阵
+    sim_matrix = cosine_similarity(mfccs.T)
+    similar_pairs = []
+
+    for i in range(sim_matrix.shape[0]):
+        for j in range(i + 1, sim_matrix.shape[1]):
+            if sim_matrix[i, j] > threshold:
+                similar_pairs.append((i, j))
+
+    return similar_pairs
+
+
+# 插值函数, 统一shape
+def interpolate_mfcc(mfccs, target_length):
+    n_mfcc, original_length = mfccs.shape
+    interpolation_function = interp1d(
+        np.arange(original_length),
+        mfccs,
+        # kind="linear",
+        kind="nearest",
+        axis=1,
+        fill_value="extrapolate",
+    )
+    new_index = np.linspace(0, original_length - 1, target_length)
+    new_mfccs = interpolation_function(new_index)
+    return new_mfccs
+
+    ##'linear': 线性插值。这是最简单的插值类型，它只是在两个点之间画一条直线。
+    ## 'nearest': 最近邻插值。这种类型的插值选择最近的点，而不尝试插值。
+    ## 'zero': 零阶插值。这种类型的插值在每一对点之间画一条水平线。
+    ## 'slinear': 一阶样条插值。这种类型的插值使用一阶样条进行插值。
+    ## 'quadratic': 二阶样条插值。这种类型的插值使用二阶样条进行插值。
+    ## 'cubic': 三阶样条插值。这种类型的插值使用三阶样条进行插值。
+
+
 # 音频加载和特征提取函数
-# sr: 采样率
+# sr: 采样率22050
 # n_mfcc: MFCC的数量
 def load_audio_features(
-    file_path: str, sr: int = 22050, n_mfcc: int = 40, augment: bool = False
+    file_path: str,
+    sr: int = 22050,
+    n_mfcc: int = 40,
+    augment: bool = False,
+    # target_length: int = 431,
 ) -> np.ndarray:
 
     audio, sr = librosa.load(file_path, sr=sr)
 
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
-    # logger.info("mfccs.shape", mfccs.shape)  # (40 , 431)
+    # 去除重复的帧
 
-    # 0是MFCC特征的数量，431是时间帧的数量
+    similar_pairs = find_similar_segments(mfccs)
 
-    # 归一化
-    mfccs = normalize_mfccs(mfccs)
-
-    # 转置 (40, 431) -> (431, 40)
-    mfccs = mfccs.T
+    # 去除所有配对的相似帧中一个
+    mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
 
     return mfccs
 
@@ -82,8 +128,37 @@ class AudioDataset(Dataset):
         with Pool(int(cpu_count())) as p:
             self.feature_list = p.starmap(
                 load_audio_features,
-                [(path, 22050, 40, True) for path in self.audio_paths],
+                [(path, None, 40, True) for path in self.audio_paths],
             )
+
+        # 计算目标长度,所有音频文件的MFCC特征的时间帧的最大值
+        # target_length = np.max([mfcc.shape[1] for mfcc in self.feature_list]).astype(
+        #     int
+        # )
+
+        target_length = TARGET_LENGTH  # 固定长度
+
+        logger.info(f"target_length: {target_length}")
+
+        # 插值所有 MFCC 矩阵到这个目标长度
+        self.feature_list = [
+            interpolate_mfcc(mfcc, target_length) for mfcc in self.feature_list
+        ]
+
+        logger.success("插值完成")
+
+        # 转置
+        self.feature_list = [mfcc.T for mfcc in self.feature_list]
+
+        logger.success("转置完成")
+
+        # 转换为张量
+
+        self.feature_list = [
+            torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
+        ]
+
+        logger.success("转换为张量完成")
 
     def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
@@ -98,7 +173,9 @@ class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.lstm = nn.LSTM(
+            # input_size=431,
             input_size=40,
+            # input_size=431,
             hidden_size=64,
             num_layers=2,
             batch_first=True,
@@ -127,7 +204,7 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
     optimizer=None,
-    num_epochs=30,
+    num_epochs=20,
     draw_loss=False,
 ):
     if not optimizer:
@@ -157,13 +234,23 @@ def train_model(
     logger.success("训练完成")
 
     if draw_loss:
-        plt.plot(loss_list, label="loss")
-        plt.legend()
-        plt.xlabel("Step")
-        plt.ylabel("Loss")
-        plt.title("Training Loss")
-        logger.warning("close the plot window to continue...")
-        plt.show()
+        # plt.plot(loss_list, label="loss")
+        # plt.legend()
+        # plt.xlabel("Step")
+        # plt.ylabel("Loss")
+        # plt.title("Training Loss")
+        # logger.warning("close the plot window to continue...")
+        # plt.show()
+        # 创建 SummaryWriter 对象
+
+        writer = SummaryWriter("logs")
+
+        # 将损失值记录到 TensorBoard
+        for step, loss in enumerate(loss_list):
+            writer.add_scalar("Loss" + str(uuid.uuid4), loss, step)
+
+        # 关闭 SummaryWriter
+        writer.close()
 
 
 # 一个测试加载器
@@ -219,11 +306,11 @@ def test_model(model, dataloader) -> float:
 
 
 # 给定音频路径获取类型
-def get_audio_type(model, audio_path: str) -> str:
-    model.eval()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    features = load_audio_features(audio_path)
-    outputs = model(features)
-    _, predicted = torch.max(outputs.data, 1)
-    return CLSAA_DICT[predicted.item()]
+# def get_audio_type(model, audio_path: str) -> str:
+#     model.eval()
+#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#     model.to(device)
+#     features = load_audio_features(audio_path)
+#     outputs = model(features)
+#     _, predicted = torch.max(outputs.data, 1)
+#     return CLSAA_DICT[predicted.item()]

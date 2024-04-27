@@ -15,3 +15,5 @@ pip install librosa
 pip install rich
 pip install loguru
 pip install audiomentations
+pip install tensorboardX
+pip install torchviz
