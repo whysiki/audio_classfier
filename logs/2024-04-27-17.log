@@ -796,3 +796,28 @@
 2024-04-27 17:15:35.488 | INFO     | pre_process:train_model:225 - epoch [30/30], step [25/27], loss: 0.0009
 2024-04-27 17:15:35.586 | INFO     | pre_process:train_model:230 - epoch [30/30], avg_loss: 0.0006
 2024-04-27 17:15:35.586 | SUCCESS  | pre_process:train_model:232 - 训练完成
+2024-04-27 17:15:57.539 | INFO     | pre_process:__init__:141 - target_length: 150
+2024-04-27 17:15:57.542 | SUCCESS  | pre_process:__init__:148 - 插值完成
+2024-04-27 17:15:57.542 | SUCCESS  | pre_process:__init__:153 - 转置完成
+2024-04-27 17:15:57.543 | SUCCESS  | pre_process:__init__:161 - 转换为张量完成
+2024-04-27 17:15:57.558 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.571 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.585 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.600 | ERROR    | pre_process:test_model:296 - not equal
+2024-04-27 17:15:57.615 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.630 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.645 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.659 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.675 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.690 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.703 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.718 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.733 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.750 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.763 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.778 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.793 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.807 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.822 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.838 | SUCCESS  | pre_process:test_model:294 - all equal
+2024-04-27 17:15:57.838 | DEBUG    | pre_process:test_model:301 - Accuracy on the test set: 95.00%

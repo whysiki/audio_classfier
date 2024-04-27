@@ -19,6 +19,7 @@ for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
 
 
 # 验证任务
+# 已经训练的样本识别准确率需要为100%
 # 数据集
 # 训练数据集和测试数据集相等
 def test_train_result():

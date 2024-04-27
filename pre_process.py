@@ -241,11 +241,11 @@ def train_model(
         # plt.show()
         # 创建 SummaryWriter 对象
 
-        writer = SummaryWriter(f"logs{str(uuid.uuid4())}")
+        writer = SummaryWriter("logs")
 
         # 将损失值记录到 TensorBoard
         for step, loss in enumerate(loss_list):
-            writer.add_scalar("Loss", loss, step)
+            writer.add_scalar(f"Loss{str(uuid.uuid4())}", loss, step)
 
         # 关闭 SummaryWriter
         writer.close()
