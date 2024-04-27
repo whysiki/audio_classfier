@@ -17,5 +17,5 @@ pip install loguru
 pip install audiomentations
 pip install tensorboardX
 pip install torchviz
-
+pip install torchsummary
 pip freeze > requirements.txt

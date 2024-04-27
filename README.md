@@ -36,3 +36,9 @@ if __name__ == "__main__":
 - Loss曲线
 
 ![alt text](images/README/image.png)
+
+
+- 模型结构
+
+
+![alt text](audio_classifier.png)

@@ -209,6 +209,8 @@ class AudioClassifier(nn.Module):
         x = self.dropout(h_n)  # 应用dropout
         x = self.fc(x)
 
+        return x
+
         # print("未softmax x: ", x)
         # return F.log_softmax(x, dim=1) # nn.CrossEntropyLoss 已经包含了 log softmax 的计算
         # return x
@@ -227,7 +229,7 @@ class AudioClassifier(nn.Module):
         #     grad_fn=<LogSoftmaxBackward0>)
         # labels:  tensor([1, 1])
 
-        return x
+        # return x
 
 
 # 训练模型函数
