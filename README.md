@@ -33,3 +33,6 @@ if __name__ == "__main__":
 ![alt text](predict-10.png)
 
 
+- Loss曲线
+
+![alt text](images/README/image.png)
