@@ -233,8 +233,9 @@ def train_model(
         writer = SummaryWriter()
 
         # 将损失值记录到 TensorBoard
+        tag = "Loss" + str(uuid.uuid4())
         for step, loss in enumerate(loss_list):
-            writer.add_scalar(f"Loss-{str(uuid.uuid4())}", loss, step)
+            writer.add_scalar(tag, loss, step)
 
         # 关闭 SummaryWriter
         writer.close()
