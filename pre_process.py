@@ -70,13 +70,6 @@ def interpolate_mfcc(mfccs, target_length) -> np.ndarray:
     new_mfccs = interpolation_function(new_index)
     return new_mfccs
 
-    ##'linear': 线性插值。这是最简单的插值类型，它只是在两个点之间画一条直线。
-    ## 'nearest': 最近邻插值。这种类型的插值选择最近的点，而不尝试插值。
-    ## 'zero': 零阶插值。这种类型的插值在每一对点之间画一条水平线。
-    ## 'slinear': 一阶样条插值。这种类型的插值使用一阶样条进行插值。
-    ## 'quadratic': 二阶样条插值。这种类型的插值使用二阶样条进行插值。
-    ## 'cubic': 三阶样条插值。这种类型的插值使用三阶样条进行插值。
-
 
 # 音频加载和特征提取函数
 # sr: 采样率22050
