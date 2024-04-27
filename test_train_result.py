@@ -18,6 +18,7 @@ for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
     tight_audio_paths += read_audio_files(path)
 
 
+# 验证任务
 # 数据集
 # 训练数据集和测试数据集相等
 def test_train_result():
@@ -97,6 +98,7 @@ def get_audio_paths_labels(
     return zip_list_audio_paths, zip_list_labels
 
 
+# 预测任务
 # 分割数据集
 # 测试集和训练集不相等，且不参与训练 打乱数据集
 def test_train_result_slpit_origian():

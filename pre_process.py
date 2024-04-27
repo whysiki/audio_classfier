@@ -25,7 +25,7 @@ from scipy.interpolate import interp1d
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # 插值目标长度
-TARGET_LENGTH = 200
+TARGET_LENGTH = 150
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
@@ -173,9 +173,7 @@ class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.lstm = nn.LSTM(
-            # input_size=431,
             input_size=40,
-            # input_size=431,
             hidden_size=64,
             num_layers=2,
             batch_first=True,
@@ -204,7 +202,7 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
     optimizer=None,
-    num_epochs=20,
+    num_epochs=30,
     draw_loss=False,
 ):
     if not optimizer:
@@ -243,11 +241,11 @@ def train_model(
         # plt.show()
         # 创建 SummaryWriter 对象
 
-        writer = SummaryWriter("logs")
+        writer = SummaryWriter(f"logs{str(uuid.uuid4())}")
 
         # 将损失值记录到 TensorBoard
         for step, loss in enumerate(loss_list):
-            writer.add_scalar("Loss" + str(uuid.uuid4), loss, step)
+            writer.add_scalar("Loss", loss, step)
 
         # 关闭 SummaryWriter
         writer.close()
