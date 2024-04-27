@@ -155,11 +155,19 @@ def test_train_result_slpit_origian():
 
     accuracy = test_model(model=model, dataloader=test_dataloader)
 
+    return accuracy
+
     # assert accuracy == 100.0, f"accuracy: {accuracy}"
 
 
 if __name__ == "__main__":
     # test_train_result()
-    for i in range(3):
+    test_accuracy_list = []
+    for i in range(4):
         pass
-        test_train_result_slpit_origian()
+        accuracy = test_train_result_slpit_origian()
+        test_accuracy_list.append(accuracy)
+
+    plt.figure()
+    plt.plot(test_accuracy_list)
+    plt.show()
