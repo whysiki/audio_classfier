@@ -108,8 +108,8 @@ def load_audio_features(
 
     # original_length = mfccs.shape[1]
 
-    # 去除所有配对的相似帧中一个
-    mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
+    # 去除所有配对的相似帧中索引更大的帧
+    mfccs = np.delete(mfccs, [max(pair) for pair in similar_pairs], axis=1)
 
     # new_length = mfccs.shape[1]
 
