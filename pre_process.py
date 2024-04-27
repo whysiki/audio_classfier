@@ -200,11 +200,15 @@ def train_model(
 ):
     if not optimizer:
         optimizer = optim.Adam(model.parameters(), lr=0.001)  # 使用Adam优化器
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
     loss_list = []
     for epoch in range(num_epochs):
         total_loss = 0
         # loss_list = []
         for i, (features, labels) in enumerate(dataloader):
+            features = features.to(device)
+            labels = labels.to(device)
             optimizer.zero_grad()  # 梯度清零
             outputs = model(features)  # 前向传播
             # print("outputs: ", outputs.tolist())
