@@ -111,9 +111,9 @@ def test_train_result_slpit_origian():
     lose_audio_paths = random.sample(lose_audio_paths, len(lose_audio_paths))
     tight_audio_paths = random.sample(tight_audio_paths, len(tight_audio_paths))
 
-    n_border = int(len(normal_audio_paths) * 4 / 5)
-    l_border = int(len(lose_audio_paths) * 4 / 5)
-    t_border = int(len(tight_audio_paths) * 4 / 5)
+    n_border = int(len(normal_audio_paths) * 6 / 7)
+    l_border = int(len(lose_audio_paths) * 6 / 7)
+    t_border = int(len(tight_audio_paths) * 6 / 7)
 
     left_zip_list_audio_paths, left_zip_list_labels = get_audio_paths_labels(
         normal_audio_paths=normal_audio_paths[:n_border],
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     test_accuracy_list = []
     writer = SummaryWriter()
     tag = "test_predict_accuracy__" + str(datetime.datetime.now())
-    for i in range(10):
+    for i in range(20):
         pass
         accuracy = test_train_result_slpit_origian()
         test_accuracy_list.append(accuracy)

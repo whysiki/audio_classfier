@@ -22,7 +22,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.interpolate import interp1d
 from concurrent.futures import ProcessPoolExecutor
 from functools import wraps
-
+import datetime
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
@@ -65,9 +66,9 @@ def interpolate_mfcc(mfccs, target_length) -> np.ndarray:
         np.arange(original_length),
         mfccs,
         # kind="linear",
-        # kind="nearest",
+        kind="nearest",
         # 立方插值 ，圆滑插值
-        kind="cubic",
+        # kind="cubic",
         axis=1,
         fill_value="extrapolate",
     )
@@ -201,49 +202,24 @@ class AudioDataset(Dataset):
         return self.feature_list[idx], self.label_list[idx]
 
 
-# class AudioClassifier(nn.Module):
-#     def __init__(self):
-#         super(AudioClassifier, self).__init__()
-#         self.lstm = nn.LSTM(
-#             input_size=40,
-#             hidden_size=64,
-#             num_layers=2,
-#             batch_first=True,
-#             bidirectional=True,
-#         )
-#         self.dropout = nn.Dropout(0.5)  # 添加Dropout层
-#         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，双向LSTM的输出维度
-
-#     def forward(self, x):
-#         _, (h_n, _) = self.lstm(x)
-#         # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
-#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
-#         x = self.dropout(h_n)  # 应用dropout
-#         x = self.fc(x)
-
-#         return x
-
-
 class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.lstm = nn.LSTM(
             input_size=40,
             hidden_size=64,
-            num_layers=3,  # 增加 LSTM 层的数量
+            num_layers=2,
             batch_first=True,
             bidirectional=True,
         )
-        self.dropout = nn.Dropout(0.6)  # 增加 dropout 层的比例
-        self.batchnorm = nn.BatchNorm1d(64 * 2)  # 添加批归一化层
+        self.dropout = nn.Dropout(0.5)  # 添加Dropout层
         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，双向LSTM的输出维度
 
     def forward(self, x):
         _, (h_n, _) = self.lstm(x)
         # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
-        x = self.dropout(h_n)  # 应用 dropout
-        x = self.batchnorm(x)  # 应用批归一化
+        x = self.dropout(h_n)  # 应用dropout
         x = self.fc(x)
 
         return x
@@ -255,30 +231,42 @@ class AudioClassifier(nn.Module):
 # criterion: 损失函数
 # optimizer: 优化器
 # num_epochs: 训练的轮数
+
+
 def train_model(
     model,
     dataloader,
-    criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
+    criterion=nn.CrossEntropyLoss(),
     optimizer=None,
     num_epochs=40,
     draw_loss=False,
+    grad_clip=None,  # 梯度裁剪
+    patience=None,  # 早停
 ):
     if not optimizer:
-        optimizer = optim.Adam(model.parameters(), lr=0.001)  # 使用Adam优化器
+        optimizer = optim.AdamW(model.parameters(), lr=0.001)  # 使用 AdamW 优化器
+    scheduler = ReduceLROnPlateau(
+        optimizer, "min", patience=10, factor=0.1
+    )  # 学习率调度器
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     loss_list = []
+    min_loss = np.inf
+    no_improve_epochs = 0
+
     for epoch in range(num_epochs):
         total_loss = 0
         for i, (features, labels) in enumerate(dataloader):
             features = features.to(device)
             labels = labels.to(device)
-            optimizer.zero_grad()  # 梯度清零
-            outputs = model(features)  # 前向传播
-            loss = criterion(outputs, labels)  # 计算损失
+            optimizer.zero_grad()
+            outputs = model(features)
+            loss = criterion(outputs, labels)
             loss_list.append(loss.item())
             total_loss += loss.item()
-            loss.backward()  # 反向传播
+            loss.backward()
+            if grad_clip:  # 如果设置了梯度裁剪
+                nn.utils.clip_grad_value_(model.parameters(), grad_clip)
             optimizer.step()
 
             if (i + 1) % 5 == 0:
@@ -287,21 +275,27 @@ def train_model(
                 )
 
         avg_loss = total_loss / len(dataloader)
+        scheduler.step(avg_loss)  # 更新学习率
         logger.info(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
+
+        # 早停机制
+        if patience:
+            if avg_loss < min_loss:
+                min_loss = avg_loss
+                no_improve_epochs = 0
+            else:
+                no_improve_epochs += 1
+            if no_improve_epochs >= patience:
+                logger.info("Early stopping")
+                break
 
     logger.success("训练完成")
 
     if draw_loss:
-
         writer = SummaryWriter()
-
-        # 将损失值变化图记录到 TensorBoard
-
-        tag = "Loss" + str(uuid.uuid4())
+        tag = "Loss" + str(datetime.datetime.now())
         for step, loss in enumerate(loss_list):
             writer.add_scalar(tag, loss, step)
-
-        # 关闭 SummaryWriter
         writer.close()
 
 
