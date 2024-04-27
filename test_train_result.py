@@ -99,7 +99,7 @@ def get_audio_paths_labels(
     return zip_list_audio_paths, zip_list_labels
 
 
-# 预测任务
+# 预测任务 交叉验证
 # 分割数据集
 # 测试集和训练集不相等，且不参与训练 打乱数据集
 def test_train_result_slpit_origian():
