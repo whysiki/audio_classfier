@@ -208,9 +208,26 @@ class AudioClassifier(nn.Module):
         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
         x = self.dropout(h_n)  # 应用dropout
         x = self.fc(x)
+
+        # print("未softmax x: ", x)
         # return F.log_softmax(x, dim=1) # nn.CrossEntropyLoss 已经包含了 log softmax 的计算
         # return x
-        return F.log_softmax(x, dim=1)
+
+        # x = F.log_softmax(x, dim=1)
+
+        # print("softmax x: ", x)
+
+        # 未softmax x:  tensor([[-2.2426,  4.1441, -2.4595],
+        # [-2.6280,  4.3807, -2.8370]], grad_fn=<AddmmBackward0>)
+        # softmax x:  tensor([[-6.3897e+00, -3.0348e-03, -6.6066e+00],
+        #         [-7.0103e+00, -1.6361e-03, -7.2194e+00]],
+        #     grad_fn=<LogSoftmaxBackward0>)
+        # outputs:  tensor([[-6.3897e+00, -3.0348e-03, -6.6066e+00],
+        #         [-7.0103e+00, -1.6361e-03, -7.2194e+00]],
+        #     grad_fn=<LogSoftmaxBackward0>)
+        # labels:  tensor([1, 1])
+
+        return x
 
 
 # 训练模型函数
@@ -241,6 +258,8 @@ def train_model(
             optimizer.zero_grad()  # 梯度清零
             outputs = model(features)  # 前向传播
             # print("outputs: ", outputs.tolist())
+            # print("outputs: ", outputs)
+            # print("labels: ", labels)
             loss = criterion(outputs, labels)  # 计算损失
             loss_list.append(loss.item())
             total_loss += loss.item()
