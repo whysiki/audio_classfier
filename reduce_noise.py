@@ -2,6 +2,7 @@ import librosa
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from pre_process import load_audio_features
+from rich import print
 
 # from some_tools import *
 # from uuid import uuid4
@@ -49,27 +50,29 @@ def find_similar_segments(mfccs, threshold=0.99):
 if __name__ == "__main__":
     # 示例
     test_audio_path = r"声纹采集数据\敲弹条\WJ-7\松\第四组\WJ-7-连续五个-9.wav"
-    mfccs = load_audio_features(test_audio_path)
-    similar_pairs = find_similar_segments(mfccs)
+    mfccs = load_audio_features((test_audio_path, 22050, 40, True))
+    # similar_pairs = find_similar_segments(mfccs)
 
-    # 分别输出每对相似帧的 MFCC
-    for pair in similar_pairs:
-        frame_1, frame_2 = pair
-        mfccs_frame_1 = mfccs[:, frame_1 : frame_1 + 1]
-        mfccs_frame_2 = mfccs[:, frame_2 : frame_2 + 1]
-        print(f"Pair ({frame_1}, {frame_2}):")
-        # tag = str(uuid4())
+    # # 分别输出每对相似帧的 MFCC
+    # for pair in similar_pairs:
+    #     frame_1, frame_2 = pair
+    #     mfccs_frame_1 = mfccs[:, frame_1 : frame_1 + 1]
+    #     mfccs_frame_2 = mfccs[:, frame_2 : frame_2 + 1]
+    #     print(f"Pair ({frame_1}, {frame_2}):")
+    # tag = str(uuid4())
 
-        # plot_mfccs(mfccs_frame_1, mfccs_frame_2)
+    # plot_mfccs(mfccs_frame_1, mfccs_frame_2)
 
-        # 去除相似帧中一个
-        # mfccs = np.delete(mfccs, frame_2, axis=1)
+    # 去除相似帧中一个
+    # mfccs = np.delete(mfccs, frame_2, axis=1)
 
-        # print(f"MFCCs Frame {frame_1}: {mfccs_frame_1.tolist()}")
-        # print(f"MFCCs Frame {frame_2}: {mfccs_frame_1.tolist()}")
+    # print(f"MFCCs Frame {frame_1}: {mfccs_frame_1.tolist()}")
+    # print(f"MFCCs Frame {frame_2}: {mfccs_frame_1.tolist()}")
 
     # 去除所有配对的相似帧中一个
-    mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
+    # mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
+
+    print("MFCCs shape after removing similar frames:", mfccs.shape)
 
 # 可视化
 #

@@ -127,7 +127,7 @@ def test_train_result_slpit_origian():
     )
 
     dataset = AudioDataset(left_zip_list_audio_paths, left_zip_list_labels)
-    dataloader = DataLoader(dataset, batch_size=3, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
 
     # 实例化模型
 

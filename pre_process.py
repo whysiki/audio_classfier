@@ -20,6 +20,9 @@ from torch.utils.tensorboard import SummaryWriter
 import uuid
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.interpolate import interp1d
+from concurrent.futures import ProcessPoolExecutor
+from functools import wraps
+
 
 # 定义三个类别
 CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
@@ -71,13 +74,24 @@ def interpolate_mfcc(mfccs, target_length) -> np.ndarray:
     return new_mfccs
 
 
+def accept_tuple_argument(func):
+    @wraps(func)
+    def wrapper(args):
+        if isinstance(args, tuple):
+            return func(*args)
+        return func(args)
+
+    return wrapper
+
+
 # 音频加载和特征提取函数
 # sr: 采样率22050
 # n_mfcc: MFCC的数量
+@accept_tuple_argument
 def load_audio_features(
     file_path: str,
-    sr: int = 22050,
-    n_mfcc: int = 40,
+    sr: int,
+    n_mfcc: int,
     augment: bool = False,
     # target_length: int = 431,
 ) -> np.ndarray:
@@ -86,12 +100,20 @@ def load_audio_features(
 
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
+    logger.info(f"mfccs.shape: {mfccs.shape}")
+
     # 去除重复的帧
 
     similar_pairs = find_similar_segments(mfccs)
 
+    original_length = mfccs.shape[1]
+
     # 去除所有配对的相似帧中一个
     mfccs = np.delete(mfccs, [pair[0] for pair in similar_pairs], axis=1)
+
+    new_length = mfccs.shape[1]
+
+    logger.success(f"去除重复帧 {original_length - new_length} 个")
 
     return mfccs
 
@@ -104,6 +126,9 @@ def read_audio_files(folder_path: str) -> list[str]:
         for file in files:
             if file.endswith(".wav"):
                 audio_paths.append(os.path.join(root, file))
+
+    assert len(audio_paths) > 0, "没有找到音频文件"
+
     return audio_paths
 
 
@@ -118,10 +143,12 @@ class AudioDataset(Dataset):
             torch.tensor(label, dtype=torch.long) for label in self.labels
         ]
 
-        with Pool(int(cpu_count())) as p:
-            self.feature_list = p.starmap(
-                load_audio_features,
-                [(path, None, 40, True) for path in self.audio_paths],
+        with ProcessPoolExecutor(max_workers=int(cpu_count())) as executor:
+            self.feature_list = list(
+                executor.map(
+                    load_audio_features,
+                    [(path, None, 40, True) for path in self.audio_paths],
+                )
             )
 
         # 计算目标长度,所有音频文件的MFCC特征的时间帧的最大值
@@ -168,7 +195,7 @@ class AudioClassifier(nn.Module):
         self.lstm = nn.LSTM(
             input_size=40,
             hidden_size=64,
-            num_layers=2,
+            num_layers=3,
             batch_first=True,
             bidirectional=True,
         )
@@ -181,6 +208,8 @@ class AudioClassifier(nn.Module):
         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
         x = self.dropout(h_n)  # 应用dropout
         x = self.fc(x)
+        # return F.log_softmax(x, dim=1) # nn.CrossEntropyLoss 已经包含了 log softmax 的计算
+        # return x
         return F.log_softmax(x, dim=1)
 
 
