@@ -35,7 +35,7 @@ logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 
 
 # 归一化函数
-def normalize_mfccs(mfccs) -> np.ndarray:
+def normalize_mfccs(mfccs: np.ndarray) -> np.ndarray:
     mfccs_mean = mfccs.mean(axis=1, keepdims=True)
     mfccs_std = mfccs.std(axis=1, keepdims=True)
     normalized_mfccs = (mfccs - mfccs_mean) / mfccs_std
@@ -117,6 +117,9 @@ def load_audio_features(
 
     # logger.success(f"去除重复帧 {original_length - new_length} 个")
 
+    # 归一化
+    # mfccs = normalize_mfccs(mfccs)
+
     return mfccs
 
 
@@ -169,7 +172,14 @@ class AudioDataset(Dataset):
 
         logger.success("插值完成")
 
+        # 归一化
+
+        # self.feature_list = [normalize_mfccs(mfcc) for mfcc in self.feature_list]
+
+        # logger.success("归一化完成")
+
         # 转置
+
         self.feature_list = [mfcc.T for mfcc in self.feature_list]
 
         logger.success("转置完成")
@@ -191,47 +201,52 @@ class AudioDataset(Dataset):
         return self.feature_list[idx], self.label_list[idx]
 
 
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.lstm = nn.LSTM(
+#             input_size=40,
+#             hidden_size=64,
+#             num_layers=2,
+#             batch_first=True,
+#             bidirectional=True,
+#         )
+#         self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+#         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，双向LSTM的输出维度
+
+#     def forward(self, x):
+#         _, (h_n, _) = self.lstm(x)
+#         # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
+#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
+#         x = self.dropout(h_n)  # 应用dropout
+#         x = self.fc(x)
+
+#         return x
+
+
 class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.lstm = nn.LSTM(
             input_size=40,
             hidden_size=64,
-            num_layers=2,
+            num_layers=3,  # 增加 LSTM 层的数量
             batch_first=True,
             bidirectional=True,
         )
-        self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+        self.dropout = nn.Dropout(0.6)  # 增加 dropout 层的比例
+        self.batchnorm = nn.BatchNorm1d(64 * 2)  # 添加批归一化层
         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，双向LSTM的输出维度
 
     def forward(self, x):
         _, (h_n, _) = self.lstm(x)
         # 由于使用了双向LSTM，需要将前向和后向的隐藏状态拼接起来
         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
-        x = self.dropout(h_n)  # 应用dropout
+        x = self.dropout(h_n)  # 应用 dropout
+        x = self.batchnorm(x)  # 应用批归一化
         x = self.fc(x)
 
         return x
-
-        # print("未softmax x: ", x)
-        # return F.log_softmax(x, dim=1) # nn.CrossEntropyLoss 已经包含了 log softmax 的计算
-        # return x
-
-        # x = F.log_softmax(x, dim=1)
-
-        # print("softmax x: ", x)
-
-        # 未softmax x:  tensor([[-2.2426,  4.1441, -2.4595],
-        # [-2.6280,  4.3807, -2.8370]], grad_fn=<AddmmBackward0>)
-        # softmax x:  tensor([[-6.3897e+00, -3.0348e-03, -6.6066e+00],
-        #         [-7.0103e+00, -1.6361e-03, -7.2194e+00]],
-        #     grad_fn=<LogSoftmaxBackward0>)
-        # outputs:  tensor([[-6.3897e+00, -3.0348e-03, -6.6066e+00],
-        #         [-7.0103e+00, -1.6361e-03, -7.2194e+00]],
-        #     grad_fn=<LogSoftmaxBackward0>)
-        # labels:  tensor([1, 1])
-
-        # return x
 
 
 # 训练模型函数
@@ -255,15 +270,11 @@ def train_model(
     loss_list = []
     for epoch in range(num_epochs):
         total_loss = 0
-        # loss_list = []
         for i, (features, labels) in enumerate(dataloader):
             features = features.to(device)
             labels = labels.to(device)
             optimizer.zero_grad()  # 梯度清零
             outputs = model(features)  # 前向传播
-            # print("outputs: ", outputs.tolist())
-            # print("outputs: ", outputs)
-            # print("labels: ", labels)
             loss = criterion(outputs, labels)  # 计算损失
             loss_list.append(loss.item())
             total_loss += loss.item()

@@ -38,7 +38,7 @@ if __name__ == "__main__":
 ![alt text](images/README/image.png)
 
 
-- 模型结构
+<!-- - 模型结构 -->
 
 
-![alt text](audio_classifier.png)
+<!-- ![alt text](audio_classifier.png) -->

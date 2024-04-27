@@ -1,4 +1,5 @@
 from pre_process import *
+import datetime
 
 normal_audio_paths = []
 lose_audio_paths = []
@@ -163,12 +164,23 @@ def test_train_result_slpit_origian():
 if __name__ == "__main__":
     # test_train_result()
     test_accuracy_list = []
+    writer = SummaryWriter()
+    tag = "test_predict_accuracy__" + str(datetime.datetime.now())
     for i in range(10):
         pass
         accuracy = test_train_result_slpit_origian()
         test_accuracy_list.append(accuracy)
+        writer.add_scalar(tag, accuracy, i)
+    writer.close()
 
-    plt.figure()
-    plt.plot(test_accuracy_list)
-    plt.savefig("test_accuracy_list.png")
-    plt.show()
+    # plt.figure()
+    # plt.plot(test_accuracy_list)
+    # plt.savefig("test_accuracy_list.png")
+    # plt.xlabel("time")
+    # plt.ylabel("accuracy")
+
+    # 添加到tensorboard
+    # writer = SummaryWriter()
+    # for i in range(10):
+    #     writer.add_scalar("accuracy", test_accuracy_list[i], i)
+    # plt.show()
