@@ -163,7 +163,7 @@ def test_train_result_slpit_origian():
 if __name__ == "__main__":
     # test_train_result()
     test_accuracy_list = []
-    for i in range(4):
+    for i in range(10):
         pass
         accuracy = test_train_result_slpit_origian()
         test_accuracy_list.append(accuracy)
