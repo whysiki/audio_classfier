@@ -56,7 +56,7 @@ def find_similar_segments(mfccs, threshold=0.99):
 
 
 # 插值函数, 统一shape
-def interpolate_mfcc(mfccs, target_length):
+def interpolate_mfcc(mfccs, target_length) -> np.ndarray:
     n_mfcc, original_length = mfccs.shape
     interpolation_function = interp1d(
         np.arange(original_length),
@@ -202,7 +202,7 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),  # 使用交叉熵损失函数
     optimizer=None,
-    num_epochs=30,
+    num_epochs=40,
     draw_loss=False,
 ):
     if not optimizer:
@@ -232,14 +232,6 @@ def train_model(
     logger.success("训练完成")
 
     if draw_loss:
-        # plt.plot(loss_list, label="loss")
-        # plt.legend()
-        # plt.xlabel("Step")
-        # plt.ylabel("Loss")
-        # plt.title("Training Loss")
-        # logger.warning("close the plot window to continue...")
-        # plt.show()
-        # 创建 SummaryWriter 对象
 
         writer = SummaryWriter("logs")
 
@@ -304,11 +296,13 @@ def test_model(model, dataloader) -> float:
 
 
 # 给定音频路径获取类型
-# def get_audio_type(model, audio_path: str) -> str:
-#     model.eval()
-#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#     model.to(device)
-#     features = load_audio_features(audio_path)
-#     outputs = model(features)
-#     _, predicted = torch.max(outputs.data, 1)
-#     return CLSAA_DICT[predicted.item()]
+def get_audio_type(model, audio_path: str) -> str:
+    model.eval()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    features = load_audio_features(audio_path)
+    # 插值
+    features = interpolate_mfcc(features, TARGET_LENGTH)
+    outputs = model(features)
+    _, predicted = torch.max(outputs.data, 1)
+    return CLSAA_DICT[predicted.item()]
