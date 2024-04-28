@@ -95,7 +95,7 @@ def load_audio_features(
 
 # 数据集类
 class AudioDataset(Dataset):
-    def __init__(self, audio_paths, labels):
+    def __init__(self, audio_paths, labels, EXTEND_TIMES=3):
 
         assert len(audio_paths) == len(
             labels
@@ -112,7 +112,7 @@ class AudioDataset(Dataset):
             self.feature_list = []
 
             # 放大倍数
-            EXTEND_TIMES = 3
+            EXTEND_TIMES = EXTEND_TIMES
 
             for augment in [False] + [True] * EXTEND_TIMES:
                 features = list(

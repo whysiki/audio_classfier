@@ -94,16 +94,16 @@ def change_volume(audio) -> np.ndarray:
     return audio * volume
 
 
-# 随机移位
-def random_shift(audio) -> np.ndarray:
-    shift = np.random.randint(0, len(audio))
-    return np.roll(audio, shift)
+# # 随机移位
+# def random_shift(audio) -> np.ndarray:
+#     shift = np.random.randint(0, len(audio))
+#     return np.roll(audio, shift)
 
 
 # 随机应用数据增强
 def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
 
-    augmentations = [time_stretch, pitch_shift, add_noise, change_volume, random_shift]
+    augmentations = [time_stretch, pitch_shift, add_noise, change_volume]
 
     num_augmentations = random.randint(1, len(augmentations))
 
