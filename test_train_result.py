@@ -41,7 +41,7 @@ def test_train_result():
         + [2] * len(tight_audio_paths)
     )
 
-    zip_list = list(zip(audio_paths, audio_paths_labels))  # [:2]
+    zip_list = list(zip(audio_paths, audio_paths_labels))[:2]
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
@@ -101,6 +101,8 @@ def get_audio_paths_labels(
 
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
+
+    assert len(zip_list_audio_paths) == len(zip_list_labels), "样本-标签 数量不一致"
 
     return zip_list_audio_paths, zip_list_labels
 

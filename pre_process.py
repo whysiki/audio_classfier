@@ -107,27 +107,30 @@ class AudioDataset(Dataset):
         self.audio_paths: list[str] = audio_paths
         self.labels: list[int] = labels
 
+        assert len(self.audio_paths) == len(self.labels), "音频文件和标签数量不一致"
+
         self.label_list = [
             torch.tensor(label, dtype=torch.long) for label in self.labels
         ]
 
         with ProcessPoolExecutor(max_workers=int(cpu_count())) as executor:
-            self.feature_list = list(
-                executor.map(
-                    load_audio_features,
-                    [(path, None, 40, False) for path in self.audio_paths],
+            self.feature_list = []
+            for augment in [False, True]:
+                features = list(
+                    executor.map(
+                        load_audio_features,
+                        [(path, None, 40, augment) for path in audio_paths],
+                    )
                 )
-            )
+                self.feature_list.extend(features)
 
-            # 放大数据集,添加数据增强后的数据
-            self.feature_list += list(
-                executor.map(
-                    load_audio_features,
-                    [(path, None, 40, True) for path in self.audio_paths],
-                )
-            )
+            self.label_list.extend(self.label_list)
 
-            logger.info("放大数据集,添加数据增强后的数据")
+            logger.info("放大数据集,添加数据增强后的特征数据")
+
+        assert len(self.feature_list) == len(
+            self.label_list
+        ), "特征数据和标签数量不一致"
 
         # 计算目标长度,所有音频文件的MFCC特征的时间帧的最大值
         # target_length = np.max([mfcc.shape[1] for mfcc in self.feature_list]).astype(
@@ -143,7 +146,7 @@ class AudioDataset(Dataset):
             interpolate_mfcc(mfcc, target_length) for mfcc in self.feature_list
         ]
 
-        logger.info("插值完成")
+        logger.info("特征插值完成")
 
         # 归一化
 
@@ -155,7 +158,7 @@ class AudioDataset(Dataset):
 
         self.feature_list = [mfcc.T for mfcc in self.feature_list]
 
-        logger.info("转置完成")
+        logger.info("特征转置完成")
 
         # 转换为张量
 
@@ -163,11 +166,14 @@ class AudioDataset(Dataset):
             torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
         ]
 
-        logger.info("转换为张量完成")
+        logger.info("特征转换为张量完成")
 
     def __len__(self) -> int:
-        assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
-        return len(self.audio_paths)
+        len_labels = len(self.label_list)
+        len_features = len(self.feature_list)
+        assert len_labels == len_features, "数据和标签数量不一致"
+        # logger.info(f"数据集长度: {len_labels}")
+        return len_labels
 
     def __getitem__(self, idx) -> tuple[torch.Tensor, torch.Tensor]:
 
