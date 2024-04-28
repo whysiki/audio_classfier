@@ -94,6 +94,8 @@ def get_audio_paths_labels(
 
     zip_list = list(zip(audio_paths, audio_paths_labels))
 
+    # logger.info(f"样本数量: {len(zip_list)}")
+
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
@@ -111,9 +113,14 @@ def test_train_result_slpit_origian():
     lose_audio_paths = random.sample(lose_audio_paths, len(lose_audio_paths))
     tight_audio_paths = random.sample(tight_audio_paths, len(tight_audio_paths))
 
-    n_border = int(len(normal_audio_paths) * 6 / 7)
-    l_border = int(len(lose_audio_paths) * 6 / 7)
-    t_border = int(len(tight_audio_paths) * 6 / 7)
+    n_border = int(len(normal_audio_paths) * 9 / 10)
+    l_border = int(len(lose_audio_paths) * 9 / 10)
+    t_border = int(len(tight_audio_paths) * 9 / 10)
+
+    logger.info(f"训练样本数量: {n_border + l_border + t_border}")
+    logger.info(
+        f"测试样本数量: {len(normal_audio_paths) + len(lose_audio_paths) + len(tight_audio_paths) - n_border - l_border - t_border}"
+    )
 
     left_zip_list_audio_paths, left_zip_list_labels = get_audio_paths_labels(
         normal_audio_paths=normal_audio_paths[:n_border],

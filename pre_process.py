@@ -43,6 +43,7 @@ def normalize_mfccs(mfccs: np.ndarray) -> np.ndarray:
     return normalized_mfccs
 
 
+#
 # 计算余弦相似度
 # mfccs: MFCC特征
 # threshold: 阈值
@@ -233,6 +234,24 @@ class AudioClassifier(nn.Module):
 # num_epochs: 训练的轮数
 
 
+# 记录训练时间
+def count_time(tag: str):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            logger.info(f"开始执行 {tag}")
+            start_time = datetime.datetime.now()
+            result = func(*args, **kwargs)
+            end_time = datetime.datetime.now()
+            logger.success(f"{tag} executed in {end_time - start_time} seconds")
+            return result
+
+        return wrapper
+
+    return decorator
+
+
+@count_time("train_model")
 def train_model(
     model,
     dataloader,
@@ -300,6 +319,7 @@ def train_model(
 
 
 # 一个测试加载器
+@count_time("test_model")
 def test_model(model, dataloader) -> float:
     model.eval()  # 设置模型为评估模式
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -352,6 +372,7 @@ def test_model(model, dataloader) -> float:
 
 
 # 给定音频路径获取类型
+@count_time("get_audio_type")
 def get_audio_type(model, audio_path: str) -> str:
     model.eval()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
