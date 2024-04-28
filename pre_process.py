@@ -21,6 +21,7 @@ from some_tools import (
     find_similar_segments,
     interpolate_mfcc,
     normalize_mfccs,
+    apply_random_augmentation,
 )
 from torch.utils.tensorboard import SummaryWriter
 
@@ -66,9 +67,12 @@ def load_audio_features(
 
     audio, sr = librosa.load(file_path, sr=sr)  # Tuple[ndarray, float]
 
-    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
+    # 数据增强
+    if augment:
+        # 随机应用数据增强
+        audio = apply_random_augmentation(audio, sr)
 
-    # logger.info(f"原始 mfccs.shape: {mfccs.shape}")
+    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
     # 去除特征重复的帧
 
@@ -82,19 +86,6 @@ def load_audio_features(
     new_length = mfccs.shape[1]
 
     # logger.info(f"去除重复帧 {original_length - new_length} 个")
-
-    if augment:
-
-        # 数据增强：时间拉伸和压缩
-
-        stretch_factor = np.random.uniform(0.8, 1.2)
-        audio = librosa.effects.time_stretch(y=audio, rate=stretch_factor)
-
-        # 数据增强：音调移动
-        shift_steps = np.random.randint(-5, 5)
-        audio = librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
-
-        # logger.info("数据增强：时间拉伸和压缩")
 
     # 归一化
     # mfccs = normalize_mfccs(mfccs)

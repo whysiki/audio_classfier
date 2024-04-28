@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.interpolate import interp1d
 import os
+import librosa
+import random
 
 # 创建一个随机的3x3张量
 # tensor = torch.randn(3, 3)
@@ -77,6 +79,54 @@ def read_audio_files(folder_path: str) -> list[str]:
     assert len(audio_paths) > 0, "没有找到音频文件"
 
     return audio_paths
+
+
+# 数据增强
+# 随机时间拉伸
+def time_stretch(audio) -> np.ndarray:
+    stretch_factor = np.random.uniform(0.8, 1.2)
+    return librosa.effects.time_stretch(y=audio, rate=stretch_factor)
+
+
+# 随机音调变换
+def pitch_shift(audio, sr) -> np.ndarray:
+    shift_steps = np.random.randint(-5, 5)
+    return librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
+
+
+# 随机添加噪声
+def add_noise(audio) -> np.ndarray:
+    noise = np.random.normal(0, 0.005, len(audio))
+    return audio + noise
+
+
+# 随机改变音量
+def change_volume(audio) -> np.ndarray:
+    volume = np.random.uniform(0.5, 1.5)
+    return audio * volume
+
+
+# 随机移位
+def random_shift(audio) -> np.ndarray:
+    shift = np.random.randint(0, len(audio))
+    return np.roll(audio, shift)
+
+
+# 随机应用数据增强
+def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
+
+    augmentations = [time_stretch, pitch_shift, add_noise, change_volume, random_shift]
+
+    num_augmentations = random.randint(1, len(augmentations))
+
+    for _ in range(num_augmentations):
+        augmentation = random.choice(augmentations)
+        if augmentation == pitch_shift:
+            audio = augmentation(audio, sr)
+        else:
+            audio = augmentation(audio)
+
+    return audio
 
 
 # tensorboard --logdir=runs
