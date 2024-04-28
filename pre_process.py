@@ -50,17 +50,19 @@ def accept_tuple_argument(func):
     return wrapper
 
 
-# 音频加载和特征提取函数
-# sr: 采样率22050
-# n_mfcc: MFCC的数量
 @accept_tuple_argument
 def load_audio_features(
     file_path: str,
     sr: int,
     n_mfcc: int,
     augment: bool = False,
-    # target_length: int = 431,
 ) -> np.ndarray:
+    """
+    file_path: 音频文件路径
+    sr: 采样率
+    n_mfcc: MFCC 特征数量
+    augment: 是否数据增强
+    """
 
     audio, sr = librosa.load(file_path, sr=sr)  # Tuple[ndarray, float]
 
@@ -89,7 +91,7 @@ def load_audio_features(
         audio = librosa.effects.time_stretch(y=audio, rate=stretch_factor)
 
         # 数据增强：音调移动
-        shift_steps = np.random.randint(-3, 3)
+        shift_steps = np.random.randint(-5, 5)
         audio = librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
 
         # logger.info("数据增强：时间拉伸和压缩")
@@ -104,10 +106,12 @@ def load_audio_features(
 class AudioDataset(Dataset):
     def __init__(self, audio_paths, labels):
 
+        assert len(audio_paths) == len(
+            labels
+        ), "The number of audio files does not match the number of labels."
+
         self.audio_paths: list[str] = audio_paths
         self.labels: list[int] = labels
-
-        assert len(self.audio_paths) == len(self.labels), "音频文件和标签数量不一致"
 
         self.label_list = [
             torch.tensor(label, dtype=torch.long) for label in self.labels
@@ -115,7 +119,11 @@ class AudioDataset(Dataset):
 
         with ProcessPoolExecutor(max_workers=int(cpu_count())) as executor:
             self.feature_list = []
-            for augment in [False, True]:
+
+            # 放大倍数
+            EXTEND_TIMES = 3
+
+            for augment in [False] + [True] * EXTEND_TIMES:
                 features = list(
                     executor.map(
                         load_audio_features,
@@ -124,18 +132,15 @@ class AudioDataset(Dataset):
                 )
                 self.feature_list.extend(features)
 
-            self.label_list.extend(self.label_list)
+            self.label_list.extend(self.label_list * EXTEND_TIMES)
 
-            logger.info("放大数据集,添加数据增强后的特征数据")
+            logger.info(
+                f"amplify dataset {EXTEND_TIMES} magnification times, added the features datas be enhanced and shiffted"
+            )
 
         assert len(self.feature_list) == len(
             self.label_list
-        ), "特征数据和标签数量不一致"
-
-        # 计算目标长度,所有音频文件的MFCC特征的时间帧的最大值
-        # target_length = np.max([mfcc.shape[1] for mfcc in self.feature_list]).astype(
-        #     int
-        # )
+        ), "The number of features does not match the number of labels."
 
         target_length = TARGET_LENGTH  # 固定长度
 
@@ -146,33 +151,30 @@ class AudioDataset(Dataset):
             interpolate_mfcc(mfcc, target_length) for mfcc in self.feature_list
         ]
 
-        logger.info("特征插值完成")
-
-        # 归一化
-
-        # self.feature_list = [normalize_mfccs(mfcc) for mfcc in self.feature_list]
-
-        # logger.success("归一化完成")
+        logger.info("features interpolation completed")
 
         # 转置
-
         self.feature_list = [mfcc.T for mfcc in self.feature_list]
 
-        logger.info("特征转置完成")
+        logger.info("features transpose completed")
 
         # 转换为张量
-
         self.feature_list = [
             torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
         ]
 
-        logger.info("特征转换为张量完成")
+        logger.info("features to tensor completed")
+
+        logger.info("dataset size : " + str(len(self.label_list)))
+
+        logger.success("dataset initialization completed")
 
     def __len__(self) -> int:
         len_labels = len(self.label_list)
         len_features = len(self.feature_list)
-        assert len_labels == len_features, "数据和标签数量不一致"
-        # logger.info(f"数据集长度: {len_labels}")
+        assert (
+            len_labels == len_features
+        ), "The number of labels does not match the number of features"
         return len_labels
 
     def __getitem__(self, idx) -> tuple[torch.Tensor, torch.Tensor]:
@@ -208,7 +210,7 @@ def count_time(tag: str):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            logger.info(f"开始执行 {tag}")
+            logger.info(f"start to perform :  {tag}")
             start_time = datetime.datetime.now()
             result = func(*args, **kwargs)
             end_time = datetime.datetime.now()
@@ -283,7 +285,7 @@ def train_model(
                 logger.info("Early stopping")
                 break
 
-    logger.success("训练完成")
+    logger.success("Training completed")
 
     if draw_loss:
         writer = SummaryWriter()
@@ -313,7 +315,9 @@ def test_model(model, dataloader) -> float:
             # 获取预测结果
             _, predicted = torch.max(outputs.data, 1)
 
-            assert predicted.shape == labels.shape, "预测结果和标签数量不一致"
+            assert (
+                predicted.shape == labels.shape
+            ), "The shape of the predicted and labels is not equal"
 
             total += labels.size(0)
 
