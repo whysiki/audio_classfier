@@ -94,7 +94,7 @@ def get_audio_paths_labels(
 
     zip_list = list(zip(audio_paths, audio_paths_labels))
 
-    # logger.info(f"样本数量: {len(zip_list)}")
+    logger.info(f"样本数量: {len(zip_list)}")
 
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
