@@ -17,10 +17,10 @@ from multiprocessing import Pool, cpu_count
 
 # from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
 from some_tools import (
-    add_tensorboard_image,
+    # add_tensorboard_image,
     find_similar_segments,
     interpolate_mfcc,
-    normalize_mfccs,
+    # normalize_mfccs,
     apply_random_augmentation,
 )
 from torch.utils.tensorboard import SummaryWriter
@@ -341,15 +341,15 @@ def test_model(model, dataloader) -> float:
     return accuracy
 
 
-# 给定音频路径获取类型
+# 单个音频文件预测
 @count_time("get_audio_type")
-def get_audio_type(model, audio_path: str) -> str:
+def get_audio_type(model, audio_path: str, device: torch.device) -> str:
     model.eval()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    features = load_audio_features(audio_path)
-    # 插值
-    features = interpolate_mfcc(features, TARGET_LENGTH)
-    outputs = model(features)
-    _, predicted = torch.max(outputs.data, 1)
+    with torch.no_grad():
+        features = load_audio_features(audio_path)
+        # 插值
+        features = interpolate_mfcc(features, TARGET_LENGTH)
+        features = torch.tensor(features).to(device)
+        outputs = model(features)
+        _, predicted = torch.max(outputs.data, 1)
     return CLSAA_DICT[predicted.item()]

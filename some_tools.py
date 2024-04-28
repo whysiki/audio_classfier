@@ -1,22 +1,10 @@
 from torch.utils.tensorboard import SummaryWriter
-import torch
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.interpolate import interp1d
 import os
 import librosa
 import random
-
-# 创建一个随机的3x3张量
-# tensor = torch.randn(3, 3)
-
-# 创建一个TensorBoard写入器
-# writer = SummaryWriter()
-
-# 将张量数据写入TensorBoard
-# writer.add_image("Tensor Data", tensor, dataformats="HW")
-
-# 关闭写入器
 
 
 # 归一化函数
@@ -127,6 +115,18 @@ def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
             audio = augmentation(audio)
 
     return audio
+
+
+# 创建一个随机的3x3张量
+# tensor = torch.randn(3, 3)
+
+# 创建一个TensorBoard写入器
+# writer = SummaryWriter()
+
+# 将张量数据写入TensorBoard
+# writer.add_image("Tensor Data", tensor, dataformats="HW")
+
+# 关闭写入器
 
 
 # tensorboard --logdir=runs
