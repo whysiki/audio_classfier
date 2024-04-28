@@ -3,7 +3,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
-import os
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -12,14 +11,20 @@ from pathlib import Path
 from rich import print
 import sys
 import random
-import noisereduce as nr
+
+# import noisereduce as nr
 from multiprocessing import Pool, cpu_count
-from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
-from some_tools import add_tensorboard_image
+
+# from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
+from some_tools import (
+    add_tensorboard_image,
+    find_similar_segments,
+    interpolate_mfcc,
+    normalize_mfccs,
+)
 from torch.utils.tensorboard import SummaryWriter
-import uuid
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy.interpolate import interp1d
+
+# import uuid
 from concurrent.futures import ProcessPoolExecutor
 from functools import wraps
 import datetime
@@ -35,55 +40,12 @@ TARGET_LENGTH = 100
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 
 
-# 归一化函数
-def normalize_mfccs(mfccs: np.ndarray) -> np.ndarray:
-    mfccs_mean = mfccs.mean(axis=1, keepdims=True)
-    mfccs_std = mfccs.std(axis=1, keepdims=True)
-    normalized_mfccs = (mfccs - mfccs_mean) / mfccs_std
-    return normalized_mfccs
-
-
-#
-# 计算余弦相似度
-# mfccs: MFCC特征
-# threshold: 阈值
-def find_similar_segments(mfccs, threshold=0.99):
-    # 计算余弦相似度矩阵
-    sim_matrix = cosine_similarity(mfccs.T)
-    similar_pairs = []
-
-    for i in range(sim_matrix.shape[0]):
-        for j in range(i + 1, sim_matrix.shape[1]):
-            if sim_matrix[i, j] > threshold:
-                similar_pairs.append((i, j))
-
-    return similar_pairs
-
-
-# 插值函数, 统一shape
-def interpolate_mfcc(mfccs, target_length) -> np.ndarray:
-    n_mfcc, original_length = mfccs.shape
-    interpolation_function = interp1d(
-        np.arange(original_length),
-        mfccs,
-        # kind="linear",
-        kind="nearest",
-        # 立方插值 ，圆滑插值
-        # kind="cubic",
-        axis=1,
-        fill_value="extrapolate",
-    )
-    new_index = np.linspace(0, original_length - 1, target_length)
-    new_mfccs = interpolation_function(new_index)
-    return new_mfccs
-
-
 def accept_tuple_argument(func):
     @wraps(func)
-    def wrapper(args):
-        if isinstance(args, tuple):
-            return func(*args)
-        return func(args)
+    def wrapper(*args, **kwargs):
+        if len(args) == 1 and isinstance(args[0], tuple):
+            return func(*args[0])
+        return func(*args, **kwargs)
 
     return wrapper
 
@@ -100,43 +62,42 @@ def load_audio_features(
     # target_length: int = 431,
 ) -> np.ndarray:
 
-    audio, sr = librosa.load(file_path, sr=sr)
+    audio, sr = librosa.load(file_path, sr=sr)  # Tuple[ndarray, float]
 
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
 
-    # logger.info(f"mfccs.shape: {mfccs.shape}")
+    # logger.info(f"原始 mfccs.shape: {mfccs.shape}")
 
     # 去除特征重复的帧
 
     similar_pairs = find_similar_segments(mfccs)
 
-    # original_length = mfccs.shape[1]
+    original_length = mfccs.shape[1]
 
     # 去除所有配对的相似帧中索引更大的帧，以保持有序性
     mfccs = np.delete(mfccs, [max(pair) for pair in similar_pairs], axis=1)
 
-    # new_length = mfccs.shape[1]
+    new_length = mfccs.shape[1]
 
-    # logger.success(f"去除重复帧 {original_length - new_length} 个")
+    # logger.info(f"去除重复帧 {original_length - new_length} 个")
+
+    if augment:
+
+        # 数据增强：时间拉伸和压缩
+
+        stretch_factor = np.random.uniform(0.8, 1.2)
+        audio = librosa.effects.time_stretch(y=audio, rate=stretch_factor)
+
+        # 数据增强：音调移动
+        shift_steps = np.random.randint(-3, 3)
+        audio = librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
+
+        # logger.info("数据增强：时间拉伸和压缩")
 
     # 归一化
     # mfccs = normalize_mfccs(mfccs)
 
     return mfccs
-
-
-# 读取文件夹下所有音频文件
-def read_audio_files(folder_path: str) -> list[str]:
-
-    audio_paths = []
-    for root, dirs, files in os.walk(folder_path):
-        for file in files:
-            if file.endswith(".wav"):
-                audio_paths.append(os.path.join(root, file))
-
-    assert len(audio_paths) > 0, "没有找到音频文件"
-
-    return audio_paths
 
 
 # 数据集类
@@ -154,9 +115,19 @@ class AudioDataset(Dataset):
             self.feature_list = list(
                 executor.map(
                     load_audio_features,
+                    [(path, None, 40, False) for path in self.audio_paths],
+                )
+            )
+
+            # 放大数据集,添加数据增强后的数据
+            self.feature_list += list(
+                executor.map(
+                    load_audio_features,
                     [(path, None, 40, True) for path in self.audio_paths],
                 )
             )
+
+            logger.info("放大数据集,添加数据增强后的数据")
 
         # 计算目标长度,所有音频文件的MFCC特征的时间帧的最大值
         # target_length = np.max([mfcc.shape[1] for mfcc in self.feature_list]).astype(
@@ -172,7 +143,7 @@ class AudioDataset(Dataset):
             interpolate_mfcc(mfcc, target_length) for mfcc in self.feature_list
         ]
 
-        logger.success("插值完成")
+        logger.info("插值完成")
 
         # 归一化
 
@@ -184,7 +155,7 @@ class AudioDataset(Dataset):
 
         self.feature_list = [mfcc.T for mfcc in self.feature_list]
 
-        logger.success("转置完成")
+        logger.info("转置完成")
 
         # 转换为张量
 
@@ -192,7 +163,7 @@ class AudioDataset(Dataset):
             torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
         ]
 
-        logger.success("转换为张量完成")
+        logger.info("转换为张量完成")
 
     def __len__(self) -> int:
         assert len(self.audio_paths) == len(self.labels), "数据和标签数量不一致"
@@ -226,14 +197,6 @@ class AudioClassifier(nn.Module):
         return x
 
 
-# 训练模型函数
-# model: 模型
-# dataloader: 数据加载器
-# criterion: 损失函数
-# optimizer: 优化器
-# num_epochs: 训练的轮数
-
-
 # 记录训练时间
 def count_time(tag: str):
     def decorator(func):
@@ -251,6 +214,12 @@ def count_time(tag: str):
     return decorator
 
 
+# 训练模型函数
+# model: 模型
+# dataloader: 数据加载器
+# criterion: 损失函数
+# optimizer: 优化器
+# num_epochs: 训练的轮数
 @count_time("train_model")
 def train_model(
     model,

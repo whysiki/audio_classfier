@@ -1,5 +1,5 @@
 from pre_process import *
-import datetime
+from some_tools import *
 
 normal_audio_paths = []
 lose_audio_paths = []
@@ -23,6 +23,9 @@ for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
 # 已经训练的样本识别准确率需要为100%
 # 数据集
 # 训练数据集和测试数据集相等
+@count_time(
+    tag=f"样本数量: {len(normal_audio_paths) + len(lose_audio_paths) + len(tight_audio_paths)}, 验证任务: 已经训练的样本识别准确率需要为100%"
+)
 def test_train_result():
     # CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 
@@ -169,16 +172,21 @@ def test_train_result_slpit_origian():
 
 
 if __name__ == "__main__":
-    # test_train_result()
+    test_train_result()
     test_accuracy_list = []
     writer = SummaryWriter()
     tag = "test_predict_accuracy__" + str(datetime.datetime.now())
     for i in range(20):
         pass
+        logger.info(f"交叉验证--第{i+1}次测试")
         accuracy = test_train_result_slpit_origian()
         test_accuracy_list.append(accuracy)
         writer.add_scalar(tag, accuracy, i)
+        logger.success(f"交叉验证--第{i+1}次测试完成")
     writer.close()
+
+    logger.info(f"test_accuracy_list: {test_accuracy_list}")
+    logger.info(f"平均准确率: {sum(test_accuracy_list) / len(test_accuracy_list)}")
 
     # plt.figure()
     # plt.plot(test_accuracy_list)
