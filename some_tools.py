@@ -5,6 +5,9 @@ from scipy.interpolate import interp1d
 import os
 import librosa
 import random
+import librosa.display
+import matplotlib.pyplot as plt
+from rich import print
 
 
 # 归一化函数
@@ -44,9 +47,9 @@ def interpolate_mfcc(mfccs: np.ndarray, target_length: int) -> np.ndarray:
         np.arange(original_length),
         mfccs,
         # kind="linear",
-        kind="nearest",
+        # kind="nearest",
         # 立方插值 ，圆滑插值
-        # kind="cubic",
+        kind="cubic",
         axis=1,
         fill_value="extrapolate",
     )
@@ -95,15 +98,27 @@ def change_volume(audio) -> np.ndarray:
 
 
 # # 随机移位
-# def random_shift(audio) -> np.ndarray:
-#     shift = np.random.randint(0, len(audio))
-#     return np.roll(audio, shift)
+def random_shift(audio) -> np.ndarray:
+    shift = np.random.randint(0, len(audio))
+    return np.roll(audio, shift)
+
+
+# 什么都不做
+def nothing(audio) -> np.ndarray:
+    return audio
 
 
 # 随机应用数据增强
 def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
 
-    augmentations = [time_stretch, pitch_shift, add_noise, change_volume]
+    augmentations = [
+        time_stretch,
+        pitch_shift,
+        add_noise,
+        change_volume,
+        random_shift,
+        nothing,
+    ]
 
     num_augmentations = random.randint(1, len(augmentations))
 
@@ -134,6 +149,84 @@ def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
 #
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+
+    # Load audio file
+    y, sr = librosa.load(r"声纹采集数据\敲弹条\WJ-8\松\第三组\WJ-8-1.wav", sr=22050)
+
+    # # Compute MFCCs
+    # mfccs = librosa.feature.mfcc(y=y, sr=sr)
+
+    # print(mfccs.shape)
+
+    # print(mfccs[:5, :2])  # 5个帧，2个特征
+
+    # print(mfccs[:5, :2].T)
+
+    # print(mfccs[:5, :2].tolist())
+
+    # print(mfccs[:5, :2].T.tolist())
+
+    # 给增进一个维度
+    # y = y[np.newaxis, :]
+
+    # y = np.expand_dims(y, axis=0)  # equivalent to y = y[np.newaxis, :] shape: (1,n)
+    # y = np.expand_dims(y, axis=1)  # equivalent to y = y[:, np.newaxis] shape: (n,1)
+
+    # y = y[:5]
+    # y = y[:, np.newaxis]
+    # y = np.expand_dims(y, axis=1)
+
+    # print(y.shape)
+
+    # print(y)
+
+    # print(y.tolist()[:5])
+
+    # print(y.shape, sr)
+
+    # print(y[:100])
+    # y = y[:40]
+
+    # y = np.expand_dims(y, axis=0)  # shape: (1, n) (480000, 1) n帧 ，1个特征
+
+    # # y = np.vstack([y, y])  # shape: (n + n, 1) (960000, 1)
+
+    # # y = np.hstack([y, y])  # shape: (n, 2) (480000, 2)
+
+    # # print(y.shape)
+
+    # simliar_pairs = find_similar_segments(y, threshold=0.999)
+
+    # simliar_pairs_values = [(y[:, i].item(), y[:, j].item()) for i, j in simliar_pairs]
+
+    # print(simliar_pairs_values)
+
+    # X = [[0, 0, 0], [1, 1, 1]]
+    # Y = [[1, 0, 0], [1, 1, 0]]
+    X = [
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+    ] * 10
+    X = np.array(X)
+    print(X)
+    similarity = cosine_similarity(X.T)
+
+    print(similarity)
+
+    # Create a new figure
+    # fig, ax = plt.subplots()
+
+    # # Display the waveform
+    # librosa.display.waveshow(y, sr=sr, ax=ax, color="yellow")
+
+    # # Set the title of the plot
+    # ax.set(title="Waveform of Audio")
+
+    # # Display the plot
+    # plt.show()
 #     test_tensor = torch.randn(3, 3, 3)
 #     add_tensorboard_image(test_tensor, "test_tensor2", "CHW")

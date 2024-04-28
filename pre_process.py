@@ -97,6 +97,9 @@ def load_audio_features(
 class AudioDataset(Dataset):
     def __init__(self, audio_paths, labels, EXTEND_TIMES=3):
 
+        initial_start_time = datetime.datetime.now()
+        logger.info("start to initialize dataset")
+
         assert len(audio_paths) == len(
             labels
         ), "The number of audio files does not match the number of labels."
@@ -158,7 +161,11 @@ class AudioDataset(Dataset):
 
         logger.info("dataset size : " + str(len(self.label_list)))
 
-        logger.success("dataset initialization completed")
+        initial_end_time = datetime.datetime.now()
+
+        logger.success(
+            f"dataset initialization completed, executed in {initial_end_time - initial_start_time} seconds"
+        )
 
     def __len__(self) -> int:
         len_labels = len(self.label_list)
@@ -183,7 +190,8 @@ class AudioClassifier(nn.Module):
             batch_first=True,
             bidirectional=True,
         )
-        self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+        # self.dropout = nn.Dropout(0.5)  # 添加Dropout层
+        self.dropout = nn.Dropout(0.6)  # 添加Dropout层
         self.fc = nn.Linear(64 * 2, len(CLSAA))  # 输出层，双向LSTM的输出维度
 
     def forward(self, x):
@@ -194,6 +202,32 @@ class AudioClassifier(nn.Module):
         x = self.fc(x)
 
         return x
+
+
+# class AudioClassifier(nn.Module):
+#     def __init__(self):
+#         super(AudioClassifier, self).__init__()
+#         self.lstm = nn.LSTM(
+#             input_size=40,
+#             hidden_size=128,
+#             num_layers=3,
+#             batch_first=True,
+#             bidirectional=True,
+#         )
+#         self.dropout = nn.Dropout(0.5)
+#         self.batch_norm = nn.BatchNorm1d(128 * 2)
+#         self.fc1 = nn.Linear(128 * 2, 128)
+#         self.fc2 = nn.Linear(128, len(CLSAA))
+
+#     def forward(self, x):
+#         _, (h_n, _) = self.lstm(x)
+#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
+#         x = self.dropout(h_n)
+#         x = self.batch_norm(x)
+#         x = F.relu(self.fc1(x))
+#         x = self.fc2(x)
+
+#         return x
 
 
 # 记录训练时间
@@ -229,12 +263,16 @@ def train_model(
     draw_loss=False,
     grad_clip=None,  # 梯度裁剪
     patience=None,  # 早停
+    warmup_epochs=5,  # 学习率预热
 ):
     if not optimizer:
         optimizer = optim.AdamW(model.parameters(), lr=0.001)  # 使用 AdamW 优化器
     scheduler = ReduceLROnPlateau(
         optimizer, "min", patience=10, factor=0.1
     )  # 学习率调度器
+    warmup_scheduler = torch.optim.lr_scheduler.LambdaLR(
+        optimizer, lambda epoch: epoch / warmup_epochs if epoch < warmup_epochs else 1
+    )  # 学习率预热
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     loss_list = []
@@ -242,6 +280,7 @@ def train_model(
     no_improve_epochs = 0
 
     for epoch in range(num_epochs):
+
         total_loss = 0
         for i, (features, labels) in enumerate(dataloader):
             features = features.to(device)
@@ -263,7 +302,9 @@ def train_model(
 
         avg_loss = total_loss / len(dataloader)
         scheduler.step(avg_loss)  # 更新学习率
-        logger.info(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
+        if epoch >= warmup_epochs:  # 学习率预热
+            warmup_scheduler.step()
+        logger.debug(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
 
         # 早停机制
         if patience:

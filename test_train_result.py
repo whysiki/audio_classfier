@@ -45,7 +45,7 @@ def test_train_result():
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
-    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels)
+    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=0)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # 实例化模型
@@ -72,7 +72,7 @@ def test_train_result():
     # shamped_list_labels = [x[1] for x in shamped_list]
 
     # 实例化数据集和数据加载器
-    test_dataset = AudioDataset(zip_list_audio_paths, zip_list_labels)
+    test_dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=0)
 
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
@@ -110,6 +110,7 @@ def get_audio_paths_labels(
 # 预测任务 交叉验证
 # 分割数据集
 # 测试集和训练集不相等，且不参与训练 打乱数据集
+# 由于样本数量较少，所以采用了数据集放大的方式， 原始数据集+ 数据增强数据集
 def test_train_result_slpit_origian():
 
     global normal_audio_paths, lose_audio_paths, tight_audio_paths
@@ -118,9 +119,9 @@ def test_train_result_slpit_origian():
     lose_audio_paths = random.sample(lose_audio_paths, len(lose_audio_paths))
     tight_audio_paths = random.sample(tight_audio_paths, len(tight_audio_paths))
 
-    n_border = int(len(normal_audio_paths) * 9 / 10)
-    l_border = int(len(lose_audio_paths) * 9 / 10)
-    t_border = int(len(tight_audio_paths) * 9 / 10)
+    n_border = int(len(normal_audio_paths) * 7 / 10)
+    l_border = int(len(lose_audio_paths) * 7 / 10)
+    t_border = int(len(tight_audio_paths) * 7 / 10)
 
     logger.info(f"训练样本数量: {n_border + l_border + t_border}")
     logger.info(
@@ -140,7 +141,7 @@ def test_train_result_slpit_origian():
     )
 
     dataset = AudioDataset(left_zip_list_audio_paths, left_zip_list_labels)
-    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=6, shuffle=True)
 
     # 实例化模型
 
@@ -160,7 +161,9 @@ def test_train_result_slpit_origian():
     # model.load_state_dict(torch.load(Path("model") / "hit_luo_s_WJ-7_model.pth"))
 
     # 实例化数据集和数据加载器
-    test_dataset = AudioDataset(right_zip_list_audio_paths, right_zip_list_labels)
+    test_dataset = AudioDataset(
+        right_zip_list_audio_paths, right_zip_list_labels, EXTEND_TIMES=0
+    )
 
     test_dataloader = DataLoader(test_dataset, batch_size=1, shuffle=True)
 
@@ -174,7 +177,7 @@ def test_train_result_slpit_origian():
 
 
 if __name__ == "__main__":
-    test_train_result()
+    # test_train_result()
     test_accuracy_list = []
     writer = SummaryWriter()
     tag = "test_predict_accuracy__" + str(datetime.datetime.now())
