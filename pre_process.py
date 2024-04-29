@@ -135,6 +135,8 @@ class AudioDataset(Dataset):
             # 放大倍数 放大数据集
             EXTEND_TIMES = EXTEND_TIMES
 
+            logger.info(f"amplify dataset {EXTEND_TIMES} magnification times")
+
             tasks_total = len(audio_paths) * (EXTEND_TIMES + 1)
 
             for augment in [False] + [True] * EXTEND_TIMES:
@@ -282,10 +284,26 @@ def train_model(
     best_loss = float("inf")
     epochs_no_improve = 0
 
-    for epoch in range(num_epochs):
+    for epoch in tqdm(
+        range(num_epochs),
+        desc="training",
+        unit="epoch",
+        colour="green",
+        smoothing=0.2,
+        leave=True,
+        dynamic_ncols=True,
+    ):
 
         total_loss = 0
-        for i, (features, labels) in enumerate(dataloader):
+        for i, (features, labels) in tqdm(
+            enumerate(dataloader),
+            desc="batch",
+            unit="batch",
+            smoothing=0.2,
+            dynamic_ncols=True,
+            colour="#00ffff",
+            leave=False,
+        ):
             features = features.to(device)
             labels = labels.to(device)
             optimizer.zero_grad()
