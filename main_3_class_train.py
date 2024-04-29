@@ -54,4 +54,4 @@ train_model(model, dataloader, draw_loss=True)
 
 # 保存模型
 
-torch.save(model.state_dict(), Path("model") / "hit_luo_s_WJ-7_model.pth")
+torch.save(model.state_dict(), Path("model") / "Tap_bolt_WJ-7_model.pth")
