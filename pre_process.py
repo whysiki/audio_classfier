@@ -40,7 +40,7 @@ CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # 插值目标长度
 TARGET_LENGTH = 100
 # 提取特征数
-N_MFCC = 40
+N_MFCC = 50
 # 采样率
 SR = None
 
@@ -184,10 +184,10 @@ def train_model(
     dataloader,
     criterion=nn.CrossEntropyLoss(),
     optimizer=None,
-    num_epochs=40,
+    num_epochs=45,
     draw_loss=False,
     grad_clip=None,  # 梯度裁剪 超参 float
-    patience=6,  # 早停 # 超参 int
+    patience=7,  # 早停 # 超参 int
     warmup_epochs=5,  # 学习率预热 # 超参 预热的轮数
 ):
     if not optimizer:
