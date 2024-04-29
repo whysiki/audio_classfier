@@ -1,5 +1,5 @@
 from pre_process import *
-
+from some_tools import *
 
 # CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 
@@ -48,16 +48,9 @@ dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
 
 model = AudioClassifier()
 
-# 使用交叉熵损失函数
-criterion = nn.CrossEntropyLoss()
-
-# 使用Adam优化器
-# lr: 学习率 设为0.001
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-
 
 # 训练模型
-train_model(model, dataloader, criterion, optimizer, draw_loss=False)
+train_model(model, dataloader, draw_loss=True)
 
 # 保存模型
 

@@ -291,7 +291,7 @@ def train_model(
             loss_list.append(loss.item())
             total_loss += loss.item()
             loss.backward()
-            if grad_clip:  # 如果设置了梯度裁剪
+            if grad_clip:
                 nn.utils.clip_grad_value_(model.parameters(), grad_clip)
             optimizer.step()
 
@@ -306,16 +306,15 @@ def train_model(
             warmup_scheduler.step()
         logger.debug(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
 
-        # 早停机制
-        if patience:
-            if avg_loss < min_loss:
-                min_loss = avg_loss
-                no_improve_epochs = 0
-            else:
-                no_improve_epochs += 1
-            if no_improve_epochs >= patience:
-                logger.info("Early stopping")
-                break
+        # if patience:
+        #     if avg_loss < min_loss:
+        #         min_loss = avg_loss
+        #         no_improve_epochs = 0
+        #     else:
+        #         no_improve_epochs += 1
+        #     if no_improve_epochs >= patience:
+        #         logger.info("Early stopping")
+        #         break
 
     logger.success("Training completed")
 
