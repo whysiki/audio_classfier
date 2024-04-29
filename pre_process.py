@@ -11,9 +11,10 @@ from pathlib import Path
 from rich import print
 import sys
 import random
+from tqdm import tqdm
 
 # import noisereduce as nr
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool, cpu_count, Value
 
 # from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
 from some_tools import (
@@ -38,6 +39,9 @@ CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 TARGET_LENGTH = 100
 # 提取特征数
 N_MFCC = 50
+# 采样率
+SR = None
+
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 
@@ -45,8 +49,21 @@ logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 def accept_tuple_argument(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
+        # 如果传入的参数只有一个，且是元组
         if len(args) == 1 and isinstance(args[0], tuple):
-            return func(*args[0])
+
+            result = func(*args[0])  # 解包元组
+
+            if hasattr(func, "tqdm_object") and func.tqdm_object.total is not None:
+                func.tqdm_object.update(1)
+
+            return result
+
+        result = func(*args, **kwargs)
+
+        if hasattr(func, "tqdm_object") and func.tqdm_object.total is not None:
+            func.tqdm_object.update(1)
+
         return func(*args, **kwargs)
 
     return wrapper
@@ -118,11 +135,21 @@ class AudioDataset(Dataset):
             # 放大倍数 放大数据集
             EXTEND_TIMES = EXTEND_TIMES
 
+            tasks_total = len(audio_paths) * (EXTEND_TIMES + 1)
+
             for augment in [False] + [True] * EXTEND_TIMES:
                 features = list(
-                    executor.map(
-                        load_audio_features,
-                        [(path, None, N_MFCC, augment) for path in audio_paths],
+                    tqdm(
+                        executor.map(
+                            load_audio_features,
+                            [(path, SR, N_MFCC, augment) for path in audio_paths],
+                        ),
+                        total=int(tasks_total / (EXTEND_TIMES + 1)),
+                        desc="pre-process audio_paths features",
+                        smoothing=0.2,
+                        unit="file",
+                        dynamic_ncols=True,
+                        colour="yellow",
                     )
                 )
                 self.feature_list.extend(features)
@@ -237,7 +264,7 @@ def train_model(
     num_epochs=40,
     draw_loss=False,
     grad_clip=None,  # 梯度裁剪 超参 float
-    patience=10,  # 早停 # 超参 int
+    patience=6,  # 早停 # 超参 int
     warmup_epochs=5,  # 学习率预热 # 超参 预热的轮数
 ):
     if not optimizer:
