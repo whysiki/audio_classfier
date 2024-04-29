@@ -209,18 +209,18 @@ def test_train_result_slpit_origian():
 
 if __name__ == "__main__":
     # pass
-    # model = test_train_result()
-    test_accuracy_list = []
-    writer = SummaryWriter()
-    tag = "test_predict_accuracy__" + str(datetime.datetime.now())
-    for i in range(20):
-        pass
-        logger.info(f"交叉验证--第{i+1}次测试")
-        accuracy = test_train_result_slpit_origian()
-        test_accuracy_list.append(accuracy)
-        writer.add_scalar(tag, accuracy, i)
-        logger.success(f"交叉验证--第{i+1}次测试完成")
-    writer.close()
+    model = test_train_result()
+    # test_accuracy_list = []
+    # writer = SummaryWriter()
+    # tag = "test_predict_accuracy__" + str(datetime.datetime.now())
+    # for i in range(20):
+    #     pass
+    #     logger.info(f"交叉验证--第{i+1}次测试")
+    #     accuracy = test_train_result_slpit_origian()
+    #     test_accuracy_list.append(accuracy)
+    #     writer.add_scalar(tag, accuracy, i)
+    #     logger.success(f"交叉验证--第{i+1}次测试完成")
+    # writer.close()
 
     # logger.info(f"test_accuracy_list: {test_accuracy_list}")
     # logger.info(f"平均准确率: {sum(test_accuracy_list) / len(test_accuracy_list)}")

@@ -44,6 +44,7 @@ SR = None
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
+# 设置日志级别
 
 
 def accept_tuple_argument(func):
@@ -286,24 +287,24 @@ def train_model(
 
     for epoch in tqdm(
         range(num_epochs),
-        desc="training",
+        desc="training epoch",
         unit="epoch",
         colour="green",
         smoothing=0.2,
         leave=True,
-        dynamic_ncols=True,
+        # dynamic_ncols=True,
     ):
-
-        total_loss = 0
-        for i, (features, labels) in tqdm(
-            enumerate(dataloader),
+        progress_bar = tqdm(
+            total=len(dataloader),
             desc="batch",
             unit="batch",
             smoothing=0.2,
-            dynamic_ncols=True,
-            colour="#00ffff",
+            # dynamic_ncols=True,
+            colour="#CCCCCC",
             leave=False,
-        ):
+        )
+        total_loss = 0
+        for i, (features, labels) in enumerate(dataloader):
             features = features.to(device)
             labels = labels.to(device)
             optimizer.zero_grad()
@@ -320,6 +321,8 @@ def train_model(
                 logger.info(
                     f"epoch [{epoch+1}/{num_epochs}], step [{i+1}/{len(dataloader)}], loss: {loss.item():.4f}"
                 )
+
+            progress_bar.update(1)
 
         avg_loss = total_loss / len(dataloader)
         scheduler.step(avg_loss)  # 更新学习率
@@ -341,6 +344,8 @@ def train_model(
                 if epochs_no_improve == patience:
                     logger.success("Early stopping")
                     break
+
+        progress_bar.close()
 
     logger.success("Training completed")
 
