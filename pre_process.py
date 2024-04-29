@@ -140,7 +140,7 @@ class AudioDataset(Dataset):
 
             tasks_total = len(audio_paths) * (EXTEND_TIMES + 1)
 
-            for augment in [False] + [True] * EXTEND_TIMES:
+            for i, augment in enumerate([False] + [True] * EXTEND_TIMES):
                 features = list(
                     tqdm(
                         executor.map(
@@ -148,7 +148,7 @@ class AudioDataset(Dataset):
                             [(path, SR, N_MFCC, augment) for path in audio_paths],
                         ),
                         total=int(tasks_total / (EXTEND_TIMES + 1)),
-                        desc="pre-process audio_paths features",
+                        desc=f"pre-process audio_paths features {i+1}/{EXTEND_TIMES+1}",
                         smoothing=0.2,
                         unit="file",
                         dynamic_ncols=True,
