@@ -75,52 +75,44 @@ def read_audio_files(folder_path: str) -> list[str]:
     return audio_paths
 
 
-# 数据增强
-# 随机时间拉伸
-def time_stretch(audio) -> np.ndarray:
-    stretch_factor = np.random.uniform(0.8, 1.2)
-    return librosa.effects.time_stretch(y=audio, rate=stretch_factor)
-
-
-# 随机音调变换
-def pitch_shift(audio, sr) -> np.ndarray:
-    shift_steps = np.random.randint(-5, 5)
-    return librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
-
-
-# 随机添加噪声
-def add_noise(audio) -> np.ndarray:
-    noise = np.random.normal(0, 0.005, len(audio))
-    return audio + noise
-
-
-# 随机改变音量
-def change_volume(audio) -> np.ndarray:
-    volume = np.random.uniform(0.5, 1.5)
-    return audio * volume
-
-
-# # 随机移位
-def random_shift(audio) -> np.ndarray:
-    shift = np.random.randint(0, len(audio))
-    return np.roll(audio, shift)
-
-
-# 随机插入静音
-def insert_silence(audio) -> np.ndarray:
-    silence_duration = np.random.uniform(0.1, 0.5)
-    silence = np.zeros(int(silence_duration * 22050))
-    insert_position = np.random.randint(0, len(audio))
-    return np.insert(audio, insert_position, silence)
-
-
-# 什么都不做
-def nothing(audio) -> np.ndarray:
-    return audio
-
-
 # 随机应用数据增强
 def apply_random_augmentation(audio: np.ndarray, sr) -> np.ndarray:
+    # 数据增强
+    # 随机时间拉伸
+    def time_stretch(audio) -> np.ndarray:
+        stretch_factor = np.random.uniform(0.8, 1.2)
+        return librosa.effects.time_stretch(y=audio, rate=stretch_factor)
+
+    # 随机音调变换
+    def pitch_shift(audio, sr) -> np.ndarray:
+        shift_steps = np.random.randint(-5, 5)
+        return librosa.effects.pitch_shift(y=audio, sr=sr, n_steps=shift_steps)
+
+    # 随机添加噪声
+    def add_noise(audio) -> np.ndarray:
+        noise = np.random.normal(0, 0.005, len(audio))
+        return audio + noise
+
+    # 随机改变音量
+    def change_volume(audio) -> np.ndarray:
+        volume = np.random.uniform(0.5, 1.5)
+        return audio * volume
+
+    # # 随机移位
+    def random_shift(audio) -> np.ndarray:
+        shift = np.random.randint(0, len(audio))
+        return np.roll(audio, shift)
+
+    # 随机插入静音
+    def insert_silence(audio) -> np.ndarray:
+        silence_duration = np.random.uniform(0.1, 0.5)
+        silence = np.zeros(int(silence_duration * 22050))
+        insert_position = np.random.randint(0, len(audio))
+        return np.insert(audio, insert_position, silence)
+
+    # 什么都不做
+    def nothing(audio) -> np.ndarray:
+        return audio
 
     augmentations = [
         time_stretch,
