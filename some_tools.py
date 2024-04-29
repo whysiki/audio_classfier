@@ -103,6 +103,14 @@ def random_shift(audio) -> np.ndarray:
     return np.roll(audio, shift)
 
 
+# 随机插入静音
+def insert_silence(audio) -> np.ndarray:
+    silence_duration = np.random.uniform(0.1, 0.5)
+    silence = np.zeros(int(silence_duration * 22050))
+    insert_position = np.random.randint(0, len(audio))
+    return np.insert(audio, insert_position, silence)
+
+
 # 什么都不做
 def nothing(audio) -> np.ndarray:
     return audio
