@@ -1,6 +1,5 @@
 /声纹采集数据
 /.venv
-/model
 /test
 __pycache__/pre_process.cpython-312.pyc
 /__pycache__
