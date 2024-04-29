@@ -114,7 +114,7 @@ class AudioDataset(Dataset):
         with ProcessPoolExecutor(max_workers=int(cpu_count())) as executor:
             self.feature_list = []
 
-            # 放大倍数
+            # 放大倍数 放大数据集
             EXTEND_TIMES = EXTEND_TIMES
 
             for augment in [False] + [True] * EXTEND_TIMES:
@@ -204,32 +204,6 @@ class AudioClassifier(nn.Module):
         return x
 
 
-# class AudioClassifier(nn.Module):
-#     def __init__(self):
-#         super(AudioClassifier, self).__init__()
-#         self.lstm = nn.LSTM(
-#             input_size=40,
-#             hidden_size=128,
-#             num_layers=3,
-#             batch_first=True,
-#             bidirectional=True,
-#         )
-#         self.dropout = nn.Dropout(0.5)
-#         self.batch_norm = nn.BatchNorm1d(128 * 2)
-#         self.fc1 = nn.Linear(128 * 2, 128)
-#         self.fc2 = nn.Linear(128, len(CLSAA))
-
-#     def forward(self, x):
-#         _, (h_n, _) = self.lstm(x)
-#         h_n = torch.cat((h_n[-2, :, :], h_n[-1, :, :]), dim=1)
-#         x = self.dropout(h_n)
-#         x = self.batch_norm(x)
-#         x = F.relu(self.fc1(x))
-#         x = self.fc2(x)
-
-#         return x
-
-
 # 记录训练时间
 def count_time(tag: str):
     def decorator(func):
@@ -262,7 +236,7 @@ def train_model(
     num_epochs=40,
     draw_loss=False,
     grad_clip=None,  # 梯度裁剪
-    patience=None,  # 早停
+    patience=None,  # 早停 # 超参
     warmup_epochs=5,  # 学习率预热
 ):
     if not optimizer:
@@ -276,8 +250,6 @@ def train_model(
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     loss_list = []
-    min_loss = np.inf
-    no_improve_epochs = 0
 
     for epoch in range(num_epochs):
 
@@ -305,16 +277,6 @@ def train_model(
         if epoch >= warmup_epochs:  # 学习率预热
             warmup_scheduler.step()
         logger.debug(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
-
-        # if patience:
-        #     if avg_loss < min_loss:
-        #         min_loss = avg_loss
-        #         no_improve_epochs = 0
-        #     else:
-        #         no_improve_epochs += 1
-        #     if no_improve_epochs >= patience:
-        #         logger.info("Early stopping")
-        #         break
 
     logger.success("Training completed")
 
