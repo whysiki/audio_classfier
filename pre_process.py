@@ -237,7 +237,7 @@ def train_model(
     num_epochs=40,
     draw_loss=False,
     grad_clip=None,  # 梯度裁剪 超参 float
-    patience=5,  # 早停 # 超参 int
+    patience=10,  # 早停 # 超参 int
     warmup_epochs=5,  # 学习率预热 # 超参 预热的轮数
 ):
     if not optimizer:

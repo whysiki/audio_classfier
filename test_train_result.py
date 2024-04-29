@@ -1,6 +1,9 @@
 from pre_process import *
 from some_tools import *
 
+
+## 测试数据
+
 normal_audio_paths = []
 lose_audio_paths = []
 tight_audio_paths = []
@@ -19,6 +22,8 @@ for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
     tight_audio_paths += read_audio_files(path)
 
 
+#
+#
 # 验证任务
 # 已经训练的样本识别准确率需要为100%
 # 数据集
@@ -26,7 +31,29 @@ for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
 @count_time(
     tag=f"样本数量: {len(normal_audio_paths) + len(lose_audio_paths) + len(tight_audio_paths)}, 验证任务: 已经训练的样本识别准确率需要为100%"
 )
-def test_train_result():
+def test_train_result(
+    normal_audio_paths: str = normal_audio_paths,
+    lose_audio_paths: str = lose_audio_paths,
+    tight_audio_paths: str = tight_audio_paths,
+) -> AudioClassifier:
+
+    # normal_audio_paths = []
+    # lose_audio_paths = []
+    # tight_audio_paths = []
+    # # 零件种类
+    # Part_Type = Part_Type
+    # # 零件编号
+    # Part_No = Part_No
+
+    # for path in [r"声纹采集数据\{}\{}\正常".format(Part_Type, Part_No)]:
+    #     normal_audio_paths += read_audio_files(path)
+
+    # for path in [r"声纹采集数据\{}\{}\松".format(Part_Type, Part_No)]:
+    #     lose_audio_paths += read_audio_files(path)
+
+    # for path in [r"声纹采集数据\{}\{}\紧".format(Part_Type, Part_No)]:
+    #     tight_audio_paths += read_audio_files(path)
+
     # CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 
     # 声纹采集数据\敲螺栓
@@ -45,7 +72,7 @@ def test_train_result():
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
-    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=0)
+    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=3)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # 实例化模型
@@ -81,6 +108,8 @@ def test_train_result():
     accuracy = test_model(model=model, dataloader=test_dataloader)
 
     assert accuracy == 100.0, f"accuracy: {accuracy}"
+
+    return model
 
 
 def get_audio_paths_labels(
@@ -179,21 +208,22 @@ def test_train_result_slpit_origian():
 
 
 if __name__ == "__main__":
-    # test_train_result()
-    test_accuracy_list = []
-    writer = SummaryWriter()
-    tag = "test_predict_accuracy__" + str(datetime.datetime.now())
-    for i in range(20):
-        pass
-        logger.info(f"交叉验证--第{i+1}次测试")
-        accuracy = test_train_result_slpit_origian()
-        test_accuracy_list.append(accuracy)
-        writer.add_scalar(tag, accuracy, i)
-        logger.success(f"交叉验证--第{i+1}次测试完成")
-    writer.close()
+    pass
+    # model = test_train_result()
+    # test_accuracy_list = []
+    # writer = SummaryWriter()
+    # tag = "test_predict_accuracy__" + str(datetime.datetime.now())
+    # for i in range(20):
+    #     pass
+    #     logger.info(f"交叉验证--第{i+1}次测试")
+    #     accuracy = test_train_result_slpit_origian()
+    #     test_accuracy_list.append(accuracy)
+    #     writer.add_scalar(tag, accuracy, i)
+    #     logger.success(f"交叉验证--第{i+1}次测试完成")
+    # writer.close()
 
-    logger.info(f"test_accuracy_list: {test_accuracy_list}")
-    logger.info(f"平均准确率: {sum(test_accuracy_list) / len(test_accuracy_list)}")
+    # logger.info(f"test_accuracy_list: {test_accuracy_list}")
+    # logger.info(f"平均准确率: {sum(test_accuracy_list) / len(test_accuracy_list)}")
 
     # plt.figure()
     # plt.plot(test_accuracy_list)
