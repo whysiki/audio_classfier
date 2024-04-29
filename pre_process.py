@@ -121,8 +121,11 @@ class AudioDataset(Dataset):
         logger.info("features transpose completed")
 
         # 转换为张量
+        # self.feature_list = [
+        #     torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
+        # ]
         self.feature_list = [
-            torch.tensor(mfcc, dtype=torch.float32) for mfcc in self.feature_list
+            torch.from_numpy(mfcc).to(torch.float32) for mfcc in self.feature_list
         ]
 
         logger.info("features to tensor completed")
@@ -228,6 +231,7 @@ def train_model(
             features = features.to(device)
             labels = labels.to(device)
             optimizer.zero_grad()
+            # print("features.shape: ", features.shape) (1,100,50)
             outputs = model(features)
             loss = criterion(outputs, labels)
             loss_list.append(loss.item())
@@ -333,14 +337,24 @@ def test_model(model, dataloader) -> float:
 
 
 # 单个音频文件预测
-@count_time("get_audio_type")
+@count_time("get_singel_audio_type")
 def get_audio_type(model, audio_path: str, device: torch.device) -> str:
     model.eval()
     with torch.no_grad():
-        features = load_audio_features(audio_path)
+        features = load_audio_features(audio_path, sr=SR, n_mfcc=N_MFCC, augment=False)
         # 插值
         features = interpolate_mfcc(features, TARGET_LENGTH)
-        features = torch.tensor(features).to(device)
+        # 转置
+        features = features.T
+        features = np.expand_dims(features, axis=0)
+        # features = #torch.tensor(features, dtype=torch.float32).to(device)
+
+        # 必须类型转换
+        features = torch.from_numpy(features).to(torch.float32).to(device)
+        # features = torch.from_numpy(features).to(device)
+
+        # print("features: ", features)
+        # print("features.shape: ", features.shape)
         outputs = model(features)
         _, predicted = torch.max(outputs.data, 1)
     return CLSAA_DICT[predicted.item()]

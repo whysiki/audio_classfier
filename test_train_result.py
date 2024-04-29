@@ -68,11 +68,11 @@ def test_train_result(
         + [2] * len(tight_audio_paths)
     )
 
-    zip_list = list(zip(audio_paths, audio_paths_labels))  # [:2]
+    zip_list = list(zip(audio_paths, audio_paths_labels))[:1]
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
 
-    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=3)
+    dataset = AudioDataset(zip_list_audio_paths, zip_list_labels, EXTEND_TIMES=0)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # 实例化模型
@@ -207,9 +207,34 @@ def test_train_result_slpit_origian():
     # assert accuracy == 100.0, f"accuracy: {accuracy}"
 
 
+def test_single_audio(model: AudioClassifier, audio_path: str):
+
+    audio_path = (
+        r"声纹采集数据\敲弹条\WJ-7\紧\第一组\WJ-7-1.wav"
+        if not audio_path
+        else audio_path
+    )
+
+    label_class = "紧"
+
+    predict = get_audio_type(model, audio_path, device="cpu")
+
+    print(f"predict: {predict}, label_class: {label_class}")
+
+    assert predict == label_class, f"predict: {predict}, label_class: {label_class}"
+
+
 if __name__ == "__main__":
     # pass
-    model = test_train_result()
+    # model = test_train_result()
+    # torch.save(model.state_dict(), Path("model") / "hit_luo_s_WJ-7_model.pth")
+
+    # 从model\Rapping_bar_WJ-7_model.pth加载模型
+    # model = AudioClassifier()
+    # model.load_state_dict(
+    #     torch.load(Path("model") / "hit_luo_s_WJ-7_model.pth", map_location="cpu")
+    # )
+    # test_single_audio(model, audio_path=None)
     # test_accuracy_list = []
     # writer = SummaryWriter()
     # tag = "test_predict_accuracy__" + str(datetime.datetime.now())

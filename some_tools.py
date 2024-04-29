@@ -214,4 +214,7 @@ def load_audio_features(
     # 归一化
     # mfccs = normalize_mfccs(mfccs)
 
+    # 查看数据类型
+    # print(mfccs.dtype) float32
+
     return mfccs
