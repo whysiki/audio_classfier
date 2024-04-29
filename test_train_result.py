@@ -7,7 +7,7 @@ tight_audio_paths = []
 # 零件种类
 Part_Type = "敲弹条"
 # 零件编号
-Part_No = "WJ-8"
+Part_No = "WJ-7"
 
 for path in [r"声纹采集数据\{}\{}\正常".format(Part_Type, Part_No)]:
     normal_audio_paths += read_audio_files(path)
@@ -97,7 +97,7 @@ def get_audio_paths_labels(
 
     zip_list = list(zip(audio_paths, audio_paths_labels))
 
-    logger.info(f"样本数量: {len(zip_list)}")
+    # logger.info(f"样本数量: {len(zip_list)}")
 
     zip_list_audio_paths = [x[0] for x in zip_list]
     zip_list_labels = [x[1] for x in zip_list]
@@ -140,8 +140,10 @@ def test_train_result_slpit_origian():
         tight_audio_paths=tight_audio_paths[t_border:],
     )
 
-    dataset = AudioDataset(left_zip_list_audio_paths, left_zip_list_labels)
-    dataloader = DataLoader(dataset, batch_size=6, shuffle=True)
+    dataset = AudioDataset(
+        left_zip_list_audio_paths, left_zip_list_labels, EXTEND_TIMES=3
+    )
+    dataloader = DataLoader(dataset, batch_size=10, shuffle=True)
 
     # 实例化模型
 

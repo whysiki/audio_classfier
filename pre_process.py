@@ -36,7 +36,8 @@ CLSAA = [0, 1, 2]  # 0 松 1 正常 2 紧
 CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # 插值目标长度
 TARGET_LENGTH = 100
-
+# 提取特征数
+N_MFCC = 50
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 
@@ -121,7 +122,7 @@ class AudioDataset(Dataset):
                 features = list(
                     executor.map(
                         load_audio_features,
-                        [(path, None, 40, augment) for path in audio_paths],
+                        [(path, None, N_MFCC, augment) for path in audio_paths],
                     )
                 )
                 self.feature_list.extend(features)
@@ -184,7 +185,7 @@ class AudioClassifier(nn.Module):
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.lstm = nn.LSTM(
-            input_size=40,
+            input_size=N_MFCC,
             hidden_size=64,
             num_layers=2,
             batch_first=True,
@@ -235,9 +236,9 @@ def train_model(
     optimizer=None,
     num_epochs=40,
     draw_loss=False,
-    grad_clip=None,  # 梯度裁剪
-    patience=None,  # 早停 # 超参
-    warmup_epochs=5,  # 学习率预热
+    grad_clip=None,  # 梯度裁剪 超参 float
+    patience=5,  # 早停 # 超参 int
+    warmup_epochs=5,  # 学习率预热 # 超参 预热的轮数
 ):
     if not optimizer:
         optimizer = optim.AdamW(model.parameters(), lr=0.001)  # 使用 AdamW 优化器
@@ -250,6 +251,9 @@ def train_model(
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     loss_list = []
+
+    best_loss = float("inf")
+    epochs_no_improve = 0
 
     for epoch in range(num_epochs):
 
@@ -277,6 +281,19 @@ def train_model(
         if epoch >= warmup_epochs:  # 学习率预热
             warmup_scheduler.step()
         logger.debug(f"epoch [{epoch+1}/{num_epochs}], avg_loss: {avg_loss:.4f}")
+
+        if patience:
+
+            logger.debug(f"epoch [{epoch+1}/{num_epochs}], best_loss: {best_loss:.4f}")
+
+            if avg_loss < best_loss:
+                best_loss = avg_loss
+                epochs_no_improve = 0
+            else:
+                epochs_no_improve += 1
+                if epochs_no_improve == patience:
+                    logger.success("Early stopping")
+                    break
 
     logger.success("Training completed")
 
