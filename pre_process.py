@@ -284,7 +284,9 @@ def train_model(
 
         if patience:
 
-            logger.debug(f"epoch [{epoch+1}/{num_epochs}], best_loss: {best_loss:.4f}")
+            logger.debug(
+                f"patience [{epochs_no_improve}/{patience}], best_loss: {best_loss:.4f}"
+            )
 
             if avg_loss < best_loss:
                 best_loss = avg_loss
