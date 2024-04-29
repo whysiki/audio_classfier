@@ -19,16 +19,18 @@ from multiprocessing import Pool, cpu_count, Value
 # from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift
 from some_tools import (
     # add_tensorboard_image,
-    find_similar_segments,
+    # find_similar_segments,
     interpolate_mfcc,
     # normalize_mfccs,
-    apply_random_augmentation,
+    # apply_random_augmentation,
+    load_audio_features,
+    count_time,
 )
 from torch.utils.tensorboard import SummaryWriter
 
 # import uuid
 from concurrent.futures import ProcessPoolExecutor
-from functools import wraps
+
 import datetime
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
@@ -38,78 +40,13 @@ CLSAA_DICT = {0: "松", 1: "正常", 2: "紧"}
 # 插值目标长度
 TARGET_LENGTH = 100
 # 提取特征数
-N_MFCC = 50
+N_MFCC = 40
 # 采样率
 SR = None
 
 # 保存日志文件,以追加模式，每天一个文件
 logger.add("logs/{time:YYYY-MM-DD-HH}.log", rotation="1 day", encoding="utf-8")
 # 设置日志级别
-
-
-def accept_tuple_argument(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        # 如果传入的参数只有一个，且是元组
-        if len(args) == 1 and isinstance(args[0], tuple):
-
-            result = func(*args[0])  # 解包元组
-
-            if hasattr(func, "tqdm_object") and func.tqdm_object.total is not None:
-                func.tqdm_object.update(1)
-
-            return result
-
-        result = func(*args, **kwargs)
-
-        if hasattr(func, "tqdm_object") and func.tqdm_object.total is not None:
-            func.tqdm_object.update(1)
-
-        return func(*args, **kwargs)
-
-    return wrapper
-
-
-@accept_tuple_argument
-def load_audio_features(
-    file_path: str,
-    sr: int,
-    n_mfcc: int,
-    augment: bool = False,
-) -> np.ndarray:
-    """
-    file_path: 音频文件路径
-    sr: 采样率
-    n_mfcc: MFCC 特征数量
-    augment: 是否数据增强
-    """
-
-    audio, sr = librosa.load(file_path, sr=sr)  # Tuple[ndarray, float]
-
-    # 数据增强
-    if augment:
-        # 随机应用数据增强
-        audio = apply_random_augmentation(audio, sr)
-
-    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
-
-    # 去除特征重复的帧
-
-    similar_pairs = find_similar_segments(mfccs)
-
-    original_length = mfccs.shape[1]
-
-    # 去除所有配对的相似帧中索引更大的帧，以保持有序性
-    mfccs = np.delete(mfccs, [max(pair) for pair in similar_pairs], axis=1)
-
-    new_length = mfccs.shape[1]
-
-    # logger.info(f"去除重复帧 {original_length - new_length} 个")
-
-    # 归一化
-    # mfccs = normalize_mfccs(mfccs)
-
-    return mfccs
 
 
 # 数据集类
@@ -233,23 +170,6 @@ class AudioClassifier(nn.Module):
         x = self.fc(x)
 
         return x
-
-
-# 记录训练时间
-def count_time(tag: str):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            logger.info(f"start to perform :  {tag}")
-            start_time = datetime.datetime.now()
-            result = func(*args, **kwargs)
-            end_time = datetime.datetime.now()
-            logger.success(f"{tag} executed in {end_time - start_time} seconds")
-            return result
-
-        return wrapper
-
-    return decorator
 
 
 # 训练模型函数
