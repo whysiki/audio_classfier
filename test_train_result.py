@@ -225,7 +225,7 @@ def test_single_audio(model: AudioClassifier, audio_path: str):
 
 
 if __name__ == "__main__":
-    # pass
+    pass
     # model = test_train_result()
     # torch.save(model.state_dict(), Path("model") / "hit_luo_s_WJ-7_model.pth")
 
